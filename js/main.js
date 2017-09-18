@@ -11,33 +11,47 @@ document.getElementById('test');
 */
 
 
-class RogerObject  {
-    constructor(url, sheet_width, sheet_height, sprite_width, sprite_height, numFrame, initFrame, lastFrame) {
+var spriteSheet = new RogerSheet("img/sprite_sheet.png", 1024, 1024);
+var sprite = new RogerSprite(spriteSheet, 130, 150, 0, 0);
+var animation = new RogerAnimation(0, 0, "loop", callBack);
+/*
+class RogerSheet extends RogerSprite {
+    constructor(url, sheet_width, sheet_height, sprite_width, sprite_height){
+        super(sprite_width, sprite_height);
         this.url = url;
         this.sheet_width = sheet_width;
         this.sheet_height = sheet_height;
-        this.sprite_width = sprite_width;
-        this.sprite_height = sprite_height;
+        this.animationSheet = [];
+
+        this.framesInWidth = Math.floor( this.sheet_width / this.getWidth() );
+        this.framesInHeight = Math.floor( this.sheet_height / this.getHeight() );
+
+        for(let i=0; i<this.framesInHeight; i++){
+            for(let j=0; j<this.framesInWidth; j++){
+                let position = {
+                    x: 0,
+                    y: 0
+                }
+                this.animationSheet.push(position);
+            }
+        }
+    } 
+}
+*/
+/*
+class RogerObject  extends RogerSheet {
+    constructor(url, sheet_width, sheet_height, sprite_width, sprite_height, numFrame, initFrame, lastFrame) {
+        super(url, sheet_width, sheet_height, sprite_width, sprite_height);
         this.numFrame = numFrame;
         this.initFrame = initFrame || 1;
         this.lastFrame = lastFrame || numFrame;
         this.currentFrame = 0;
-        this.animationSheet = [{x:0,y:0},{x:-130,y:0}];
-    }
-    getURL() {
-        return this.url;
-    }
-    getWidth() {
-        return this.sprite_width;
-    }
-    getHeight() {
-        return this.sprite_height;
     }
     getCurrentFrame() {
         return this.currentFrame;
     }
-
     getElement() {
+        this.div = document.createElement('div');
         this.div.id = "animationName";
         this.div.style.width = this.getWidth();
         this.div.style.height = this.getHeight();
@@ -46,7 +60,6 @@ class RogerObject  {
         this.div.style.backgroundPositionY = "0px";
         return this.div;
     }
-
     setFrame(frame) {
         if(frame <= this.initFrame){
             this.currentFrame = 0;
@@ -61,28 +74,11 @@ class RogerObject  {
     }
     
     nextFrame() {
-        setFrame(this.currentFrame + 1);
+        this.setFrame(this.currentFrame + 1);
     }
     prevFrame() {
-        setFrame(this.currentFrame - 1);
+        this.setFrame(this.currentFrame - 1);
     }
-
-    createAnimationSheet() {
-        let frames_in_width =  Math.floor(this.sheet_width / this.sprite_width);
-        let frames_in_height =  Math.floor(this.sheet_height / this.sprite_height);
-        for(i=0; i<frames_in_height; i++){
-            for(j=0; j<frames_in_width; j++){
-                let position = {
-                    x: 0,
-                    y: 0
-                }
-                this.animationSheet.push(position);
-            }
-        }
-
-        return frames_in_width;
-    }
-
 }
 var animRun = new RogerObject("img/sprite_sheet.png", 1024, 1024, 130, 150, 27);
 document.getElementById('test').appendChild(animRun.getElement());
@@ -97,5 +93,4 @@ function createAnimation(containerId, animationName, animationElement){
     return animation;
     document.getElementById(containerId).appendChild(animation);
 }
-
 */
