@@ -1,8 +1,5 @@
 'use strict';
 
-var ssRun = new SpriteSheet("img/sprite_sheet.png", 130, 150);
-var mainCharRun = new Animation("test", spriteSheet1, 27);
-
 class SpriteSheet  {
     constructor(url, widthSprite, heightSprite) {
         this.url = url;
@@ -13,6 +10,20 @@ class SpriteSheet  {
         
     }
 }
+
+/*
+    - play() -> play(5) [frame]
+    - pause()
+    - stop()
+    - playReverse() -> playReverse(6) [frame]
+    - frame() -> frame(4) [frame]
+    - nextFrame()
+    - prevFrame()
+    - 
+    - config.loop
+    - config.callBack
+    - config.preload
+*/
 
 //Object Properties
 /**

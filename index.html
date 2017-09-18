@@ -1,13 +1,41 @@
 <html>
     <head>
         <title>Roger.js</title>
-        <link rel="stylesheet" href="roger.css">
+        <link rel="stylesheet" href="css/roger.css">
+        <style>
+            #test {
+                position: relative;
+                top: 20px;
+                left: 50px;
+            }
+            .frame {
+                background-color: #EEE;
+                width: 130px;
+                height: 150px;
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+            #frame1 {
+                background-color: #F00;
+                background-image: url('img/sprite_sheet.png');
+                background-position: 0px 0px;
+            }
+            #frame2 {
+                background-color: #0F0;
+                background-image: url('img/sprite_sheet.png');
+                background-position: -130px 0px;
+            }
+        </style>
     </head>
     <body>
-
-        <div id="test"></div>
-
-        <script src="roger.js"></script>
-
+        <div id="test">
+            <!--
+            <div id="frame1" class="frame"></div>
+            <div id="frame2" class="frame"></div>
+            -->
+        </div>
+        <script src="js/roger.js"></script>
+        <script src="js/main.js"></script>
     </body>
 </html>
