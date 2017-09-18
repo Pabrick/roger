@@ -13,7 +13,7 @@ document.getElementById('test');
 
 var spriteSheet = new RogerSheet("img/sprite_sheet.png", 1024, 1024);
 var sprite = new RogerSprite(spriteSheet, 130, 150, 0, 0);
-var animation = new RogerAnimation(0, 0, "loop", callBack);
+var animation = new RogerAnimation(spriteSheet, 0, 0, "loop", callBack);
 /*
 class RogerSheet extends RogerSprite {
     constructor(url, sheet_width, sheet_height, sprite_width, sprite_height){
