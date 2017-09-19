@@ -1,4 +1,6 @@
 'use strict';
+PabTools.setDebug(true);
+
 /*
 var animRun = new SpriteSheet("img/sprite_sheet.png", 130, 150);
 var mainCharRun = new Animation("test", spriteSheet1, 27);
@@ -10,10 +12,14 @@ R("test").R("animRun").gotoAndPlay();
 document.getElementById('test');
 */
 
-
 var spriteSheet = new RogerSheet("img/sprite_sheet.png", 1024, 1024);
-var sprite = new RogerSprite(spriteSheet, 130, 150, 0, 0);
-var animation = new RogerAnimation(spriteSheet, 0, 0, "loop", callBack);
+var spriteMap = new RogerMap(spriteSheet, [{w:130,h:150}], 0, 26);
+
+/*
+var animation = new RogerAnimation(spriteSheet, spriteMap, "loop", callBack);
+var element = new RogerElement();
+element.run.play();
+*/
 /*
 class RogerSheet extends RogerSprite {
     constructor(url, sheet_width, sheet_height, sprite_width, sprite_height){
