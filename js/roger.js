@@ -17,143 +17,87 @@ class RogerSprite {
         this.x = positionX;
         this.y = positionY;
     }
-    getWidth() {
-        return this.w;
-    }
-    getHeight() {
-        return this.h;
-    }
-    getX() {
-        return this.x;
-    }
-    getY() {
-        return this.y;
-    }
 }
 
 /**
  * @class RogerSheet
- * @param url an absolute URL giving the base location of the spritesheet
- * @param width total width of the image
- * @param height total height of the image
- * @return nothing
+ * @param url [string] an absolute URL giving the base location of the spritesheet
+ * @param width [number] total width of the image
+ * @param height [number] total height of the image
+ * @return RogerSprite
  */
 class RogerSheet {
-    constructor(url, width, height, framesSizes) {
+    constructor(url, width, height, dataFrames, sameSizeFrames) {
         this.url = url;
         this.width = width;
         this.height = height;
-        this.framesSizes = framesSizes;
-        this.framesTotal = 0;
+        this.dataFrames = dataFrames;
+        this.sameSizeFrames = sameSizeFrames || false;
+
         this.framesHorizontal = 0;
         this.framesVertical = 0;
+        this.map = [];
 
-        if(this.framesSizes.length >= 1){
-            this.framesHorizontal = Math.floor( this.width / this.framesSizes[0].w );
-            this.framesVertical  = Math.floor( this.height / this.framesSizes[0].h );
-            this.framesTotal = this.framesHorizontal * this.framesVertical;
+        // Primero calcula los frames que entran;
+        if(sameSizeFrames){
+            this.framesHorizontal = Math.floor( this.width / this.dataFrames[0].w );
+            this.framesVertical  = Math.floor( this.height / this.dataFrames[0].h );
+            PabTools.show("All frames have SAME size");
+        }else{
+            //TODO
+            PabTools.show("Frames have DIFFERENT sizes", "info");
+        }
+
+        // Después les asigna posiciones a cada uno de ellos.
+        if(sameSizeFrames){
+            let currentX = 0;
+            let currentY = 0;
+            let index = 0;
+            for(let i=0; i<this.framesVertical; i++){
+                for(let j=0; j<this.framesHorizontal; j++){
+                    this.map.push(new RogerSprite(this.dataFrames[0].w, this.dataFrames[0].h, currentX, currentY));
+                    currentX += this.dataFrames[0].w; 
+                    index++;
+                }
+                currentX = 0;
+                currentY += this.dataFrames[0].h; 
+            }
+        }else{
+            for(let i=0; i<this.framesVertical; i++){
+                for(let j=0; j<this.framesHorizontal; j++){
+                    this.map.push(new RogerSprite(this.dataFrames[index].w, this.dataFrames[index].h, this.dataFrames[index].x, this.dataFrames[index].y));
+                }
+            }
         }
     }
-     getURL() {
-        return this.url;
-    }
-    getWidth() {
-        return this.width;
-    }
-    getHeight() {
-        return this.height;
-    }
-    getFrames() {
-        return this.framesTotal;
-    }
-    getFramesHorizontal() {
-        return this.framesHorizontal;
-    }
-    getFramesVertical() {
-        return this.framesVertical;
-    }
-    getSheet() {
-        return this;
+    getSprite(number) {
+        return this.map[number];
     }
 }
 
 /**
  * @class RogerAnimation
- * @param spriteSheet sprite sheet linked to the animation
- * @param array sizes and positions of the frames
- * @param initFrame first frame of the animation
- * @param lastFrame last frame of the animation
- * @return map
+ * @param spriteSheet [RogerSheet] sprite sheet linked to the animation
+ * @param frameList [array] list with the frames that make the animation
+ * @return array
  * @see RogerSprite
  */
 class RogerAnimation {
     constructor(spriteSheet, frameList) {
         this.spriteSheet = spriteSheet;
-        this.array = array;
-        this.initFrame = initFrame;
-        this.lastFrame = lastFrame;
+        this.frameList = frameList;
+        this.spriteAnimation = [];
 
-        this.framesTotal = 0;
-        this.framesHorizontal = 0;
-        this.framesVertical = 0;
-        this.map = [];
-
-        if((this.array.length >= 1) && (this.numFrames != 1)){
-            this.framesHorizontal = Math.floor( spriteSheet.getWidth() / this.array[0].w );
-            this.framesVertical = Math.floor( spriteSheet.getHeight() / this.array[0].h );
-            let top = 0;
-            let left = 0;
-            let index = 0;
-
-            for(let i=0; i<framesVertical; i++){
-                for(let j=0; j<framesHorizontal; j++){
-                    if((index >= initFrame) && (index <= lastFrame)){
-                        this.map.push(new RogerSprite(this.array[0].w, this.array[0].h, left, top));
-                        left += this.array[0].w; 
-                    }
-                    index++;
-                }
-                left = 0;
-                top += this.array[0].h;    
-            }
-            PabTools.show("All frames have SAME size");
-        }else{
-            PabTools.show("Frames have DIFFERENT sizes", "info");
+        for(let i=0; i<frameList.length; i++){
+            this.spriteAnimation.push(spriteSheet.getSprite(this.frameList[i]));
         }
+
     }
-    getMap() {
-        return this.map;
+    getAnimation() {
+        this.spriteAnimation;
     }
 }
 
-/**
- * @class RogerAnimation
- * @param spritesheet the spritesheet where the sprite is
- * @param width width of the sprite
- * @param height height of the sprite
- * @return nothing
- */
-/*
-class RogerAnimation extends RogerSprite {
-    constructor(spriteSheet, width, height, positionX, positionY){
-        super(spriteSheet.getURL(), spriteSheet.getWidth(), spriteSheet.getWidth());
-        this.spriteSheet = spriteSheet;
-        this.width = width;
-        this.height = height;
-        this.x = positionX;
-        this.y = positionY;
-    }
-    getWidth() {
-        return this.width;
-    }
-    getHeight() {
-        return this.height;
-    }
-    getPosition() {
-        return {x:this.x, y:this.y};
-    }
-}
-*/
 /*
     - play() -> play(5) [frame]
     - pause()
