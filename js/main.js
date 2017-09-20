@@ -12,8 +12,10 @@ R("test").R("animRun").gotoAndPlay();
 document.getElementById('test');
 */
 
-var spriteSheet = new RogerSheet("img/sprite_sheet.png", 1024, 1024);
-var spriteMap = new RogerMap(spriteSheet, [{w:130,h:150}], 0, 26);
+var spriteSheet = new RogerSheet("img/sprite_sheet.png", 1024, 1024, [{w:130,h:150}]);
+//var spriteMap = new RogerMap(spriteSheet, [{w:130,h:150}], 0, 26);
+
+var spriteAnimation = new RogerAnimation(spriteSheet, 0, 26);
 
 /*
 var animation = new RogerAnimation(spriteSheet, spriteMap, "loop", callBack);

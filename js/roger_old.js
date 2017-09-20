@@ -1,14 +1,40 @@
 'use strict';
 
 /**
- * Sprite is the minimun element.
- * It's a frame, an image inside another 
+ * @class RogerSheet
+ * @param url an absolute URL giving the base location of the spritesheet
+ * @param width total width of the image
+ * @param height total height of the image
+ * @return nothing
+ */
+class RogerSheet {
+    constructor(url, width, height) {
+        this.url = url;
+        this.width = width;
+        this.height = height;
+    }
+     getURL() {
+        return this.url;
+    }
+    getWidth() {
+        return this.width;
+    }
+    getHeight() {
+        return this.height;
+    }
+    getSheet() {
+        return this;
+    }
+}
+
+/**
  * @class RogerSprite
- * @param width [number] width of the sprite
- * @param height [number] height of the sprite
- * @param positionX [number] top position on the sprite sheet from 0,0
- * @param positionY [number] left position on the sprite sheet from 0,0
- * @return width, height, x, y
+ * @param width width of the sprite
+ * @param height height of the sprite
+ * @param positionX top position on the sprite sheet from 0,0
+ * @param positionY left position on the sprite sheet from 0,0
+ * @return width, height, x, y, position
+ * @see RogerSheet
  */
 class RogerSprite {
     constructor(width, height, positionX, positionY){
@@ -32,53 +58,7 @@ class RogerSprite {
 }
 
 /**
- * @class RogerSheet
- * @param url an absolute URL giving the base location of the spritesheet
- * @param width total width of the image
- * @param height total height of the image
- * @return nothing
- */
-class RogerSheet {
-    constructor(url, width, height, framesSizes) {
-        this.url = url;
-        this.width = width;
-        this.height = height;
-        this.framesSizes = framesSizes;
-        this.framesTotal = 0;
-        this.framesHorizontal = 0;
-        this.framesVertical = 0;
-
-        if(this.framesSizes.length >= 1){
-            this.framesHorizontal = Math.floor( this.width / this.framesSizes[0].w );
-            this.framesVertical  = Math.floor( this.height / this.framesSizes[0].h );
-            this.framesTotal = this.framesHorizontal * this.framesVertical;
-        }
-    }
-     getURL() {
-        return this.url;
-    }
-    getWidth() {
-        return this.width;
-    }
-    getHeight() {
-        return this.height;
-    }
-    getFrames() {
-        return this.framesTotal;
-    }
-    getFramesHorizontal() {
-        return this.framesHorizontal;
-    }
-    getFramesVertical() {
-        return this.framesVertical;
-    }
-    getSheet() {
-        return this;
-    }
-}
-
-/**
- * @class RogerAnimation
+ * @class RogerMap
  * @param spriteSheet sprite sheet linked to the animation
  * @param array sizes and positions of the frames
  * @param initFrame first frame of the animation
@@ -86,8 +66,8 @@ class RogerSheet {
  * @return map
  * @see RogerSprite
  */
-class RogerAnimation {
-    constructor(spriteSheet, frameList) {
+class RogerMap {
+    constructor(spriteSheet, array, initFrame, lastFrame) {
         this.spriteSheet = spriteSheet;
         this.array = array;
         this.initFrame = initFrame;
@@ -133,7 +113,6 @@ class RogerAnimation {
  * @param height height of the sprite
  * @return nothing
  */
-/*
 class RogerAnimation extends RogerSprite {
     constructor(spriteSheet, width, height, positionX, positionY){
         super(spriteSheet.getURL(), spriteSheet.getWidth(), spriteSheet.getWidth());
@@ -153,7 +132,6 @@ class RogerAnimation extends RogerSprite {
         return {x:this.x, y:this.y};
     }
 }
-*/
 /*
     - play() -> play(5) [frame]
     - pause()
