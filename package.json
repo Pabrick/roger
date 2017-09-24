@@ -27,6 +27,6 @@
     "sp"
   ],
   "devDependencies": {
-    "eslint": "^4.6.1"
+    "eslint": "^4.7.2"
   }
 }

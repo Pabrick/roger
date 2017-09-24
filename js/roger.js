@@ -8,7 +8,7 @@
  * @param height [number] height of the sprite
  * @param positionX [number] top position on the sprite sheet from 0,0
  * @param positionY [number] left position on the sprite sheet from 0,0
- * @return width, height, x, y
+ * @return w, h, x, y
  */
 class RogerSprite {
     constructor(width, height, positionX, positionY){
@@ -16,6 +16,12 @@ class RogerSprite {
         this.h = height;
         this.x = positionX;
         this.y = positionY;
+    }
+    getWidth() {
+        return this.w;
+    }
+    getHeight() {
+        return this.h;
     }
 }
 
@@ -38,7 +44,6 @@ class RogerSheet {
         this.framesVertical = 0;
         this.map = [];
 
-        // Primero calcula los frames que entran;
         if(sameSizeFrames){
             this.framesHorizontal = Math.floor( this.width / this.dataFrames[0].w );
             this.framesVertical  = Math.floor( this.height / this.dataFrames[0].h );
@@ -48,7 +53,6 @@ class RogerSheet {
             PabTools.show("Frames have DIFFERENT sizes", "info");
         }
 
-        // Después les asigna posiciones a cada uno de ellos.
         if(sameSizeFrames){
             let currentX = 0;
             let currentY = 0;
@@ -70,6 +74,9 @@ class RogerSheet {
             }
         }
     }
+    getURL() {
+        return this.url;
+    }
     getSprite(number) {
         return this.map[number];
     }
@@ -84,17 +91,73 @@ class RogerSheet {
  */
 class RogerAnimation {
     constructor(spriteSheet, frameList) {
-        this.spriteSheet = spriteSheet;
-        this.frameList = frameList;
+        this.spriteSheetUrl = spriteSheet.getURL();
         this.spriteAnimation = [];
 
         for(let i=0; i<frameList.length; i++){
-            this.spriteAnimation.push(spriteSheet.getSprite(this.frameList[i]));
+            this.spriteAnimation.push(spriteSheet.getSprite(frameList[i]));
         }
+    }
+    getURL() {
+        return this.spriteSheetUrl;
+    }
+    getSprite(number) {
+        return this.spriteAnimation[number];
+    }
+}
+
+/**
+ * @class RogerObject
+ * @param id [String] id of the element of the DOM linked to the object
+ * @return array
+ * @see RogerSprite
+ */
+class RogerObject {
+    constructor(id) {
+        this.id = id;
+        this.elem = document.getElementById(id);
+        this.anim = [];
+    }
+    addAnimation(animation, name) {
+        let div = document.createElement('div');
+        div.className = 'animation';
+        div.style.backgroundImage = "url('" + animation.getURL() + "')";
+        div.style.width = animation.getSprite(0).getWidth();
+        div.style.height = animation.getSprite(0).getHeight();
+        this.elem.appendChild(div);
+
+        //this.anim.push();
+    }
+    /*
+    anim(name) {
+        // Busca la animacion
+        // de vuelve la animacion
+        return name;
+    }
+    */
+}
+
+class RogerPlayer {
+    constructor() {
 
     }
-    getAnimation() {
-        this.spriteAnimation;
+    play(frame) {
+        this.div.style.width = sprite.getWidth();
+        div.style.height = sprite.getHeight();
+        div.style.backgroundPositionX = sprite.getX() + "px";
+        div.style.backgroundPositionY = sprite.getY() + "px";
+    }
+    pause(frame) {
+
+    }
+    stop() {
+        
+    }
+    nextFrame() {
+
+    }
+    prevFrame() {
+
     }
 }
 

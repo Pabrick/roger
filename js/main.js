@@ -1,50 +1,15 @@
 'use strict';
 PabTools.setDebug(true);
 
-/*
-var animRun = new SpriteSheet("img/sprite_sheet.png", 130, 150);
-var mainCharRun = new Animation("test", spriteSheet1, 27);
 
-R("test").addAnimation(animRun);
-R("test").R("animRun").gotoAndPlay();
-*/
-/*
-document.getElementById('test');
-*/
+var ss_run = new RogerSheet("img/sprite_sheet.png", 1024, 1024, [{w:130,h:150}], true);
+var anim_run = new RogerAnimation(ss_run, [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,26]);
 
-var spriteSheet = new RogerSheet("img/sprite_sheet.png", 1024, 1024, [{w:130,h:150}], true);
-var spriteAnimation = new RogerAnimation(spriteSheet, [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,26]);
-var miniAnimation = new RogerAnimation(spriteSheet, [0,1,0,2,4]);
+var char = new RogerObject("test");
+char.addAnimation(anim_run, "run");
+char.anim["run"].play();
 
-/*
-var animation = new RogerAnimation(spriteSheet, spriteMap, "loop", callBack);
-var element = new RogerElement();
-element.run.play();
-*/
-/*
-class RogerSheet extends RogerSprite {
-    constructor(url, sheet_width, sheet_height, sprite_width, sprite_height){
-        super(sprite_width, sprite_height);
-        this.url = url;
-        this.sheet_width = sheet_width;
-        this.sheet_height = sheet_height;
-        this.animationSheet = [];
 
-        this.framesInWidth = Math.floor( this.sheet_width / this.getWidth() );
-        this.framesInHeight = Math.floor( this.sheet_height / this.getHeight() );
-
-        for(let i=0; i<this.framesInHeight; i++){
-            for(let j=0; j<this.framesInWidth; j++){
-                let position = {
-                    x: 0,
-                    y: 0
-                }
-                this.animationSheet.push(position);
-            }
-        }
-    } 
-}
-*/
 /*
 class RogerObject  extends RogerSheet {
     constructor(url, sheet_width, sheet_height, sprite_width, sprite_height, numFrame, initFrame, lastFrame) {
