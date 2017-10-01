@@ -1,5 +1,16 @@
 'use strict';
 
+class RogerClock {
+    constructor(){
+        this.step = 0.01;
+        this.clock = 0;
+    }
+    init() {
+        this.clock = 0;
+    }
+
+}
+
 /**
  * Sprite is the minimun element.
  * It's a frame, an image inside another 
@@ -128,6 +139,12 @@ class RogerObject {
 
         //this.anim.push();
     }
+    setFrame(frame) {
+        this.div.style.width = sprite.getWidth();
+        div.style.height = sprite.getHeight();
+        div.style.backgroundPositionX = sprite.getX() + "px";
+        div.style.backgroundPositionY = sprite.getY() + "px";
+    }
     /*
     anim(name) {
         // Busca la animacion
@@ -142,10 +159,6 @@ class RogerPlayer {
 
     }
     play(frame) {
-        this.div.style.width = sprite.getWidth();
-        div.style.height = sprite.getHeight();
-        div.style.backgroundPositionX = sprite.getX() + "px";
-        div.style.backgroundPositionY = sprite.getY() + "px";
     }
     pause(frame) {
 
