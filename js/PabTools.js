@@ -28,7 +28,8 @@ class PabTools {
                     console.warn(this.entityToChar("&#9888; ") + message);
                     break;
                 case ("info"):
-                    console.info(this.entityToChar("&#128712; ") + message);
+                    //console.info(this.entityToChar("&#128712; ") + message);
+                    console.info(message);
                     break;
                 default:
                      //console.log("✔ " + message); 

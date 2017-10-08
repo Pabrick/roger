@@ -1,13 +1,15 @@
 'use strict';
 PabTools.setDebug(true);
 
+var rClock = new RogerClock();
+rClock.init();
 
 var ss_run = new RogerSheet("img/sprite_sheet.png", 1024, 1024, [{w:130,h:150}], true);
 var anim_run = new RogerAnimation(ss_run, [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,26]);
 
 var char = new RogerObject("test");
 char.addAnimation(anim_run, "run");
-char.anim["run"].play();
+//char.anim["run"].play();
 
 
 /*

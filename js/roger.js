@@ -2,11 +2,36 @@
 
 class RogerClock {
     constructor(){
-        this.step = 0.01;
         this.clock = 0;
+        this.clockInterval;
+        this.step = 0.1;
+        this.stepSecond = this.step * 1000;
+        this.animations = [];
     }
     init() {
+        let that = this;
         this.clock = 0;
+        this.clockInterval = setInterval(function(){
+            that.update();
+        }, this.stepSecond);
+    }
+    stop() {
+        clearInterval(this.clockInterval);
+    }
+    update(){
+        PabTools.show(this.clock, "info");
+        this.clock = Math.round( (this.clock + this.step) * 10 ) / 10;
+        for(let i = 0; i < this.animations.length; i++){
+            if(this.animations[i]){
+                this.animations[i].update();
+            }
+        }
+    }
+    addAnimation( animation ) {
+        this.animations.push(animation);
+    }
+    removeAnimation( animation ) {
+        //removeanimation
     }
 
 }
