@@ -4,8 +4,8 @@ class RogerClock {
     constructor(){
         this.clock = 0;
         this.clockInterval;
-        this.step = 0.1;
-        this.stepSecond = this.step * 1000;
+        this.delta = 0.1;
+        this.deltaTime = this.delta * 1000;
         this.animations = [];
     }
     init() {
@@ -13,14 +13,14 @@ class RogerClock {
         this.clock = 0;
         this.clockInterval = setInterval(function(){
             that.update();
-        }, this.stepSecond);
+        }, this.deltaTime);
     }
     stop() {
         clearInterval(this.clockInterval);
     }
     update(){
         PabTools.show(this.clock, "info");
-        this.clock = Math.round( (this.clock + this.step) * 10 ) / 10;
+        this.clock = Math.round( (this.clock + this.delta) * 10 ) / 10;
         for(let i = 0; i < this.animations.length; i++){
             if(this.animations[i]){
                 this.animations[i].update();
@@ -44,7 +44,10 @@ class RogerClock {
  * @param height [number] height of the sprite
  * @param positionX [number] top position on the sprite sheet from 0,0
  * @param positionY [number] left position on the sprite sheet from 0,0
- * @return w, h, x, y
+ * @return w [number]
+ * @return h [number]
+ * @return x [number]
+ * @return y [number]
  */
 class RogerSprite {
     constructor(width, height, positionX, positionY){
@@ -59,6 +62,12 @@ class RogerSprite {
     getHeight() {
         return this.h;
     }
+    getX() {
+        return this.x;
+    }
+    getY() {
+        return this.y;
+    }
 }
 
 /**
@@ -66,7 +75,8 @@ class RogerSprite {
  * @param url [string] an absolute URL giving the base location of the spritesheet
  * @param width [number] total width of the image
  * @param height [number] total height of the image
- * @return RogerSprite
+ * @return url [String]
+ * @return sprite [RogerSprite]
  */
 class RogerSheet {
     constructor(url, width, height, dataFrames, sameSizeFrames) {
@@ -120,19 +130,30 @@ class RogerSheet {
 
 /**
  * @class RogerAnimation
+ * @param name [String] name for the animation
  * @param spriteSheet [RogerSheet] sprite sheet linked to the animation
  * @param frameList [array] list with the frames that make the animation
- * @return array
+ * @return animation [RogerAnimation]
+ * @return name [String]
+ * @return url [String]
+ * @return sprite [RogerSprite]
  * @see RogerSprite
  */
 class RogerAnimation {
-    constructor(spriteSheet, frameList) {
+    constructor(name, spriteSheet, frameList) {
         this.spriteSheetUrl = spriteSheet.getURL();
         this.spriteAnimation = [];
+        this.name = name;
 
         for(let i=0; i<frameList.length; i++){
             this.spriteAnimation.push(spriteSheet.getSprite(frameList[i]));
         }
+    }
+    getAnimation() {
+        return this;
+    }
+    getName() {
+        return this.name;
     }
     getURL() {
         return this.spriteSheetUrl;
@@ -145,38 +166,57 @@ class RogerAnimation {
 /**
  * @class RogerObject
  * @param id [String] id of the element of the DOM linked to the object
- * @return array
+ * @param clock [RogerClock] clock linked to the project, the one to set the delta time
+ * @return animationName [String]
  * @see RogerSprite
  */
 class RogerObject {
-    constructor(id) {
+    constructor(id, clock) {
         this.id = id;
         this.elem = document.getElementById(id);
         this.anim = [];
+        this.currentAnimation;
+        this.currentFrame;
     }
-    addAnimation(animation, name) {
+    addAnimation(rogerAnimation) {
         let div = document.createElement('div');
+        div.id = rogerAnimation.getName();
         div.className = 'animation';
-        div.style.backgroundImage = "url('" + animation.getURL() + "')";
-        div.style.width = animation.getSprite(0).getWidth();
-        div.style.height = animation.getSprite(0).getHeight();
+        div.style.backgroundImage = "url('" + rogerAnimation.getURL() + "')";
         this.elem.appendChild(div);
+        this.anim.push(rogerAnimation);
+    }
+    getAnimationByName(name){
+        let index;
+        for(let i=0; i<this.anim.length; i++){
+            if(this.anim[i].getName() === name){
+                index = i;
+            }
+        }
+        return index;
+    }
+    setAnimation(name){
+        let that = this;
+        this.currentAnimation = this.anim[that.getAnimationByName(name)].getAnimation();
+        this.currentFrame = 0;
+        this.setFrame(this.currentAnimation, this.currentFrame);
+    }
+    setFrame(animation, frame) {
+        let name = animation.getName();
+        let sprite = animation.getSprite(frame);
+        this.currentFrame = frame;
+        document.getElementById(name).style.width = sprite.getWidth();
+        document.getElementById(name).style.height = sprite.getHeight();
+        document.getElementById(name).style.backgroundPositionX = - sprite.getX() + "px";
+        document.getElementById(name).style.backgroundPositionY = - sprite.getY() + "px";
+    }
+    setFrameInCurrentAnimation(frame) {
+        let that = this;
+        that.setFrame(this.currentAnimation, frame);
+    }
+    update() {
 
-        //this.anim.push();
     }
-    setFrame(frame) {
-        this.div.style.width = sprite.getWidth();
-        div.style.height = sprite.getHeight();
-        div.style.backgroundPositionX = sprite.getX() + "px";
-        div.style.backgroundPositionY = sprite.getY() + "px";
-    }
-    /*
-    anim(name) {
-        // Busca la animacion
-        // de vuelve la animacion
-        return name;
-    }
-    */
 }
 
 class RogerPlayer {

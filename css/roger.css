@@ -1,7 +1,6 @@
 .animation {
     position: absolute;
     z-index: 10;
-    background-color: #FF0000;
 }
 
 #test {
