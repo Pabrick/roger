@@ -1,7 +1,7 @@
 'use strict';
 
 class RogerClock {
-    constructor(){
+    constructor() {
         this.clock = 0;
         this.clockInterval;
         this.delta = 0.1;
@@ -15,7 +15,7 @@ class RogerClock {
     stop() {
         clearInterval(this.clockInterval);
     }
-    update(){
+    update() {
         PabTools.show(this.clock, "info");
         this.clock = Math.round( (this.clock + this.delta) * 10 ) / 10;
         for(let i = 0; i < this.objects.length; i++){
@@ -24,10 +24,10 @@ class RogerClock {
             }
         }
     }
-    addObject( rogerObject ) {
+    addObject(rogerObject) {
         this.objects.push(rogerObject);
     }
-    removeObject( rogerObject ) {
+    removeObject(rogerObject) {
         //removeanimation
     }
 
@@ -47,7 +47,7 @@ class RogerClock {
  * @return y [number]
  */
 class RogerSprite {
-    constructor(width, height, positionX, positionY){
+    constructor(width, height, positionX, positionY) {
         this.w = width;
         this.h = height;
         this.x = positionX;
@@ -87,8 +87,8 @@ class RogerSheet {
         this.map = [];
 
         if(this.dataFrames.length === 1){
-            this.framesHorizontal = Math.floor( this.width / this.dataFrames[0].w );
-            this.framesVertical  = Math.floor( this.height / this.dataFrames[0].h );
+            this.framesHorizontal = Math.floor(this.width / this.dataFrames[0].w);
+            this.framesVertical  = Math.floor(this.height / this.dataFrames[0].h);
             PabTools.show("All frames have SAME size");
         }else{
             //TODO
@@ -172,10 +172,10 @@ class RogerAnimation {
             if(this.options.loop){
                 nextFrame = 0;
             }
-            if(this.options.callBack != null) {
+            if(this.options.callBack != null){
                 this.options.callBack();
             }
-        } else {
+        }else{
             nextFrame = currentFrame + 1;
         }
         return nextFrame;
@@ -251,6 +251,8 @@ class RogerObject {
         if(this.currentFrame != -1){
             this.setFrame(this.currentAnimation, this.currentFrame);
             this.currentFrame = this.currentAnimation.getNextFrame(this.currentFrame);
+        }else{
+            this.playAnimation(this.anim[0].getName());
         }
     }
 }
