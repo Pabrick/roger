@@ -6,14 +6,11 @@ class RogerClock {
         this.clockInterval;
         this.delta = 0.1;
         this.deltaTime = this.delta * 1000;
-        this.animations = [];
+        this.objects = [];
     }
     init() {
-        let that = this;
         this.clock = 0;
-        this.clockInterval = setInterval(function(){
-            that.update();
-        }, this.deltaTime);
+        this.clockInterval = setInterval(()=>this.update(), this.deltaTime);
     }
     stop() {
         clearInterval(this.clockInterval);
@@ -21,16 +18,16 @@ class RogerClock {
     update(){
         PabTools.show(this.clock, "info");
         this.clock = Math.round( (this.clock + this.delta) * 10 ) / 10;
-        for(let i = 0; i < this.animations.length; i++){
-            if(this.animations[i]){
-                this.animations[i].update();
+        for(let i = 0; i < this.objects.length; i++){
+            if(this.objects[i]){
+                this.objects[i].update();
             }
         }
     }
-    addAnimation( animation ) {
-        this.animations.push(animation);
+    addObject( rogerObject ) {
+        this.objects.push(rogerObject);
     }
-    removeAnimation( animation ) {
+    removeObject( rogerObject ) {
         //removeanimation
     }
 
@@ -79,18 +76,17 @@ class RogerSprite {
  * @return sprite [RogerSprite]
  */
 class RogerSheet {
-    constructor(url, width, height, dataFrames, sameSizeFrames) {
+    constructor(url, width, height, dataFrames) {
         this.url = url;
         this.width = width;
         this.height = height;
         this.dataFrames = dataFrames;
-        this.sameSizeFrames = sameSizeFrames || false;
 
         this.framesHorizontal = 0;
         this.framesVertical = 0;
         this.map = [];
 
-        if(sameSizeFrames){
+        if(this.dataFrames.length === 1){
             this.framesHorizontal = Math.floor( this.width / this.dataFrames[0].w );
             this.framesVertical  = Math.floor( this.height / this.dataFrames[0].h );
             PabTools.show("All frames have SAME size");
@@ -99,7 +95,7 @@ class RogerSheet {
             PabTools.show("Frames have DIFFERENT sizes", "info");
         }
 
-        if(sameSizeFrames){
+        if(this.dataFrames.length === 1){
             let currentX = 0;
             let currentY = 0;
             let index = 0;
@@ -140,15 +136,24 @@ class RogerSheet {
  * @see RogerSprite
  */
 class RogerAnimation {
-    constructor(name, spriteSheet, frameList) {
+    constructor(name, spriteSheet, frameList, options = {delay: 0, loop: true, random: false, callBack: null}) {
+        this.name = name;
         this.spriteSheetUrl = spriteSheet.getURL();
         this.spriteAnimation = [];
-        this.name = name;
-
+        this.options = options;
         for(let i=0; i<frameList.length; i++){
             this.spriteAnimation.push(spriteSheet.getSprite(frameList[i]));
         }
     }
+    /* PUBLIC METHODS */
+    setOption(object) {
+        this.options = object;
+    }
+    setLoop(boolean) {
+        this.options.loop = boolean;
+    }
+
+    /* PRIVATE METHODS */
     getAnimation() {
         return this;
     }
@@ -160,6 +165,20 @@ class RogerAnimation {
     }
     getSprite(number) {
         return this.spriteAnimation[number];
+    }
+    getNextFrame(currentFrame) {
+        let nextFrame = -1;
+        if(currentFrame >= this.spriteAnimation.length - 1){
+            if(this.options.loop){
+                nextFrame = 0;
+            }
+            if(this.options.callBack != null) {
+                this.options.callBack();
+            }
+        } else {
+            nextFrame = currentFrame + 1;
+        }
+        return nextFrame;
     }
 }
 
@@ -173,20 +192,41 @@ class RogerAnimation {
 class RogerObject {
     constructor(id, clock) {
         this.id = id;
+        this.clock = clock;
         this.elem = document.getElementById(id);
         this.anim = [];
         this.currentAnimation;
         this.currentFrame;
     }
+    /* PUBLIC METHODS */
     addAnimation(rogerAnimation) {
         let div = document.createElement('div');
         div.id = rogerAnimation.getName();
         div.className = 'animation';
         div.style.backgroundImage = "url('" + rogerAnimation.getURL() + "')";
+        div.style.display = 'none';
         this.elem.appendChild(div);
         this.anim.push(rogerAnimation);
+        this.setFrame(rogerAnimation, 0);
+        this.clock.addObject(this);
     }
-    getAnimationByName(name){
+    setDefaultAnimation(name) {
+        let shiftIndex = this.getAnimationByName(name);
+        let defaultAnimation = this.anim[this.getAnimationByName(name)].getAnimation();
+        this.anim[shiftIndex] = this.anim[0];
+        this.anim[0] = defaultAnimation;
+    }
+    playAnimation(name) {
+        if(this.currentAnimation){
+            document.getElementById(this.currentAnimation.getName()).style.display = 'none';
+        }
+        this.currentAnimation = this.anim[this.getAnimationByName(name)].getAnimation();
+        this.currentFrame = 0;
+        document.getElementById(name).style.display = 'block';
+    }
+
+    /* PRIVATE METHODS */
+    getAnimationByName(name) {
         let index;
         for(let i=0; i<this.anim.length; i++){
             if(this.anim[i].getName() === name){
@@ -194,12 +234,6 @@ class RogerObject {
             }
         }
         return index;
-    }
-    setAnimation(name){
-        let that = this;
-        this.currentAnimation = this.anim[that.getAnimationByName(name)].getAnimation();
-        this.currentFrame = 0;
-        this.setFrame(this.currentAnimation, this.currentFrame);
     }
     setFrame(animation, frame) {
         let name = animation.getName();
@@ -211,14 +245,17 @@ class RogerObject {
         document.getElementById(name).style.backgroundPositionY = - sprite.getY() + "px";
     }
     setFrameInCurrentAnimation(frame) {
-        let that = this;
-        that.setFrame(this.currentAnimation, frame);
+        this.setFrame(this.currentAnimation, frame);
     }
     update() {
-
+        if(this.currentFrame != -1){
+            this.setFrame(this.currentAnimation, this.currentFrame);
+            this.currentFrame = this.currentAnimation.getNextFrame(this.currentFrame);
+        }
     }
 }
 
+/*
 class RogerPlayer {
     constructor() {
 
@@ -252,12 +289,3 @@ class RogerPlayer {
     - config.callBack
     - config.preload
 */
-
-//Object Properties
-/**
- * Short description. (use period)
- *
- * @since x.x.x
- * @access (private, protected, or public)
- * @property type $var Description.
- */
