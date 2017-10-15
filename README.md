@@ -1,4 +1,5 @@
-# ROGER.JS - The easiest animation library for frame by frame animations
+# ROGER.JS
+# The easiest animation library for frame by frame animations
 
 Roger.js is a personal project made it entirely in ECMAScript 6 by Pablo J. Beneyto.
 Focus on having an easy animation library for my pixel art and my browser games,
