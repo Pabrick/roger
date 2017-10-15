@@ -1,15 +1,30 @@
 'use strict';
 PabTools.setDebug(false);
 
-var rClock = new RogerClock();
+var rClock = new RogerClock(0.1);
 rClock.init();
 
-var ss_damnPablosHeads = new RogerSheet("img/damn_pablos_heads.png", 512, 512, [{w:54,h:90}]);
-var anim_damnPablos_blink1 = new RogerAnimation("blink1", ss_damnPablosHeads, [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,1]);
-var anim_damnPablos_talk1 = new RogerAnimation("talk1", ss_damnPablosHeads, [3,4,5,6,7]);
+var ss_damnPablosHeads = new RogerSheet("img/damn_pablos_heads.png", {w:512,h:512}, [{w:54,h:90}]);
 
-var anim_damnPablos_blink2 = new RogerAnimation("blink2", ss_damnPablosHeads, [9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,10,11,10]);
-var anim_damnPablos_talk2 = new RogerAnimation("talk2", ss_damnPablosHeads, [12,13,14,15,16], {loop: false, callBack: ()=>console.log('oli')});
+var anim_damnPablos_blink1 = new RogerAnimation("blink1",
+                                                ss_damnPablosHeads,
+                                                [0,1,2,1],
+                                                { delay: 60, callBack: ()=>console.log('oli') });
+
+var anim_damnPablos_talk1 = new RogerAnimation("talk1",
+                                               ss_damnPablosHeads,
+                                               [3,4,5,6,7],
+                                               { direction: "random" });
+
+
+var anim_damnPablos_blink2 = new RogerAnimation("blink2", 
+                                                ss_damnPablosHeads,
+                                                [9,10,11,10],
+                                                { delay: 10 });
+var anim_damnPablos_talk2 = new RogerAnimation("talk2", 
+                                               ss_damnPablosHeads,
+                                               [12,13,14,15,16],
+                                               { loops: -1 });
 
 var pablo = new RogerObject("pablo", rClock);
 pablo.addAnimation(anim_damnPablos_blink1);

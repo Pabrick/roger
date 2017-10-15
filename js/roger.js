@@ -1,10 +1,14 @@
 'use strict';
 
+const DIRECTION_FORWARD = "forward";
+const DIRECTION_BACKWARD = "backward";
+const DIRECTION_RANDOM = "random";
+
 class RogerClock {
-    constructor() {
+    constructor(delta) {
         this.clock = 0;
         this.clockInterval;
-        this.delta = 0.1;
+        this.delta = delta;
         this.deltaTime = this.delta * 1000;
         this.objects = [];
     }
@@ -76,10 +80,10 @@ class RogerSprite {
  * @return sprite [RogerSprite]
  */
 class RogerSheet {
-    constructor(url, width, height, dataFrames) {
+    constructor(url, size, dataFrames) {
         this.url = url;
-        this.width = width;
-        this.height = height;
+        this.width = size.w;
+        this.height = size.h;
         this.dataFrames = dataFrames;
 
         this.framesHorizontal = 0;
@@ -87,18 +91,11 @@ class RogerSheet {
         this.map = [];
 
         if(this.dataFrames.length === 1){
-            this.framesHorizontal = Math.floor(this.width / this.dataFrames[0].w);
-            this.framesVertical  = Math.floor(this.height / this.dataFrames[0].h);
-            PabTools.show("All frames have SAME size");
-        }else{
-            //TODO
-            PabTools.show("Frames have DIFFERENT sizes", "info");
-        }
-
-        if(this.dataFrames.length === 1){
             let currentX = 0;
             let currentY = 0;
             let index = 0;
+            this.framesHorizontal = Math.floor(this.width / this.dataFrames[0].w);
+            this.framesVertical  = Math.floor(this.height / this.dataFrames[0].h);
             for(let i=0; i<this.framesVertical; i++){
                 for(let j=0; j<this.framesHorizontal; j++){
                     this.map.push(new RogerSprite(this.dataFrames[0].w, this.dataFrames[0].h, currentX, currentY));
@@ -136,14 +133,12 @@ class RogerSheet {
  * @see RogerSprite
  */
 class RogerAnimation {
-    constructor(name, spriteSheet, frameList, options = {delay: 0, loop: true, random: false, callBack: null}) {
+    constructor(name, spriteSheet, frameList, options) {
         this.name = name;
         this.spriteSheetUrl = spriteSheet.getURL();
         this.spriteAnimation = [];
-        this.options = options;
-        for(let i=0; i<frameList.length; i++){
-            this.spriteAnimation.push(spriteSheet.getSprite(frameList[i]));
-        }
+        this.setSpriteAnimation(spriteSheet, frameList);
+        this.setOptions(options);
     }
     /* PUBLIC METHODS */
     setOption(object) {
@@ -152,8 +147,6 @@ class RogerAnimation {
     setLoop(boolean) {
         this.options.loop = boolean;
     }
-
-    /* PRIVATE METHODS */
     getAnimation() {
         return this;
     }
@@ -166,18 +159,72 @@ class RogerAnimation {
     getSprite(number) {
         return this.spriteAnimation[number];
     }
+
+    /* PRIVATE METHODS */
+    setSpriteAnimation(spriteSheet, frameList){
+        for(let i=0; i<frameList.length; i++){
+            this.spriteAnimation.push(spriteSheet.getSprite(frameList[i]));
+        }
+    }
+    setOptions(options) {
+        let defaultOptions = {
+            delay: 0,
+            loops: 0,
+            direction: DIRECTION_FORWARD,
+            callBack: null
+        }
+        if(options){
+            this.options = {
+                delay: options.delay ? options.delay : defaultOptions.delay,
+                loops: options.loops ? options.loops : defaultOptions.loops,
+                direction: options.direction ? options.direction : defaultOptions.direction,
+                callBack: options.callBack ? options.callBack : defaultOptions.callBack
+            }
+        }else{
+            this.options = defaultOptions;
+        }
+        this.resetAnimation();
+    }
+    resetAnimation() {
+        this.options.delayTime = this.options.delay - 1;
+        this.options.loopsNumber = this.options.loops - 1;
+    }
     getNextFrame(currentFrame) {
-        let nextFrame = -1;
-        if(currentFrame >= this.spriteAnimation.length - 1){
-            if(this.options.loop){
-                nextFrame = 0;
+        let nextFrame;
+        let frameLimit = this.spriteAnimation.length;
+
+        if(this.options.delayTime <= 0) {
+            if(this.options.direction === DIRECTION_FORWARD){
+                nextFrame = currentFrame + 1;
+            }else if(this.options.direction === DIRECTION_BACKWARD){
+                nextFrame = currentFrame - 1;
+            }else if(this.options.direction === DIRECTION_RANDOM){
+                nextFrame = Math.floor((Math.random() * frameLimit) + 0);
+            }
+        }else{
+            nextFrame = currentFrame;
+            this.options.delayTime--;
+        }
+
+        if(nextFrame >= frameLimit || nextFrame < 0){
+            if(this.options.loops === -1 || this.options.loopsNumber > 0){
+                if(nextFrame >= frameLimit){
+                    nextFrame = 0;
+                }else if(nextFrame < 0){
+                    nextFrame = frameLimit;
+                }
+                if(this.options.loops != -1) {
+                    this.options.loopsNumber--;
+                }
+                this.options.delayTime = this.options.delay;
+            }else{
+                nextFrame = -1;
             }
             if(this.options.callBack != null){
                 this.options.callBack();
             }
-        }else{
-            nextFrame = currentFrame + 1;
         }
+
         return nextFrame;
     }
 }
@@ -197,18 +244,23 @@ class RogerObject {
         this.anim = [];
         this.currentAnimation;
         this.currentFrame;
+        this.clock.addObject(this);
     }
     /* PUBLIC METHODS */
     addAnimation(rogerAnimation) {
-        let div = document.createElement('div');
-        div.id = rogerAnimation.getName();
-        div.className = 'animation';
-        div.style.backgroundImage = "url('" + rogerAnimation.getURL() + "')";
-        div.style.display = 'none';
-        this.elem.appendChild(div);
-        this.anim.push(rogerAnimation);
-        this.setFrame(rogerAnimation, 0);
-        this.clock.addObject(this);
+        let currentName = rogerAnimation.getName();
+        if(this.getAnimationByName(currentName) === -1){
+            let div = document.createElement('div');
+            div.id = currentName;
+            div.className = 'animation';
+            div.style.backgroundImage = "url('" + rogerAnimation.getURL() + "')";
+            div.style.display = 'none';
+            this.elem.appendChild(div);
+            this.anim.push(rogerAnimation);
+            this.setFrame(rogerAnimation, 0);
+        }else{
+            alert("The RogerObject '" + this.id + "' has ALREADY an animation with the name: '" + currentName + "'\n Please choose another name and try it again.");
+        }
     }
     setDefaultAnimation(name) {
         let shiftIndex = this.getAnimationByName(name);
@@ -222,12 +274,13 @@ class RogerObject {
         }
         this.currentAnimation = this.anim[this.getAnimationByName(name)].getAnimation();
         this.currentFrame = 0;
+        this.currentAnimation.resetAnimation();
         document.getElementById(name).style.display = 'block';
     }
 
     /* PRIVATE METHODS */
     getAnimationByName(name) {
-        let index;
+        let index = -1;
         for(let i=0; i<this.anim.length; i++){
             if(this.anim[i].getName() === name){
                 index = i;
@@ -236,23 +289,19 @@ class RogerObject {
         return index;
     }
     setFrame(animation, frame) {
+        this.currentAnimation = animation;
+        this.currentFrame = frame;
         let name = animation.getName();
         let sprite = animation.getSprite(frame);
-        this.currentFrame = frame;
         document.getElementById(name).style.width = sprite.getWidth();
         document.getElementById(name).style.height = sprite.getHeight();
         document.getElementById(name).style.backgroundPositionX = - sprite.getX() + "px";
         document.getElementById(name).style.backgroundPositionY = - sprite.getY() + "px";
     }
-    setFrameInCurrentAnimation(frame) {
-        this.setFrame(this.currentAnimation, frame);
-    }
     update() {
         if(this.currentFrame != -1){
             this.setFrame(this.currentAnimation, this.currentFrame);
             this.currentFrame = this.currentAnimation.getNextFrame(this.currentFrame);
-        }else{
-            this.playAnimation(this.anim[0].getName());
         }
     }
 }
