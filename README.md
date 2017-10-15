@@ -29,6 +29,7 @@ rClock.init();
 
 Now we need an animation sheet, sprite sheet or atlas.
 The sprite sheet should be power 2 size. I recommend 1024, but I will use 512x512 px.
+
 ![Sprite Sheet](https://raw.githubusercontent.com/Pabrick/roger/dev/img/damn_pablos_heads.png)
 
 Roger.JS use the object **RogerSheet**, we give it params:
@@ -63,6 +64,7 @@ So, how our sprite sheet has all the sprites of the same size, we can use the sh
 var ss_damnPablosHeads = new RogerSheet("img/damn_pablos_heads.png", 512, 512, [{w:54,h:90}]);
 ```
 Here's a tip of how this sprite sheet is made:
+
 ![Sprite Sheet](https://raw.githubusercontent.com/Pabrick/roger/dev/img/damn_pablos_heads_template.png)
 
 ### 3. The Animations (RogerAnimation)
