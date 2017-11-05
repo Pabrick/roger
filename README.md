@@ -8,6 +8,14 @@ PLUS I could try all the new things ECMAScript6 comes within and I cann't use in
 
 So, welcome!
 
+## Version: 1.0.1
+We have inlcude a new RogerSheet: the RogerRegularSheet.
+Sometimes (or mostly) we use sprite sheets wich sprites have the same sizes. For those cases we use **RogerRegularSheet**
+Instead pasing as parameter an array with all the sizes and positions, we only give it an object with width and height.
+So it will be easier!
+
+
+
 ## Let's begin!
 
 First add the library to your project:
@@ -38,7 +46,7 @@ Roger.JS use the object **RogerSheet**, we give it params:
 - Object with the sizes of the sprite sheet
 ```
 {
-    w:widthInPixels, 
+    w: widthInPixels, 
     h: heightInPixels
 }
 ```
@@ -46,17 +54,19 @@ Roger.JS use the object **RogerSheet**, we give it params:
 Every object inside of the array have to be like this:
 ```
 {
-    w:width of the sprite,
-    h:height fo the sprite,
-    x:horizontal position of the sprite,
-    y:vertical position of the sprite
+    w: width of the sprite,
+    h: height fo the sprite,
+    x: horizontal position of the sprite,
+    y: vertical position of the sprite
 }
 ```
-Unless all the sprites have the same size. In that case we can make it shorter (pretty cool, eh?):
+Unless all the sprites have the same size. In that case we can make it shorter,
+using the object **RogerRegularSheet** and instead give the array with all the frame's positions,
+we just give and object with the size of the sprite (and how all the sprites are the same size, Roger.JS makes all the calcullations. Pretty cool, eh?):
 ```
 {
-    w:width of the sprite,
-    h:height fo the sprite
+    w: width of the sprite,
+    h: height fo the sprite
 }
 ```
 

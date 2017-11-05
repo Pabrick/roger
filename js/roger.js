@@ -12,6 +12,7 @@ class RogerClock {
         this.deltaTime = this.delta * 1000;
         this.objects = [];
     }
+    /* PUBLIC METHODS */
     init() {
         this.clock = 0;
         this.clockInterval = setInterval(()=>this.update(), this.deltaTime);
@@ -34,7 +35,6 @@ class RogerClock {
     removeObject(rogerObject) {
         //removeanimation
     }
-
 }
 
 /**
@@ -57,6 +57,7 @@ class RogerSprite {
         this.x = positionX;
         this.y = positionY;
     }
+    /* PUBLIC METHODS */
     getWidth() {
         return this.w;
     }
@@ -74,8 +75,8 @@ class RogerSprite {
 /**
  * @class RogerSheet
  * @param url [string] an absolute URL giving the base location of the spritesheet
- * @param width [number] total width of the image
- * @param height [number] total height of the image
+ * @param size [object] {w:total width of the sheet, h:total height of the sheet }
+ * @param dataFrames [array] array with sizes of each sprite
  * @return url [String]
  * @return sprite [RogerSprite]
  */
@@ -84,40 +85,56 @@ class RogerSheet {
         this.url = url;
         this.width = size.w;
         this.height = size.h;
-        this.dataFrames = dataFrames;
-
-        this.framesHorizontal = 0;
-        this.framesVertical = 0;
         this.map = [];
 
-        if(this.dataFrames.length === 1){
-            let currentX = 0;
-            let currentY = 0;
-            let index = 0;
-            this.framesHorizontal = Math.floor(this.width / this.dataFrames[0].w);
-            this.framesVertical  = Math.floor(this.height / this.dataFrames[0].h);
-            for(let i=0; i<this.framesVertical; i++){
-                for(let j=0; j<this.framesHorizontal; j++){
-                    this.map.push(new RogerSprite(this.dataFrames[0].w, this.dataFrames[0].h, currentX, currentY));
-                    currentX += this.dataFrames[0].w; 
-                    index++;
-                }
-                currentX = 0;
-                currentY += this.dataFrames[0].h; 
-            }
-        }else{
-            for(let i=0; i<this.framesVertical; i++){
-                for(let j=0; j<this.framesHorizontal; j++){
-                    this.map.push(new RogerSprite(this.dataFrames[index].w, this.dataFrames[index].h, this.dataFrames[index].x, this.dataFrames[index].y));
-                }
-            }
+        for(let i=0; i<dataFrames.length; i++){
+            this.map.push(new RogerSprite(dataFrames[i].w, dataFrames[i].h, dataFrames[i].x, dataFrames[i].y));
         }
     }
+    /* PUBLIC METHODS */
     getURL() {
         return this.url;
     }
     getSprite(number) {
         return this.map[number];
+    }
+}
+
+/**
+ * @class RogerRegularSheet
+ * @description this sprite sheet has ALL the sprites of the same size
+ * @param url [string] an absolute URL giving the base location of the spritesheet
+ * @param sheetSize [object] {w:total width of the sheet, h:total height of the sheet }
+ * @param spriteSize [object] {w:total width of the sprite, h:total height of the sprite }
+ * @return url [String]
+ * @return sprite [RogerSprite]
+ */
+class RogerRegularSheet extends RogerSheet {
+    constructor(url, sheetSize, spriteSize) {
+        let dataFrames = [];
+
+        let currentX = 0;
+        let currentY = 0;
+        let index = 0;
+        let framesHorizontal = Math.floor(sheetSize.w / spriteSize.w);
+        let framesVertical  = Math.floor(sheetSize.h / spriteSize.h);
+
+        for(let i=0; i<framesVertical; i++){
+            for(let j=0; j<framesHorizontal; j++){
+                let sprite = {
+                    w: spriteSize.w,
+                    h: spriteSize.h,
+                    x: currentX,
+                    y: currentY
+                }
+                dataFrames.push(sprite);
+                currentX += spriteSize.w; 
+                index++;
+            }
+            currentX = 0;
+            currentY += spriteSize.h;  
+        }
+        super(url, sheetSize, dataFrames);
     }
 }
 
