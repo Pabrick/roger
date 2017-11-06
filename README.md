@@ -125,8 +125,7 @@ We give it the params:
     </head>
     <body>
         <div id="pablo"></div>
-        <script src="js/PabTools.js"></script>
-        <script src="js/roger.js"></script>
+        <script src="js/roger.bundle.js"></script>
         <script src="js/main.js"></script>
     </body>
 </html>
