@@ -20,7 +20,7 @@ So it will be easier!
 
 First add the library to your project:
 ```
-<script src="js/roger.js"></script>
+<script src="js/roger.bundle.js"></script>
 ```
 
 ### 1. The Clock (RogerClock)

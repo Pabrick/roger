@@ -1,30 +1,33 @@
-var path = require('path');
 var webpack = require('webpack');
+var path = require('path');
 var glob = require("glob");
 const Uglify = require("uglifyjs-webpack-plugin");
 
 module.exports = {
     entry: {
-        js: glob.sync("./src/**/*.js")
+        js: './src/roger.main.js'
+        // js: glob.sync("./src/class/*.js")
     },
     output: {
-        path: path.resolve(__dirname, 'js'),
-        filename: 'roger.bundle.js'
+        path: path.resolve(__dirname, 'dist/js'),
+        filename: 'roger.js'
     },
-    plugins: [
-        new Uglify()
-    ],
     module: {
         loaders: [
             {
                 test: /\.js$/,
                 loader: 'babel-loader',
+                exclude: /node_modules/,
                 query: {
-                    presets: ['es2015']
+                    presets: ['env']
                 }
             }
         ]
     },
+    plugins: [
+        new Uglify()
+        // new webpack.optimize.UglifyJsPlugin()
+    ],
     stats: {
         colors: true
     },

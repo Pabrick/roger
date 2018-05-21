@@ -13,7 +13,7 @@ const DIRECTION_RANDOM = "random";
  * @return sprite [RogerSprite]
  * @see RogerSprite
  */
-class RogerAnimation {
+export class RogerAnimation {
     constructor(name, spriteSheet, frameList, options) {
         this.name = name;
         this.spriteSheetUrl = spriteSheet.getURL();

@@ -11,7 +11,7 @@
  * @return x [number]
  * @return y [number]
  */
-class RogerSprite {
+export class RogerSprite {
     constructor(width, height, positionX, positionY) {
         this.w = width;
         this.h = height;

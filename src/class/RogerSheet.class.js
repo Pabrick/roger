@@ -6,7 +6,7 @@
  * @return url [String]
  * @return sprite [RogerSprite]
  */
-class RogerSheet {
+export class RogerSheet {
     constructor(url, size, dataFrames) {
         this.url = url;
         this.width = size.w;

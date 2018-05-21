@@ -5,7 +5,7 @@
  * @return animationName [String]
  * @see RogerSprite
  */
-class RogerObject {
+export class RogerObject {
     constructor(id, clock) {
         this.id = id;
         this.clock = clock;

@@ -1,5 +1,10 @@
 'use strict';
 
+/**
+ * Clock is the key to sync all the anims.
+ * @class RogerClock
+ * @param delta [number] 
+ */
 class RogerClock {
     constructor(delta) {
         this.clock = 0;
@@ -17,7 +22,6 @@ class RogerClock {
         clearInterval(this.clockInterval);
     }
     update() {
-        //PabTools.show(this.clock, "info");
         this.clock = Math.round( (this.clock + this.delta) * 10 ) / 10;
         for(let i = 0; i < this.objects.length; i++){
             if(this.objects[i]){

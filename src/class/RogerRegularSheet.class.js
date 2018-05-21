@@ -7,7 +7,7 @@
  * @return url [String]
  * @return sprite [RogerSprite]
  */
-class RogerRegularSheet extends RogerSheet {
+export class RogerRegularSheet extends RogerSheet {
     constructor(url, sheetSize, spriteSize) {
         let dataFrames = [];
 
