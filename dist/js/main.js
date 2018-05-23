@@ -4,7 +4,7 @@ PabTools.setDebug(false);
 
 var rClock = new RogerClock(0.1);
 rClock.init();
-/*
+
 var ss_damnPablosHeads = new RogerRegularSheet("img/damn_pablos_heads.png", {w:512,h:512}, {w:54,h:90});
 
 var anim_damnPablos_blink1 = new RogerAnimation("blink1",
@@ -35,4 +35,3 @@ pablo.addAnimation(anim_damnPablos_talk2);
 pablo.setDefaultAnimation("blink1");
 
 pablo.playAnimation("blink1");
-*/

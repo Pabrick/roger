@@ -1,8 +1,11 @@
 {
-  "name": "roger",
-  "version": "1.0.2",
+  "name": "roger.js",
+  "version": "1.0.3",
   "description": "An easy javascript library for frame by frame animation with spritesheets",
-  "main": "index.js",
+  "evolution": {
+    "text": "This project has evolve to a TypeScript project, so I will continue developing there",
+    "url": "git+https://github.com/Pabrick/roger.ts.git"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "http-server",
@@ -37,5 +40,7 @@
     "uglifyjs-webpack-plugin": "^1.0.1",
     "webpack": "^3.8.1"
   },
-  "dependencies": {}
+  "dependencies": {
+    "uglify-js": "^3.3.27"
+  }
 }

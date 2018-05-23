@@ -8,8 +8,12 @@ PLUS I could try all the new things ECMAScript6 comes within and I cann't use in
 
 So, welcome!
 
+## Version: 1.0.3
+I have evolved this project into a TypeScript project, so I stop right here, until I discover how to bundle all the classes properly.
+In the meantime, I will continue developing in ![Roger.ts](https://github.com/Pabrick/roger.ts.git)
+
 ## Version: 1.0.1
-We have inlcude a new RogerSheet: the RogerRegularSheet.
+I have inlcude a new RogerSheet: the RogerRegularSheet.
 Sometimes (or mostly) we use sprite sheets wich sprites have the same sizes. For those cases we use **RogerRegularSheet**
 Instead pasing as parameter an array with all the sizes and positions, we only give it an object with width and height.
 So it will be easier!
