@@ -1,3 +1,5 @@
+![Roger.JS](https://raw.githubusercontent.com/Pabrick/roger.js/logo.png)
+
 # ROGER.JS
 # The easiest animation library for frame by frame animations
 
@@ -80,7 +82,7 @@ var ss_damnPablosHeads = new RogerSheet("img/damn_pablos_heads.png", 512, 512, [
 ```
 Here's a tip of how this sprite sheet is made:
 
-![Sprite Sheet](https://raw.githubusercontent.com/Pabrick/roger/dev/img/damn_pablos_heads_template.png)
+![Sprite Sheet](https://raw.githubusercontent.com/Pabrick/roger.js/dist/img/damn_pablos_heads_template.png)
 
 ### 3. The Animations (RogerAnimation)
 
