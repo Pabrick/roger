@@ -1,3 +1,5 @@
+import { RogerSprite } from './RogerSprite.class';
+
 /**
  * @class RogerSheet
  * @param url [string] an absolute URL giving the base location of the spritesheet

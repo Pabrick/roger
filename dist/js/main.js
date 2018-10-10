@@ -1,5 +1,10 @@
 'use strict';
 
+import { RogerClock } from './roger.js';
+import { RogerRegularSheet } from './roger.js';
+import { RogerAnimation } from './roger.js';
+import { RogerObject } from './roger.js';
+
 PabTools.setDebug(false);
 
 var rClock = new RogerClock(0.1);

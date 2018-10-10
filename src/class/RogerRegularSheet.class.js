@@ -1,3 +1,5 @@
+import { RogerSheet } from './RogerSheet.class';
+
 /**
  * @class RogerRegularSheet
  * @description this sprite sheet has ALL the sprites of the same size
