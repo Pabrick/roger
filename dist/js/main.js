@@ -1,42 +1,54 @@
 'use strict';
 
-import { RogerClock } from './roger.js';
-import { RogerRegularSheet } from './roger.js';
-import { RogerAnimation } from './roger.js';
-import { RogerObject } from './roger.js';
-
-PabTools.setDebug(false);
-
 var rClock = new RogerClock(0.1);
 rClock.init();
 
-var ss_damnPablosHeads = new RogerRegularSheet("img/damn_pablos_heads.png", {w:512,h:512}, {w:54,h:90});
+var ss_horse2dragon = new RogerRegularSheet("img/ss_horse2dragon.png", {w:1150,h:1150}, {w:230,h:230});
 
-var anim_damnPablos_blink1 = new RogerAnimation("blink1",
-                                                ss_damnPablosHeads,
-                                                [0,1,2,1,0],
-                                                { delay: 60, callBack: ()=>console.log('blink complete!') });
+var anim_horse = new RogerAnimation("idleHorse",
+                                                ss_horse2dragon,
+                                                [0],
+                                                { loops: 0, callBack: ()=>console.log("I'm a horse!") });
 
-var anim_damnPablos_talk1 = new RogerAnimation("talk1",
-                                               ss_damnPablosHeads,
-                                               [3,4,5,6,7],
-                                               { direction: "random" });
+var anim_dragon = new RogerAnimation("idleDragon",
+                                                ss_horse2dragon,
+                                                [8],
+                                                { loops: 0, callBack: ()=>console.log("I'm a dragon!") });
+                                            
+var anim_horse2dragon = new RogerAnimation("horse2dragon",
+                                                ss_horse2dragon,
+                                                [0,1,2,3,4,5,6,7,8],
+                                                { delay: 0, loops: 0, callBack: ()=>console.log("I'm a dragon!") });
 
+var anim_dragon2horse = new RogerAnimation("dragon2horse",
+                                                ss_horse2dragon,
+                                                [8,7,6,5,4,3,2,1,0],
+                                                { delay: 0, loops: 0, callBack: ()=>console.log("I'm a horse!") });
+ 
+var anim_horse2dragon2horse = new RogerAnimation("horse2dragon2horse",
+                                                ss_horse2dragon,
+                                                [0,1,2,3,4,5,6,7,8,7,6,5,4,3,2,1],
+                                                { delay: 10, loops: -1 });
 
-var anim_damnPablos_blink2 = new RogerAnimation("blink2", 
-                                                ss_damnPablosHeads,
-                                                [9,10,11,10,9],
-                                                { delay: 10 });
-var anim_damnPablos_talk2 = new RogerAnimation("talk2", 
-                                               ss_damnPablosHeads,
-                                               [12,13,14,15,16],
-                                               { loops: -1 });
+var anim_dragonOpenMouth = new RogerAnimation("dragonOpenMouth",
+                                                ss_horse2dragon,
+                                                [8,10,11,12,13,14,15,16,17,18],
+                                                { delay: 0, loops: 0 });
 
-var pablo = new RogerObject("pablo", rClock);
-pablo.addAnimation(anim_damnPablos_blink1);
-pablo.addAnimation(anim_damnPablos_blink2);
-pablo.addAnimation(anim_damnPablos_talk1);
-pablo.addAnimation(anim_damnPablos_talk2);
-pablo.setDefaultAnimation("blink1");
+var anim_dragonCloseMouth = new RogerAnimation("dragonCloseMouth",
+                                                ss_horse2dragon,
+                                                [18,17,16,15,14,13,12,11,10,8],
+                                                { delay: 0, loops: 0 });
 
-pablo.playAnimation("blink1");
+var horse = new RogerObject("horse", rClock);
+horse.addAnimation(anim_horse);
+horse.addAnimation(anim_dragon);
+horse.addAnimation(anim_horse2dragon);
+horse.addAnimation(anim_dragon2horse);
+/*
+horse.addAnimation(anim_horse2dragon2horse);
+horse.addAnimation(anim_dragonOpenMouth);
+horse.addAnimation(anim_dragonCloseMouth);
+*/
+horse.setDefaultAnimation("idleHorse");
+horse.playAnimation("idleHorse");

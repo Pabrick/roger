@@ -1,1 +1,326 @@
-!function(t){var e={};function n(i){if(e[i])return e[i].exports;var o=e[i]={i:i,l:!1,exports:{}};return t[i].call(o.exports,o,o.exports,n),o.l=!0,o.exports}n.m=t,n.c=e,n.d=function(t,e,i){n.o(t,e)||Object.defineProperty(t,e,{configurable:!1,enumerable:!0,get:i})},n.n=function(t){var e=t&&t.__esModule?function(){return t.default}:function(){return t};return n.d(e,"a",e),e},n.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},n.p="",n(n.s=0)}([function(t,e,n){"use strict";n(1),n(2),n(5),n(6)},function(t,e,n){"use strict";Object.defineProperty(e,"__esModule",{value:!0});var i=function(){function t(t,e){for(var n=0;n<e.length;n++){var i=e[n];i.enumerable=i.enumerable||!1,i.configurable=!0,"value"in i&&(i.writable=!0),Object.defineProperty(t,i.key,i)}}return function(e,n,i){return n&&t(e.prototype,n),i&&t(e,i),e}}();e.RogerClock=function(){function t(e){!function(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}(this,t),this.delta=e,this.clock=0,this.clockInterval,this.deltaTime=1e3*this.delta,this.objects=[]}return i(t,[{key:"init",value:function(){var t=this;this.clock=0,this.clockInterval=setInterval(function(){return t.update()},this.deltaTime)}},{key:"stop",value:function(){clearInterval(this.clockInterval)}},{key:"update",value:function(){this.clock=Math.round(10*(this.clock+this.delta))/10;for(var t=0;t<this.objects.length;t++)this.objects[t]&&this.objects[t].update()}},{key:"addObject",value:function(t){this.objects.push(t)}},{key:"removeObject",value:function(t){}}]),t}()},function(t,e,n){"use strict";Object.defineProperty(e,"__esModule",{value:!0}),e.RogerRegularSheet=void 0;var i=n(3);e.RogerRegularSheet=function(t){function e(t,n,i){!function(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}(this,e);for(var o=[],r=0,a=0,s=Math.floor(n.w/i.w),u=Math.floor(n.h/i.h),c=0;c<u;c++){for(var l=0;l<s;l++){var h={w:i.w,h:i.h,x:r,y:a};o.push(h),r+=i.w,0}r=0,a+=i.h}return function(t,e){if(!t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!e||"object"!=typeof e&&"function"!=typeof e?t:e}(this,(e.__proto__||Object.getPrototypeOf(e)).call(this,t,n,o))}return function(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Super expression must either be null or a function, not "+typeof e);t.prototype=Object.create(e&&e.prototype,{constructor:{value:t,enumerable:!1,writable:!0,configurable:!0}}),e&&(Object.setPrototypeOf?Object.setPrototypeOf(t,e):t.__proto__=e)}(e,i.RogerSheet),e}()},function(t,e,n){"use strict";Object.defineProperty(e,"__esModule",{value:!0}),e.RogerSheet=void 0;var i=function(){function t(t,e){for(var n=0;n<e.length;n++){var i=e[n];i.enumerable=i.enumerable||!1,i.configurable=!0,"value"in i&&(i.writable=!0),Object.defineProperty(t,i.key,i)}}return function(e,n,i){return n&&t(e.prototype,n),i&&t(e,i),e}}(),o=n(4);e.RogerSheet=function(){function t(e,n,i){!function(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}(this,t),this.url=e,this.width=n.w,this.height=n.h,this.map=[];for(var r=0;r<i.length;r++)this.map.push(new o.RogerSprite(i[r].w,i[r].h,i[r].x,i[r].y))}return i(t,[{key:"getURL",value:function(){return this.url}},{key:"getSprite",value:function(t){return this.map[t]}}]),t}()},function(t,e,n){"use strict";Object.defineProperty(e,"__esModule",{value:!0});var i=function(){function t(t,e){for(var n=0;n<e.length;n++){var i=e[n];i.enumerable=i.enumerable||!1,i.configurable=!0,"value"in i&&(i.writable=!0),Object.defineProperty(t,i.key,i)}}return function(e,n,i){return n&&t(e.prototype,n),i&&t(e,i),e}}();e.RogerSprite=function(){function t(e,n,i,o){!function(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}(this,t),this.w=e,this.h=n,this.x=i,this.y=o}return i(t,[{key:"getWidth",value:function(){return this.w}},{key:"getHeight",value:function(){return this.h}},{key:"getX",value:function(){return this.x}},{key:"getY",value:function(){return this.y}}]),t}()},function(t,e,n){"use strict";Object.defineProperty(e,"__esModule",{value:!0});var i=function(){function t(t,e){for(var n=0;n<e.length;n++){var i=e[n];i.enumerable=i.enumerable||!1,i.configurable=!0,"value"in i&&(i.writable=!0),Object.defineProperty(t,i.key,i)}}return function(e,n,i){return n&&t(e.prototype,n),i&&t(e,i),e}}();e.RogerAnimation=function(){function t(e,n,i,o){!function(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}(this,t),this.name=e,this.spriteSheetUrl=n.getURL(),this.spriteAnimation=[],this.setSpriteAnimation(n,i),this.setOptions(o)}return i(t,[{key:"setOption",value:function(t){this.options=t}},{key:"setLoop",value:function(t){this.options.loop=t}},{key:"getAnimation",value:function(){return this}},{key:"getName",value:function(){return this.name}},{key:"getURL",value:function(){return this.spriteSheetUrl}},{key:"getSprite",value:function(t){return this.spriteAnimation[t]}},{key:"setSpriteAnimation",value:function(t,e){for(var n=0;n<e.length;n++)this.spriteAnimation.push(t.getSprite(e[n]))}},{key:"setOptions",value:function(t){var e={delay:0,loops:0,direction:"forward",callBack:null};this.options=t?{delay:t.delay?t.delay:e.delay,loops:t.loops?t.loops:e.loops,direction:t.direction?t.direction:e.direction,callBack:t.callBack?t.callBack:e.callBack}:e,this.resetAnimation()}},{key:"resetAnimation",value:function(){this.options.delayTime=this.options.delay-1,this.options.loopsNumber=this.options.loops-1}},{key:"getNextFrame",value:function(t){var e=void 0,n=this.spriteAnimation.length;return this.options.delayTime<=0?"forward"===this.options.direction?e=t+1:"backward"===this.options.direction?e=t-1:"random"===this.options.direction&&(e=Math.floor(Math.random()*n+0)):(e=t,this.options.delayTime--),(e>=n||e<0)&&(-1===this.options.loops||this.options.loopsNumber>0?(e>=n?e=0:e<0&&(e=n),-1!=this.options.loops&&this.options.loopsNumber--,this.options.delayTime=this.options.delay):e=-1,null!=this.options.callBack&&this.options.callBack()),e}}]),t}()},function(t,e,n){"use strict";Object.defineProperty(e,"__esModule",{value:!0});var i=function(){function t(t,e){for(var n=0;n<e.length;n++){var i=e[n];i.enumerable=i.enumerable||!1,i.configurable=!0,"value"in i&&(i.writable=!0),Object.defineProperty(t,i.key,i)}}return function(e,n,i){return n&&t(e.prototype,n),i&&t(e,i),e}}();e.RogerObject=function(){function t(e,n){!function(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}(this,t),this.id=e,this.clock=n,this.elem=document.getElementById(e),this.anim=[],this.currentAnimation,this.currentFrame,this.clock.addObject(this)}return i(t,[{key:"addAnimation",value:function(t){var e=t.getName();if(-1===this.getAnimationByName(e)){var n=document.createElement("div");n.id=e,n.className="animation",n.style.backgroundImage="url('"+t.getURL()+"')",n.style.display="none",this.elem.appendChild(n),this.anim.push(t),this.setFrame(t,0)}else alert("The RogerObject '"+this.id+"' has ALREADY an animation with the name: '"+e+"'\n Please choose another name and try it again.")}},{key:"setDefaultAnimation",value:function(t){var e=this.getAnimationByName(t),n=this.anim[this.getAnimationByName(t)].getAnimation();this.anim[e]=this.anim[0],this.anim[0]=n}},{key:"playAnimation",value:function(t){this.currentAnimation&&(document.getElementById(this.currentAnimation.getName()).style.display="none"),this.currentAnimation=this.anim[this.getAnimationByName(t)].getAnimation(),this.currentFrame=0,this.currentAnimation.resetAnimation(),document.getElementById(t).style.display="block"}},{key:"getAnimationByName",value:function(t){for(var e=-1,n=0;n<this.anim.length;n++)this.anim[n].getName()===t&&(e=n);return e}},{key:"setFrame",value:function(t,e){this.currentAnimation=t,this.currentFrame=e;var n=t.getName(),i=t.getSprite(e);document.getElementById(n).style.width=i.getWidth(),document.getElementById(n).style.height=i.getHeight(),document.getElementById(n).style.backgroundPositionX=-i.getX()+"px",document.getElementById(n).style.backgroundPositionY=-i.getY()+"px"}},{key:"update",value:function(){-1!=this.currentFrame&&(this.setFrame(this.currentAnimation,this.currentFrame),this.currentFrame=this.currentAnimation.getNextFrame(this.currentFrame))}}]),t}()}]);
+/**
+ * Clock is the key to sync all the anims.
+ * @class RogerClock
+ * @param delta [number] 
+ */
+class RogerClock {
+    constructor(delta) {
+        this.delta = delta;
+        this.clock = 0;
+        this.clockInterval;
+        this.deltaTime = this.delta * 1000;
+        this.objects = [];
+    }
+    /* PUBLIC METHODS */
+    init() {
+        this.clock = 0;
+        this.clockInterval = setInterval(()=>this.update(), this.deltaTime);
+    }
+    stop() {
+        clearInterval(this.clockInterval);
+    }
+    update() {
+        this.clock = Math.round( (this.clock + this.delta) * 10 ) / 10;
+        for(let i = 0; i < this.objects.length; i++){
+            if(this.objects[i]){
+                this.objects[i].update();
+            }
+        }
+    }
+    addObject(rogerObject) {
+        this.objects.push(rogerObject);
+    }
+    removeObject(rogerObject) {
+        //removeanimation
+    }
+}
+
+/**
+ * Sprite is the minimun element.
+ * It's a frame, an image inside another 
+ * @class RogerSprite
+ * @param width [number] width of the sprite
+ * @param height [number] height of the sprite
+ * @param positionX [number] top position on the sprite sheet from 0,0
+ * @param positionY [number] left position on the sprite sheet from 0,0
+ * @return w [number]
+ * @return h [number]
+ * @return x [number]
+ * @return y [number]
+ */
+class RogerSprite {
+    constructor(width, height, positionX, positionY) {
+        this.w = width;
+        this.h = height;
+        this.x = positionX;
+        this.y = positionY;
+    }
+    /* PUBLIC METHODS */
+    getWidth() {
+        return this.w;
+    }
+    getHeight() {
+        return this.h;
+    }
+    getX() {
+        return this.x;
+    }
+    getY() {
+        return this.y;
+    }
+}
+
+/**
+ * @class RogerSheet
+ * @param url [string] an absolute URL giving the base location of the spritesheet
+ * @param size [object] {w:total width of the sheet, h:total height of the sheet }
+ * @param dataFrames [array] array with sizes of each sprite
+ * @return url [String]
+ * @return sprite [RogerSprite]
+ */
+class RogerSheet {
+    constructor(url, size, dataFrames) {
+        this.url = url;
+        this.width = size.w;
+        this.height = size.h;
+        this.map = [];
+
+        for(let i=0; i<dataFrames.length; i++){
+            this.map.push(new RogerSprite(dataFrames[i].w, dataFrames[i].h, dataFrames[i].x, dataFrames[i].y));
+        }
+    }
+    /* PUBLIC METHODS */
+    getURL() {
+        return this.url;
+    }
+    getSprite(number) {
+        return this.map[number];
+    }
+}
+
+/**
+ * @class RogerRegularSheet
+ * @description this sprite sheet has ALL the sprites of the same size
+ * @param url [string] an absolute URL giving the base location of the spritesheet
+ * @param sheetSize [object] {w:total width of the sheet, h:total height of the sheet }
+ * @param spriteSize [object] {w:total width of the sprite, h:total height of the sprite }
+ * @return url [String]
+ * @return sprite [RogerSprite]
+ */
+class RogerRegularSheet extends RogerSheet {
+    constructor(url, sheetSize, spriteSize) {
+        let dataFrames = [];
+
+        let currentX = 0;
+        let currentY = 0;
+        let index = 0;
+        let framesHorizontal = Math.floor(sheetSize.w / spriteSize.w);
+        let framesVertical  = Math.floor(sheetSize.h / spriteSize.h);
+
+        for(let i=0; i<framesVertical; i++){
+            for(let j=0; j<framesHorizontal; j++){
+                let sprite = {
+                    w: spriteSize.w,
+                    h: spriteSize.h,
+                    x: currentX,
+                    y: currentY
+                }
+                dataFrames.push(sprite);
+                currentX += spriteSize.w; 
+                index++;
+            }
+            currentX = 0;
+            currentY += spriteSize.h;  
+        }
+        super(url, sheetSize, dataFrames);
+    }
+}
+
+const DIRECTION_FORWARD = "forward";
+const DIRECTION_BACKWARD = "backward";
+const DIRECTION_RANDOM = "random";
+
+/**
+ * @class RogerAnimation
+ * @param name [String] name for the animation
+ * @param spriteSheet [RogerSheet] sprite sheet linked to the animation
+ * @param frameList [array] list with the frames that make the animation
+ * @return animation [RogerAnimation]
+ * @return name [String]
+ * @return url [String]
+ * @return sprite [RogerSprite]
+ * @see RogerSprite
+ */
+class RogerAnimation {
+    constructor(name, spriteSheet, frameList, options) {
+        this.name = name;
+        this.spriteSheetUrl = spriteSheet.getURL();
+        this.spriteAnimation = [];
+        this.setSpriteAnimation(spriteSheet, frameList);
+        this.setOptions(options);
+    }
+    /* PUBLIC METHODS */
+    setOption(object) {
+        this.options = object;
+    }
+    setLoop(boolean) {
+        this.options.loop = boolean;
+    }
+    getAnimation() {
+        return this;
+    }
+    getName() {
+        return this.name;
+    }
+    getURL() {
+        return this.spriteSheetUrl;
+    }
+    getSprite(number) {
+        return this.spriteAnimation[number];
+    }
+
+    /* PRIVATE METHODS */
+    setSpriteAnimation(spriteSheet, frameList){
+        for(let i=0; i<frameList.length; i++){
+            this.spriteAnimation.push(spriteSheet.getSprite(frameList[i]));
+        }
+    }
+    setOptions(options) {
+        let defaultOptions = {
+            delay: 0,
+            loops: 0,
+            direction: DIRECTION_FORWARD,
+            callBack: null
+        }
+        if(options){
+            this.options = {
+                delay: options.delay ? options.delay : defaultOptions.delay,
+                loops: options.loops ? options.loops : defaultOptions.loops,
+                direction: options.direction ? options.direction : defaultOptions.direction,
+                callBack: options.callBack ? options.callBack : defaultOptions.callBack
+            }
+        }else{
+            this.options = defaultOptions;
+        }
+        this.resetAnimation();
+    }
+    resetAnimation() {
+        this.options.delayTime = this.options.delay - 1;
+        this.options.loopsNumber = this.options.loops - 1;
+    }
+    getNextFrame(currentFrame) {
+        let nextFrame;
+        let frameLimit = this.spriteAnimation.length;
+
+        if(this.options.delayTime <= 0) {
+            if(this.options.direction === DIRECTION_FORWARD){
+                nextFrame = currentFrame + 1;
+            }else if(this.options.direction === DIRECTION_BACKWARD){
+                nextFrame = currentFrame - 1;
+            }else if(this.options.direction === DIRECTION_RANDOM){
+                nextFrame = Math.floor((Math.random() * frameLimit) + 0);
+            }
+        }else{
+            nextFrame = currentFrame;
+            this.options.delayTime--;
+        }
+
+        if(nextFrame >= frameLimit || nextFrame < 0){
+            if(this.options.loops === -1 || this.options.loopsNumber > 0){
+                if(nextFrame >= frameLimit){
+                    nextFrame = 0;
+                }else if(nextFrame < 0){
+                    nextFrame = frameLimit;
+                }
+                if(this.options.loops != -1) {
+                    this.options.loopsNumber--;
+                }
+                this.options.delayTime = this.options.delay;
+            }else{
+                nextFrame = -1;
+            }
+            if(this.options.callBack != null){
+                this.options.callBack();
+            }
+        }
+
+        return nextFrame;
+    }
+}
+
+/**
+ * @class RogerObject
+ * @param id [String] id of the element of the DOM linked to the object
+ * @param clock [RogerClock] clock linked to the project, the one to set the delta time
+ * @return animationName [String]
+ * @see RogerSprite
+ */
+class RogerObject {
+    constructor(id, clock) {
+        this.id = id;
+        this.clock = clock;
+        this.elem = document.getElementById(id);
+        this.anim = [];
+        this.currentAnimation;
+        this.currentFrame;
+        this.clock.addObject(this);
+    }
+    /* PUBLIC METHODS */
+    addAnimation(rogerAnimation) {
+        let currentName = rogerAnimation.getName();
+        if(this.getAnimationByName(currentName) === -1){
+            let div = document.createElement('div');
+            div.id = currentName;
+            div.className = 'animation';
+            div.style.backgroundImage = "url('" + rogerAnimation.getURL() + "')";
+            div.style.display = 'none';
+            this.elem.appendChild(div);
+            this.anim.push(rogerAnimation);
+            this.setFrame(rogerAnimation, 0);
+        }else{
+            alert("The RogerObject '" + this.id + "' has ALREADY an animation with the name: '" + currentName + "'\n Please choose another name and try it again.");
+        }
+    }
+    setDefaultAnimation(name) {
+        let shiftIndex = this.getAnimationByName(name);
+        let defaultAnimation = this.anim[this.getAnimationByName(name)].getAnimation();
+        this.anim[shiftIndex] = this.anim[0];
+        this.anim[0] = defaultAnimation;
+    }
+    playAnimation(name) {
+        if(this.currentAnimation){
+            document.getElementById(this.currentAnimation.getName()).style.display = 'none';
+        }
+        this.currentAnimation = this.anim[this.getAnimationByName(name)].getAnimation();
+        this.currentFrame = 0;
+        this.currentAnimation.resetAnimation();
+        document.getElementById(name).style.display = 'block';
+    }
+
+    /* PRIVATE METHODS */
+    getAnimationByName(name) {
+        let index = -1;
+        for(let i=0; i<this.anim.length; i++){
+            if(this.anim[i].getName() === name){
+                index = i;
+            }
+        }
+        return index;
+    }
+    setFrame(animation, frame) {
+        this.currentAnimation = animation;
+        this.currentFrame = frame;
+        let name = animation.getName();
+        let sprite = animation.getSprite(frame);
+        document.getElementById(name).style.width = sprite.getWidth();
+        document.getElementById(name).style.height = sprite.getHeight();
+        document.getElementById(name).style.backgroundPositionX = - sprite.getX() + "px";
+        document.getElementById(name).style.backgroundPositionY = - sprite.getY() + "px";
+    }
+    update() {
+        if(this.currentFrame != -1){
+            this.setFrame(this.currentAnimation, this.currentFrame);
+            this.currentFrame = this.currentAnimation.getNextFrame(this.currentFrame);
+        }
+    }
+}
