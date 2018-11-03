@@ -1,11 +1,11 @@
 'use strict';
 
-import { RogerClock } from './roger.js';
-import { RogerRegularSheet } from './roger.js';
-import { RogerAnimation } from './roger.js';
-import { RogerObject } from './roger.js';
+import { RogerClock } from './../../src/class/RogerClock.class.js';
+import { RogerRegularSheet } from './../../src/class/RogerRegularSheet.class.js';
+import { RogerAnimation } from './../../src/class/RogerAnimation.class.js';
+import { RogerObject } from './../../src/class/RogerObject.class.js';
 
-PabTools.setDebug(false);
+// PabTools.setDebug(false);
 
 var rClock = new RogerClock(0.1);
 rClock.init();
@@ -40,3 +40,4 @@ pablo.addAnimation(anim_damnPablos_talk2);
 pablo.setDefaultAnimation("blink1");
 
 pablo.playAnimation("blink1");
+

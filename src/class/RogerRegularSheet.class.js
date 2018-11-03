@@ -1,4 +1,4 @@
-import { RogerSheet } from './RogerSheet.class';
+import { RogerSheet } from './RogerSheet.class.js';
 
 /**
  * @class RogerRegularSheet
