@@ -1,34 +1,52 @@
 /**
  * @class RogerObject
- * @param id [String] id of the element of the DOM linked to the object
- * @param clock [RogerClock] clock linked to the project, the one to set the delta time
- * @return animationName [String]
+ * @param {string} id id of the element of the DOM linked to the object
+ * @param {RogerClock} clock clock linked to the project, the one to set the delta time
+ * @return {string} animationName
  * @see RogerSprite
  */
-export class RogerObject {
+class RogerObject {
+    // constructor(id, clock, idleSprite) {
     constructor(id, clock) {
         this.id = id;
         this.clock = clock;
-        this.elem = document.getElementById(id);
+        this.domElem = document.getElementById(id);
         this.anim = [];
         this.currentAnimation;
         this.currentFrame;
         this.clock.addObject(this);
     }
     /* PUBLIC METHODS */
+    update() {
+        console.log(`${this.id} update!`);
+        /*
+        if(this.currentFrame != -1){
+            this.setFrame(this.currentAnimation, this.currentFrame);
+            this.currentFrame = this.currentAnimation.getNextFrame(this.currentFrame);
+        }
+        */
+    }
+    /**
+     * @method addAnimation
+     * @param {RogerAnimation} rogerAnimation
+     * @see RogerAnimation
+     */
     addAnimation(rogerAnimation) {
         let currentName = rogerAnimation.getName();
         if(this.getAnimationByName(currentName) === -1){
+            /*
             let div = document.createElement('div');
             div.id = currentName;
             div.className = 'animation';
-            div.style.backgroundImage = "url('" + rogerAnimation.getURL() + "')";
+            div.style.backgroundImage = `url('${rogerAnimation.getURL()}')`;
             div.style.display = 'none';
             this.elem.appendChild(div);
             this.anim.push(rogerAnimation);
             this.setFrame(rogerAnimation, 0);
+            */
+            this.anim.push(rogerAnimation);
         }else{
-            alert("The RogerObject '" + this.id + "' has ALREADY an animation with the name: '" + currentName + "'\n Please choose another name and try it again.");
+            alert(`The RogerObject ${this.id} has ALREADY an animation with the name: ${currentName} \n Please choose another name and try it again.`);
         }
     }
     setDefaultAnimation(name) {
@@ -38,6 +56,7 @@ export class RogerObject {
         this.anim[0] = defaultAnimation;
     }
     playAnimation(name) {
+        this.domElem.width = '2000px';
         if(this.currentAnimation){
             document.getElementById(this.currentAnimation.getName()).style.display = 'none';
         }
@@ -67,10 +86,6 @@ export class RogerObject {
         document.getElementById(name).style.backgroundPositionX = - sprite.getX() + "px";
         document.getElementById(name).style.backgroundPositionY = - sprite.getY() + "px";
     }
-    update() {
-        if(this.currentFrame != -1){
-            this.setFrame(this.currentAnimation, this.currentFrame);
-            this.currentFrame = this.currentAnimation.getNextFrame(this.currentFrame);
-        }
-    }
 }
+
+// export default RogerObject;

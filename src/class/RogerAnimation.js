@@ -1,23 +1,24 @@
-const DIRECTION_FORWARD = "forward";
-const DIRECTION_BACKWARD = "backward";
-const DIRECTION_RANDOM = "random";
-
 /**
  * @class RogerAnimation
- * @param name [String] name for the animation
- * @param spriteSheet [RogerSheet] sprite sheet linked to the animation
- * @param frameList [array] list with the frames that make the animation
- * @return animation [RogerAnimation]
- * @return name [String]
- * @return url [String]
- * @return sprite [RogerSprite]
+ * @param {string} name name for the animation
+ * @param {RogerSheet} spriteSheet sprite sheet linked to the animation
+ * @param {Array} frameList list with the frames that make the animation
+ * @return {RogerAnimation} animation
+ * @return {strign} name
+ * @return {string} url
+ * @return {RogerSprite} sprite
  * @see RogerSprite
  */
-export class RogerAnimation {
+class RogerAnimation {
     constructor(name, spriteSheet, frameList, options) {
         this.name = name;
         this.spriteSheetUrl = spriteSheet.getURL();
         this.spriteAnimation = [];
+        this.direction = {
+            FORWARD: 'forward',
+            BACKWARD: 'backward',
+            RANDOM: 'random',
+        };
         this.setSpriteAnimation(spriteSheet, frameList);
         this.setOptions(options);
     }
@@ -43,25 +44,25 @@ export class RogerAnimation {
 
     /* PRIVATE METHODS */
     setSpriteAnimation(spriteSheet, frameList){
-        for(let i=0; i<frameList.length; i++){
-            this.spriteAnimation.push(spriteSheet.getSprite(frameList[i]));
-        }
+        frameList.forEach(frame => {
+            this.spriteAnimation.push(spriteSheet.getSprite(frame));
+        });
     }
     setOptions(options) {
         let defaultOptions = {
             delay: 0,
             loops: 0,
-            direction: DIRECTION_FORWARD,
+            direction: this.direction.FORWARD,
             callBack: null
         }
-        if(options){
+        if(options) {
             this.options = {
                 delay: options.delay ? options.delay : defaultOptions.delay,
                 loops: options.loops ? options.loops : defaultOptions.loops,
                 direction: options.direction ? options.direction : defaultOptions.direction,
                 callBack: options.callBack ? options.callBack : defaultOptions.callBack
             }
-        }else{
+        } else {
             this.options = defaultOptions;
         }
         this.resetAnimation();
@@ -74,12 +75,12 @@ export class RogerAnimation {
         let nextFrame;
         let frameLimit = this.spriteAnimation.length;
 
-        if(this.options.delayTime <= 0) {
-            if(this.options.direction === DIRECTION_FORWARD){
+        if (this.options.delayTime <= 0) {
+            if (this.options.direction === this.direction.FORWARD) {
                 nextFrame = currentFrame + 1;
-            }else if(this.options.direction === DIRECTION_BACKWARD){
+            } else if (this.options.direction === this.direction.BACKWARD) {
                 nextFrame = currentFrame - 1;
-            }else if(this.options.direction === DIRECTION_RANDOM){
+            } else if (this.options.direction === this.direction.RANDOM) {
                 nextFrame = Math.floor((Math.random() * frameLimit) + 0);
             }
         }else{
@@ -87,21 +88,21 @@ export class RogerAnimation {
             this.options.delayTime--;
         }
 
-        if(nextFrame >= frameLimit || nextFrame < 0){
-            if(this.options.loops === -1 || this.options.loopsNumber > 0){
-                if(nextFrame >= frameLimit){
+        if (nextFrame >= frameLimit || nextFrame < 0) {
+            if (this.options.loops === -1 || this.options.loopsNumber > 0) {
+                if (nextFrame >= frameLimit) {
                     nextFrame = 0;
-                }else if(nextFrame < 0){
+                } else if(nextFrame < 0) {
                     nextFrame = frameLimit;
                 }
-                if(this.options.loops != -1) {
+                if (this.options.loops != -1) {
                     this.options.loopsNumber--;
                 }
                 this.options.delayTime = this.options.delay;
-            }else{
+            } else {
                 nextFrame = -1;
             }
-            if(this.options.callBack != null){
+            if (this.options.callBack != null) {
                 this.options.callBack();
             }
         }
@@ -109,3 +110,5 @@ export class RogerAnimation {
         return nextFrame;
     }
 }
+
+// export default RogerAnimation;
