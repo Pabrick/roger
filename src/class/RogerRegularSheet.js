@@ -11,7 +11,7 @@
  */
 class RogerRegularSheet extends RogerSheet {
     constructor(url, sheetSize, spriteSize) {
-        let dataFrames = [];
+        let sprites = [];
         let currentX = 0;
         let currentY = 0;
         let framesHorizontal = Math.floor(sheetSize.w / spriteSize.w);
@@ -25,13 +25,13 @@ class RogerRegularSheet extends RogerSheet {
                     x: currentX,
                     y: currentY
                 }
-                dataFrames.push(sprite);
+                sprites.push(sprite);
                 currentX += spriteSize.w; 
             }
             currentX = 0;
             currentY += spriteSize.h;  
         }
-        super(url, sheetSize, dataFrames);
+        super(url, sheetSize, sprites);
     }
 }
 

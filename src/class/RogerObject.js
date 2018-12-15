@@ -6,68 +6,45 @@
  * @see RogerSprite
  */
 class RogerObject {
-    // constructor(id, clock, idleSprite) {
-    constructor(id, clock) {
+    constructor(id, clock, idle) {
         this.id = id;
         this.clock = clock;
+        this.idle = idle;
         this.domElem = document.getElementById(id);
         this.anim = [];
         this.currentAnimation;
         this.currentFrame;
         this.clock.addObject(this);
+        this.setSprite(idle);
     }
     /* PUBLIC METHODS */
     update() {
-        console.log(`${this.id} update!`);
-        /*
-        if(this.currentFrame != -1){
+        if(this.currentAnimation && this.currentFrame !== -1){
             this.setFrame(this.currentAnimation, this.currentFrame);
             this.currentFrame = this.currentAnimation.getNextFrame(this.currentFrame);
         }
-        */
     }
-    /**
-     * @method addAnimation
-     * @param {RogerAnimation} rogerAnimation
-     * @see RogerAnimation
-     */
     addAnimation(rogerAnimation) {
-        let currentName = rogerAnimation.getName();
-        if(this.getAnimationByName(currentName) === -1){
-            /*
-            let div = document.createElement('div');
-            div.id = currentName;
-            div.className = 'animation';
-            div.style.backgroundImage = `url('${rogerAnimation.getURL()}')`;
-            div.style.display = 'none';
-            this.elem.appendChild(div);
+        if (this.getAnimationIndexByName(rogerAnimation.getName()) === -1) {
             this.anim.push(rogerAnimation);
-            this.setFrame(rogerAnimation, 0);
-            */
-            this.anim.push(rogerAnimation);
-        }else{
+        } else {
             alert(`The RogerObject ${this.id} has ALREADY an animation with the name: ${currentName} \n Please choose another name and try it again.`);
         }
     }
     setDefaultAnimation(name) {
-        let shiftIndex = this.getAnimationByName(name);
-        let defaultAnimation = this.anim[this.getAnimationByName(name)].getAnimation();
+        let shiftIndex = this.getAnimationIndexByName(name);
+        let defaultAnimation = this.anim[this.getAnimationIndexByName(name)].getAnimation();
         this.anim[shiftIndex] = this.anim[0];
         this.anim[0] = defaultAnimation;
     }
     playAnimation(name) {
-        this.domElem.width = '2000px';
-        if(this.currentAnimation){
-            document.getElementById(this.currentAnimation.getName()).style.display = 'none';
-        }
-        this.currentAnimation = this.anim[this.getAnimationByName(name)].getAnimation();
+        this.currentAnimation = this.anim[this.getAnimationIndexByName(name)].getAnimation();
         this.currentFrame = 0;
         this.currentAnimation.resetAnimation();
-        document.getElementById(name).style.display = 'block';
     }
 
     /* PRIVATE METHODS */
-    getAnimationByName(name) {
+    getAnimationIndexByName(name) {
         let index = -1;
         for(let i=0; i<this.anim.length; i++){
             if(this.anim[i].getName() === name){
@@ -79,12 +56,14 @@ class RogerObject {
     setFrame(animation, frame) {
         this.currentAnimation = animation;
         this.currentFrame = frame;
-        let name = animation.getName();
-        let sprite = animation.getSprite(frame);
-        document.getElementById(name).style.width = sprite.getWidth();
-        document.getElementById(name).style.height = sprite.getHeight();
-        document.getElementById(name).style.backgroundPositionX = - sprite.getX() + "px";
-        document.getElementById(name).style.backgroundPositionY = - sprite.getY() + "px";
+        this.setSprite( animation.getSprite(frame) );
+    }
+    setSprite(sprite) {
+        this.domElem.style.backgroundImage = `url('${sprite.getURL()}')`;
+        this.domElem.style.width = sprite.getWidth() + 'px';
+        this.domElem.style.height = sprite.getHeight() + 'px';;
+        this.domElem.style.backgroundPositionX = - sprite.getX() + 'px';
+        this.domElem.style.backgroundPositionY = - sprite.getY() + 'px';
     }
 }
 
