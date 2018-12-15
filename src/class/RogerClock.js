@@ -28,8 +28,8 @@ class RogerClock {
         this.objects.push(rogerObject);
     }
     removeObject(rogerObject) {
-        //removeanimation
+        //removeRogerObject
     }
 }
 
-// export default RogerClock;
+export default RogerClock;

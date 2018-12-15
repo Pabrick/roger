@@ -1,3 +1,5 @@
+const EventEmitter = require('events');
+
 /**
  * @class RogerAnimation
  * @param {string} name name for the animation
@@ -9,18 +11,18 @@
  * @return {RogerSprite} sprite
  * @see RogerSprite
  */
-class RogerAnimation {
+class RogerAnimation extends EventEmitter{
     constructor(name, spriteSheet, frameList, options) {
-        this.name = name;
-        this.spriteSheetUrl = spriteSheet.getURL();
-        this.spriteAnimation = [];
+        super();
         this.direction = {
             FORWARD: 'forward',
             BACKWARD: 'backward',
             RANDOM: 'random',
         };
-        this.setSpriteAnimation(spriteSheet, frameList);
-        this.setOptions(options);
+        this.name = name;
+        this.spriteSheetUrl = spriteSheet.getURL();
+        this.spriteAnimation = this.getSpriteAnimation(spriteSheet, frameList);
+        this.options = this.getDefaultOptions(options);
     }
     /* PUBLIC METHODS */
     setOption(object) {
@@ -43,29 +45,30 @@ class RogerAnimation {
     }
 
     /* PRIVATE METHODS */
-    setSpriteAnimation(spriteSheet, frameList){
+    getSpriteAnimation(spriteSheet, frameList) {
+        let spriteAnimation = [];
         frameList.forEach(frame => {
-            this.spriteAnimation.push(spriteSheet.getSprite(frame));
+            spriteAnimation.push(spriteSheet.getSprite(frame));
         });
+        return spriteAnimation;
     }
-    setOptions(options) {
+    getDefaultOptions(options) {
         let defaultOptions = {
-            delay: 0,
+            delay: -1,
             loops: 0,
             direction: this.direction.FORWARD,
             callBack: null
         }
         if(options) {
-            this.options = {
-                delay: options.delay ? options.delay : defaultOptions.delay,
+            defaultOptions = {
+                delay: options.delay ? options.delay - 1 : defaultOptions.delay,
                 loops: options.loops ? options.loops : defaultOptions.loops,
                 direction: options.direction ? options.direction : defaultOptions.direction,
                 callBack: options.callBack ? options.callBack : defaultOptions.callBack
             }
-        } else {
-            this.options = defaultOptions;
         }
-        this.resetAnimation();
+        // this.resetAnimation();
+        return defaultOptions;
     }
     resetAnimation() {
         this.options.delayTime = this.options.delay - 1;
@@ -76,14 +79,22 @@ class RogerAnimation {
         let frameLimit = this.spriteAnimation.length;
 
         if (this.options.delayTime <= 0) {
-            if (this.options.direction === this.direction.FORWARD) {
-                nextFrame = currentFrame + 1;
-            } else if (this.options.direction === this.direction.BACKWARD) {
-                nextFrame = currentFrame - 1;
-            } else if (this.options.direction === this.direction.RANDOM) {
-                nextFrame = Math.floor((Math.random() * frameLimit) + 0);
+            switch (this.options.direction) {
+                case this.direction.FORWARD:
+                    nextFrame = currentFrame + 1;
+                    break;
+                case this.direction.BACKWARD:
+                    nextFrame = currentFrame - 1;
+                    break;
+                case this.direction.RANDOM:
+                    nextFrame = Math.floor((Math.random() * frameLimit) + 0);
+                    // NOTE: RANDOM animations have infinite loops
+                    break;
+                default:
+                    nextFrame = currentFrame + 1;
+                    break;
             }
-        }else{
+        } else {
             nextFrame = currentFrame;
             this.options.delayTime--;
         }
@@ -95,20 +106,21 @@ class RogerAnimation {
                 } else if(nextFrame < 0) {
                     nextFrame = frameLimit;
                 }
-                if (this.options.loops != -1) {
+                if (this.options.loops !== -1) {
                     this.options.loopsNumber--;
                 }
                 this.options.delayTime = this.options.delay;
             } else {
                 nextFrame = -1;
             }
-            if (this.options.callBack != null) {
+            if (this.options.callBack !== null) {
                 this.options.callBack();
             }
+            this.emit('finish');
         }
 
         return nextFrame;
     }
 }
 
-// export default RogerAnimation;
+export default RogerAnimation;

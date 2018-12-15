@@ -5,7 +5,7 @@ const Uglify = require("uglifyjs-webpack-plugin");
 
 module.exports = {
     entry: {
-        js: './src/roger.main.js'
+        js: './src/main.js'
         // js: glob.sync("./src/class/*.js")
     },
     output: {

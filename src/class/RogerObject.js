@@ -9,16 +9,25 @@ class RogerObject {
     constructor(id, clock, idle) {
         this.id = id;
         this.clock = clock;
-        this.idle = idle;
         this.domElem = document.getElementById(id);
         this.anim = [];
         this.currentAnimation;
         this.currentFrame;
         this.clock.addObject(this);
-        this.setSprite(idle);
+
+        if(idle) {
+            this.idle = idle;
+            this.setSprite(idle);
+        }
     }
     /* PUBLIC METHODS */
+
+    /**
+     * @method update
+     * @description this method is executed by the RogerClock, setting the next frame of the current 
+     */
     update() {
+        console.log(this.currentAnimation, this.currentFrame);
         if(this.currentAnimation && this.currentFrame !== -1){
             this.setFrame(this.currentAnimation, this.currentFrame);
             this.currentFrame = this.currentAnimation.getNextFrame(this.currentFrame);
@@ -31,17 +40,20 @@ class RogerObject {
             alert(`The RogerObject ${this.id} has ALREADY an animation with the name: ${currentName} \n Please choose another name and try it again.`);
         }
     }
+    playAnimation(name) {
+        console.log(name);
+        this.currentAnimation = this.anim[this.getAnimationIndexByName(name)].getAnimation();
+        this.currentFrame = 0;
+        this.currentAnimation.resetAnimation();
+    }
+/*
     setDefaultAnimation(name) {
         let shiftIndex = this.getAnimationIndexByName(name);
         let defaultAnimation = this.anim[this.getAnimationIndexByName(name)].getAnimation();
         this.anim[shiftIndex] = this.anim[0];
         this.anim[0] = defaultAnimation;
     }
-    playAnimation(name) {
-        this.currentAnimation = this.anim[this.getAnimationIndexByName(name)].getAnimation();
-        this.currentFrame = 0;
-        this.currentAnimation.resetAnimation();
-    }
+*/
 
     /* PRIVATE METHODS */
     getAnimationIndexByName(name) {
@@ -67,4 +79,4 @@ class RogerObject {
     }
 }
 
-// export default RogerObject;
+export default RogerObject;
