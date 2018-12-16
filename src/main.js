@@ -14,7 +14,7 @@ const animPablos_blink1 = new RogerAnimation('blink1',
                                                 [0,1,2,1,0],
                                                 { delay: 20, loops: 0, callBack: ()=>{
                                                     console.log('blink complete!');
-                                                    pabloObject.playAnimation('talk1');
+                                                    // pabloObject.playAnimation('talk1');
                                                 } });
 
 const animPablos_talk1 = new RogerAnimation('talk1',

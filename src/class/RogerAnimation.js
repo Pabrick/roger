@@ -98,7 +98,7 @@ class RogerAnimation {
             nextFrame = currentFrame;
             this.options.delayTime--;
         }
-
+/*
         if (nextFrame >= frameLimit || nextFrame < 0) {
             if (this.options.loops === -1 || this.options.loopsNumber > 0) {
                 if (nextFrame >= frameLimit) {
@@ -118,7 +118,7 @@ class RogerAnimation {
             }
             // this.emit('finish');
         }
-
+*/
         return nextFrame;
     }
 }

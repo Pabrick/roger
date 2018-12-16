@@ -24,15 +24,12 @@ class RogerObject {
      * @description this method should be executed by events of RogerClock, setting the next frame of the current 
      */
     update() {
-        console.log(this.currentAnimation.name, this.currentFrame);
-        if(this.currentAnimation) {
-            console.log('entra');
+        console.log(this.currentAnimation, this.currentFrame);
+        if(this.currentAnimation && this.currentFrame !== -1) {
             this.setFrame(this.currentAnimation, this.currentFrame);
-            // this.currentFrame = this.currentAnimation.getNextFrame(this.currentFrame);
-        } else {
-            console.log('sale');
+            this.currentFrame = this.currentAnimation.getNextFrame(this.currentFrame);
+            console.log(this.currentFrame);
         }
-        // console.log('update', this.currentAnimation.name, this.currentFrame);
     }
     addAnimation(rogerAnimation) {
         if (this.getAnimationIndexByName(rogerAnimation.getName()) === -1) {
@@ -72,7 +69,7 @@ class RogerObject {
         this.setSprite( animation.getSprite(frame) );
     }
     setSprite(sprite) {
-        console.log(sprite);
+        // console.log(sprite);
         this.domElem.style.backgroundImage = `url('${sprite.getURL()}')`;
         this.domElem.style.width = sprite.getWidth() + 'px';
         this.domElem.style.height = sprite.getHeight() + 'px';;
