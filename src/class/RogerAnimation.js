@@ -1,4 +1,4 @@
-const EventEmitter = require('events');
+// const EventEmitter = require('events');
 
 /**
  * @class RogerAnimation
@@ -11,9 +11,9 @@ const EventEmitter = require('events');
  * @return {RogerSprite} sprite
  * @see RogerSprite
  */
-class RogerAnimation extends EventEmitter{
+class RogerAnimation {
     constructor(name, spriteSheet, frameList, options) {
-        super();
+        // super();
         this.direction = {
             FORWARD: 'forward',
             BACKWARD: 'backward',
@@ -54,14 +54,14 @@ class RogerAnimation extends EventEmitter{
     }
     getDefaultOptions(options) {
         let defaultOptions = {
-            delay: -1,
+            delay: 0,
             loops: 0,
             direction: this.direction.FORWARD,
             callBack: null
         }
         if(options) {
             defaultOptions = {
-                delay: options.delay ? options.delay - 1 : defaultOptions.delay,
+                delay: options.delay ? options.delay : defaultOptions.delay,
                 loops: options.loops ? options.loops : defaultOptions.loops,
                 direction: options.direction ? options.direction : defaultOptions.direction,
                 callBack: options.callBack ? options.callBack : defaultOptions.callBack
@@ -116,11 +116,11 @@ class RogerAnimation extends EventEmitter{
             if (this.options.callBack !== null) {
                 this.options.callBack();
             }
-            this.emit('finish');
+            // this.emit('finish');
         }
 
         return nextFrame;
     }
 }
 
-export default RogerAnimation;
+// export default RogerAnimation;

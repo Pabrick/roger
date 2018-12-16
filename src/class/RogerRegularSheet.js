@@ -1,4 +1,4 @@
-import RogerSheet from './RogerSheet.js';
+// import RogerSheet from './RogerSheet.js';
 
 /**
  * @class RogerRegularSheet
@@ -35,4 +35,4 @@ class RogerRegularSheet extends RogerSheet {
     }
 }
 
-export default RogerRegularSheet;
+// export default RogerRegularSheet;

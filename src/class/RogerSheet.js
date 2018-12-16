@@ -1,4 +1,4 @@
-import RogerSprite from './RogerSprite.js';
+// import RogerSprite from './RogerSprite.js';
 
 /**
  * @class RogerSheet
@@ -28,4 +28,4 @@ class RogerSheet {
     }
 }
 
-export default RogerSheet;
+// export default RogerSheet;

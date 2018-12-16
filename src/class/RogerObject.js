@@ -1,19 +1,16 @@
 /**
  * @class RogerObject
  * @param {string} id id of the element of the DOM linked to the object
- * @param {RogerClock} clock clock linked to the project, the one to set the delta time
  * @return {string} animationName
  * @see RogerSprite
  */
 class RogerObject {
-    constructor(id, clock, idle) {
+    constructor(id, idle) {
         this.id = id;
-        this.clock = clock;
         this.domElem = document.getElementById(id);
         this.anim = [];
         this.currentAnimation;
         this.currentFrame;
-        this.clock.addObject(this);
 
         if(idle) {
             this.idle = idle;
@@ -24,14 +21,18 @@ class RogerObject {
 
     /**
      * @method update
-     * @description this method is executed by the RogerClock, setting the next frame of the current 
+     * @description this method should be executed by events of RogerClock, setting the next frame of the current 
      */
     update() {
-        console.log(this.currentAnimation, this.currentFrame);
-        if(this.currentAnimation && this.currentFrame !== -1){
+        console.log(this.currentAnimation.name, this.currentFrame);
+        if(this.currentAnimation) {
+            console.log('entra');
             this.setFrame(this.currentAnimation, this.currentFrame);
-            this.currentFrame = this.currentAnimation.getNextFrame(this.currentFrame);
+            // this.currentFrame = this.currentAnimation.getNextFrame(this.currentFrame);
+        } else {
+            console.log('sale');
         }
+        // console.log('update', this.currentAnimation.name, this.currentFrame);
     }
     addAnimation(rogerAnimation) {
         if (this.getAnimationIndexByName(rogerAnimation.getName()) === -1) {
@@ -71,6 +72,7 @@ class RogerObject {
         this.setSprite( animation.getSprite(frame) );
     }
     setSprite(sprite) {
+        console.log(sprite);
         this.domElem.style.backgroundImage = `url('${sprite.getURL()}')`;
         this.domElem.style.width = sprite.getWidth() + 'px';
         this.domElem.style.height = sprite.getHeight() + 'px';;
@@ -79,4 +81,4 @@ class RogerObject {
     }
 }
 
-export default RogerObject;
+// export default RogerObject;

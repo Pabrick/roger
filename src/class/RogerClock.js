@@ -6,14 +6,17 @@
 class RogerClock {
     constructor(delta) {
         this.delta = delta;
+        this.deltaTime = this.delta * 1000;
         this.clock = 0;
         this.clockInterval;
-        this.deltaTime = this.delta * 1000;
         this.objects = [];
     }
     /* PUBLIC METHODS */
     init() {
         this.clock = 0;
+    }
+    start() {
+        this.init();
         this.clockInterval = setInterval(() => this.update(), this.deltaTime);
     }
     stop() {
@@ -22,14 +25,14 @@ class RogerClock {
     update() {
         this.clock = Math.round( (this.clock + this.delta) * 10 ) / 10;
         this.objects.forEach(obj => { obj.update(); });
-        // console.log(this.clock);
     }
-    addObject(rogerObject) {
+    addObjectToUpdate(rogerObject) {
         this.objects.push(rogerObject);
     }
-    removeObject(rogerObject) {
-        //removeRogerObject
+    clearObjectToUpdate() {
+        this.objects = [];
     }
+
 }
 
-export default RogerClock;
+// export default RogerClock;
