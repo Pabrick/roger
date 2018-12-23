@@ -23,7 +23,9 @@ class RogerAnimation {
         this.spriteSheetUrl = spriteSheet.getURL();
         this.spriteAnimation = this.getSpriteAnimation(spriteSheet, frameList);
         this.options = this.getDefaultOptions(options);
+        this.isFinished = false;
     }
+
     /* PUBLIC METHODS */
     setOption(object) {
         this.options = object;
@@ -42,6 +44,18 @@ class RogerAnimation {
     }
     getSprite(number) {
         return this.spriteAnimation[number];
+    }
+
+    hasFinished() {
+        return this.isFinished;
+    }
+    hasCallBack() {
+        return (this.options && this.options.callBack) ? true : false;
+    }
+    executeCallBack() {
+        if(this.hasCallBack()) {
+            this.options.callBack();
+        }
     }
 
     /* PRIVATE METHODS */
@@ -77,7 +91,9 @@ class RogerAnimation {
     getNextFrame(currentFrame) {
         let nextFrame;
         let frameLimit = this.spriteAnimation.length;
+        this.isFinished = false;
 
+        // Calculate NextFrame if delayTime is over
         if (this.options.delayTime <= 0) {
             switch (this.options.direction) {
                 case this.direction.FORWARD:
@@ -98,7 +114,8 @@ class RogerAnimation {
             nextFrame = currentFrame;
             this.options.delayTime--;
         }
-/*
+
+        // RECALCULATE NextFrame in case it's out of the limits
         if (nextFrame >= frameLimit || nextFrame < 0) {
             if (this.options.loops === -1 || this.options.loopsNumber > 0) {
                 if (nextFrame >= frameLimit) {
@@ -112,13 +129,10 @@ class RogerAnimation {
                 this.options.delayTime = this.options.delay;
             } else {
                 nextFrame = -1;
+                this.isFinished = true;
             }
-            if (this.options.callBack !== null) {
-                this.options.callBack();
-            }
-            // this.emit('finish');
         }
-*/
+
         return nextFrame;
     }
 }

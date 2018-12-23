@@ -12,10 +12,11 @@ const pabloIdleSprite = new RogerSprite('img/damn_pablos_heads.png', {w:54,h:90}
 const animPablos_blink1 = new RogerAnimation('blink1',
                                                 ssPablosHeads,
                                                 [0,1,2,1,0],
-                                                { delay: 20, loops: 0, callBack: ()=>{
-                                                    console.log('blink complete!');
-                                                    // pabloObject.playAnimation('talk1');
-                                                } });
+                                                { delay: 20, loops: 0, callBack: ()=> {
+                                                        console.log('blink complete!');
+                                                        // pabloObject.playAnimation('blink2');
+                                                    }
+                                                });
 
 const animPablos_talk1 = new RogerAnimation('talk1',
                                                ssPablosHeads,
@@ -25,7 +26,11 @@ const animPablos_talk1 = new RogerAnimation('talk1',
 const animPablos_blink2 = new RogerAnimation('blink2', 
                                                 ssPablosHeads,
                                                 [9,10,11,10,9],
-                                                { delay: 10, callBack: ()=>console.log('blink2 complete!') });
+                                                { delay: 10, callBack: ()=> {
+                                                        console.log('blink2 complete!');
+                                                        // pabloObject.playAnimation('blink1');
+                                                    }
+                                                });
                                                 
 const animPablos_talk2 = new RogerAnimation('talk2', 
                                                ssPablosHeads,
@@ -33,10 +38,12 @@ const animPablos_talk2 = new RogerAnimation('talk2',
                                                { callBack: ()=>console.log('talk2 complete!') });
 
 const pabloObject = new RogerObject('pablo');
+
 pabloObject.addAnimation(animPablos_blink1);
 pabloObject.addAnimation(animPablos_blink2);
 pabloObject.addAnimation(animPablos_talk1);
 pabloObject.addAnimation(animPablos_talk2);
+
 pabloObject.playAnimation('blink1');
 
 const rClock = new RogerClock(0.1);

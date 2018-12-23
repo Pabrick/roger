@@ -11,10 +11,11 @@ class RogerObject {
         this.anim = [];
         this.currentAnimation;
         this.currentFrame;
+        this.isAnimationPlaying = false;
 
         if(idle) {
             this.idle = idle;
-            this.setSprite(idle);
+            this.paintSprite(idle);
         }
     }
     /* PUBLIC METHODS */
@@ -24,34 +25,44 @@ class RogerObject {
      * @description this method should be executed by events of RogerClock, setting the next frame of the current 
      */
     update() {
-        console.log(this.currentAnimation, this.currentFrame);
-        if(this.currentAnimation && this.currentFrame !== -1) {
+        if(this.isAnimationPlaying) {
+
             this.setFrame(this.currentAnimation, this.currentFrame);
             this.currentFrame = this.currentAnimation.getNextFrame(this.currentFrame);
-            console.log(this.currentFrame);
+
+            if (this.currentAnimation.hasFinished()) {
+
+                this.isAnimationPlaying = false;
+                if (this.currentAnimation.hasCallBack()) {
+                    this.currentAnimation.executeCallBack();
+                } else {
+                    this.stopAnimation(this.currentAnimation.getName());  
+                }
+
+            }
         }
     }
     addAnimation(rogerAnimation) {
         if (this.getAnimationIndexByName(rogerAnimation.getName()) === -1) {
             this.anim.push(rogerAnimation);
+            this.setFrame(rogerAnimation, 0);
         } else {
             alert(`The RogerObject ${this.id} has ALREADY an animation with the name: ${currentName} \n Please choose another name and try it again.`);
         }
     }
     playAnimation(name) {
-        console.log(name);
+        console.log('Play animation: ' + name);
+        this.isAnimationPlaying = true;
         this.currentAnimation = this.anim[this.getAnimationIndexByName(name)].getAnimation();
         this.currentFrame = 0;
         this.currentAnimation.resetAnimation();
     }
-/*
-    setDefaultAnimation(name) {
-        let shiftIndex = this.getAnimationIndexByName(name);
-        let defaultAnimation = this.anim[this.getAnimationIndexByName(name)].getAnimation();
-        this.anim[shiftIndex] = this.anim[0];
-        this.anim[0] = defaultAnimation;
+    stopAnimation(name) {
+        console.log('Stop animation: ' + name);
+        this.isAnimationPlaying = false;
+        this.currentFrame = 0;
+        this.paintSprite( this.anim[0].getSprite(0) );
     }
-*/
 
     /* PRIVATE METHODS */
     getAnimationIndexByName(name) {
@@ -66,10 +77,9 @@ class RogerObject {
     setFrame(animation, frame) {
         this.currentAnimation = animation;
         this.currentFrame = frame;
-        this.setSprite( animation.getSprite(frame) );
+        this.paintSprite( animation.getSprite(frame) );
     }
-    setSprite(sprite) {
-        // console.log(sprite);
+    paintSprite(sprite) {
         this.domElem.style.backgroundImage = `url('${sprite.getURL()}')`;
         this.domElem.style.width = sprite.getWidth() + 'px';
         this.domElem.style.height = sprite.getHeight() + 'px';;
