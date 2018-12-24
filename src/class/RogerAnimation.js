@@ -134,4 +134,4 @@ class RogerAnimation {
     }
 }
 
-// export default RogerAnimation;
+export default RogerAnimation;

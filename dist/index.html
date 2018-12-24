@@ -3,13 +3,30 @@
     <head>
         <meta charset="utf-8">
         <title>Roger.js</title>
+        <style>
+            .wrapper {
+                width: 230px;
+                margin: 0 auto;
+            }
+            button {
+                display: block;
+                width: 100%;
+                padding: 10px 0;
+                margin: 20px 0;
+            }
+        </style>
     </head>
     <body>
-        <div id="horse"></div>
 
-        <button onclick="horseObject.playAnimation('horse2dragon')">Horse 2 Dragon</button>
-        <button onclick="horseObject.playAnimation('dragon2horse')">Dragon 2 Horse</button>
-        
+        <div class="wrapper">
+            <div id="horse"></div>
+            <button id="btHorse2Dragon">Horse 2 Dragon</button>
+            <button id="btDragon2Horse">Dragon 2 Horse</button>
+            <button id="btWat">WAT</button>
+            <button id="btUnWat">UNWAT</button>
+        </div>
+            
+    <!--
         <script src="../src/class/RogerClock.js"></script>
         <script src="../src/class/RogerSprite.js"></script>
         <script src="../src/class/RogerSheet.js"></script>
@@ -17,8 +34,7 @@
         <script src="../src/class/RogerAnimation.js"></script>
         <script src="../src/class/RogerObject.js"></script>
         <script src="../src/main.js"></script>    
-        <!--
+    -->
         <script src="js/roger.main.js"></script>
-        -->
     </body>
 </html>
