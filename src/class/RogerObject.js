@@ -1,6 +1,7 @@
 /**
  * @class RogerObject
  * @param {string} id id of the element of the DOM linked to the object
+ * @param {RogerSprite} idle sprite as default while to animation is stopped
  * @return {string} animationName
  * @see RogerSprite
  */
@@ -8,7 +9,7 @@ class RogerObject {
     constructor(id, idle) {
         this.id = id;
         this.domElem = document.getElementById(id);
-        this.anim = [];
+        this.anim = new Map();
         this.currentAnimation;
         this.currentFrame;
         this.isAnimationPlaying = false;
@@ -43,17 +44,17 @@ class RogerObject {
         }
     }
     addAnimation(rogerAnimation) {
-        if (this.getAnimationIndexByName(rogerAnimation.getName()) === -1) {
-            this.anim.push(rogerAnimation);
-            this.setFrame(rogerAnimation, 0);
+        const animationName = rogerAnimation.getName();
+        if (!this.anim.has(animationName)) {
+            this.anim.set(animationName, rogerAnimation);
         } else {
-            alert(`The RogerObject ${this.id} has ALREADY an animation with the name: ${currentName} \n Please choose another name and try it again.`);
+            alert(`The RogerObject ${this.id} has ALREADY an animation with the name: ${animationName} \n Please choose another name and try it again.`);
         }
     }
     playAnimation(name) {
         console.log('Play animation: ' + name);
         this.isAnimationPlaying = true;
-        this.currentAnimation = this.anim[this.getAnimationIndexByName(name)].getAnimation();
+        this.currentAnimation = this.anim.get(name);
         this.currentFrame = 0;
         this.currentAnimation.resetAnimation();
     }
@@ -65,15 +66,6 @@ class RogerObject {
     }
 
     /* PRIVATE METHODS */
-    getAnimationIndexByName(name) {
-        let index = -1;
-        for(let i=0; i<this.anim.length; i++){
-            if(this.anim[i].getName() === name){
-                index = i;
-            }
-        }
-        return index;
-    }
     setFrame(animation, frame) {
         this.currentAnimation = animation;
         this.currentFrame = frame;

@@ -33,9 +33,6 @@ class RogerAnimation {
     setLoop(boolean) {
         this.options.loop = boolean;
     }
-    getAnimation() {
-        return this;
-    }
     getName() {
         return this.name;
     }
