@@ -1,11 +1,11 @@
-var webpack = require('webpack');
 var path = require('path');
+var webpack = require('webpack');
 var glob = require("glob");
 const Uglify = require("uglifyjs-webpack-plugin");
 
 module.exports = {
     entry: {
-        js: './src/roger.main.js'
+        js: './src/main.js'
         // js: glob.sync("./src/class/*.js")
     },
     output: {
@@ -25,8 +25,8 @@ module.exports = {
         ]
     },
     plugins: [
-        new Uglify()
-        // new webpack.optimize.UglifyJsPlugin()
+        // new Uglify()
+        new webpack.optimize.UglifyJsPlugin()
     ],
     stats: {
         colors: true

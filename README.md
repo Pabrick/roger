@@ -3,12 +3,18 @@
 # ROGER.JS
 # The easiest animation library for frame by frame animations
 
-Roger.js is a personal project made it entirely in ECMAScript 6 by Pablo J. Beneyto.
+Roger.js is a personal project made it entirely in EcmaScript by **Pablo Jiménez Beneyto**.
 Focus on having an easy animation library for my pixel art and my browser games,
 I decide to create it instead of using another game engines or libraries such as Phaser.JS.
-PLUS I could try all the new things ECMAScript6 comes within and I cann't use in my workday.
+PLUS I could try all the new things EcmaScript6 comes within and I can't use in my workday.
 
 So, welcome!
+
+## Version: 1.0.4
+I give up a little bit on my TypeScript version ![Roger.ts](https://github.com/Pabrick/roger.ts.git), because I like to focus on the new EcmaScript possibilities and because I would like to make this library the spine of a browser game made entirely with VanillaJS.
+So I'd improved a little bit this project, using **Maps** instead some **Arrays**, and avoid crossed references.
+The **RogerObject** don't have to me instanciated with a clock, making easier to handle, from the **RogerClock**.
+I have get rid of the CSS, so everything is done dynamically (so cool).
 
 ## Version: 1.0.3
 I have evolved this project into a TypeScript project, so I stop right here, until I discover how to bundle all the classes properly.
@@ -31,14 +37,15 @@ First add the library to your project:
 
 ### 1. The Clock (RogerClock)
 
-Like all the videogames an state machines we need some clock signal attached to the delta.
+Like all the videogames thast use a finite-state machine, we need some clock signal attached to the delta.
 We are going to use **delta** as the elapsed time between one frame and another, so be careful about that!
 Our **delta** is going to be **0.1**.
 We use our **RogerClock** for that purpose:
 ```
-var rClock = new RogerClock(0.1);
-rClock.init();
+const rClock = new RogerClock(0.1);
+rClock.start();
 ```
+**We will link our animations to this clock later!**
 
 ### 2. The Sprite Sheet (RogerSheet)
 
@@ -76,9 +83,9 @@ we just give and object with the size of the sprite (and how all the sprites are
 }
 ```
 
-So, how our sprite sheet has all the sprites of the same size, we can use the shorter way:
+So, like our sprite sheet has all the sprites of the same size, we can use the shorter way:
 ```
-var ss_damnPablosHeads = new RogerSheet("img/damn_pablos_heads.png", 512, 512, [{w:54,h:90}]);
+var ss_damnPablosHeads = new RogerRegularSheet("img/damn_pablos_heads.png", {w:512, h:512}, [{w:54,h:90}]);
 ```
 Here's a tip of how this sprite sheet is made:
 
@@ -113,44 +120,63 @@ But you can custom your options like this:
 - Delay: time in **deltas** before your animation starts moving
 - Loops: number of times your animations will repeat. **0 (Zero) plays once, and -1 plays infinite times**
 - Direction: direction of the animation, by the time I only have: "forward", "backward" and "random" **IMPORTANT: "random" also makes your animation plays infinite times**
-- Call Back: just in case you need it, you can add one function and it will execute at the end of the loop.
+- CallBack: just in case you need it, you can add one function and it will execute at the end of the loop.
 
 ### 4. The DisplayObject (RogerObject)
 
 As a Adobe Flash user and lover I have design the library in the same way. You have an visual object and you attach it animations. But only one animation will be playing at the same time.
 We give it the params:
 - ID of the DIV in the HTML
-- Instance of the clock (RogerClock in our case).
 
-**HTML (index.html)**
+
+## Let's use it! ##
+
+1º We instanciate our sprite sheet
 ```
-<html>
-    <head>
-        <title>Roger.js</title>
-        <link rel="stylesheet" href="css/roger.css">
-    </head>
-    <body>
-        <div id="pablo"></div>
-        <script src="js/roger.bundle.js"></script>
-        <script src="js/main.js"></script>
-    </body>
-</html>
+const ssPablosHeads = new RogerRegularSheet('img/damn_pablos_heads.png', {w:512,h:512}, {w:54,h:90});
 ```
 
-**JS (main.js)**
+2º We create some animations
 ```
-var pablo = new RogerObject("pablo", rClock);
+const animPablos_blink1 = new RogerAnimation('blink1',
+                                                ssPablosHeads,
+                                                [0,1,2,1,0],
+                                                { delay: 5, loops: -1, callBack: ()=> {
+                                                        console.log('blink complete!');
+                                                    }
+                                                });
 ```
 
-At last we add our animations to our RogerObject:
+2º We create animation controller or DisplayObject
 ```
-pablo.addAnimation(anim_damnPablos_blink1);
+const pabloObject = new RogerObject('pablo');
 ```
 
-## Let's play
-
-Now we can play any animation added to our RogerObject like this:
-
+3º We add the animations we desire to our RogerObject
 ```
-pablo.playAnimation("blink1");
+pabloObject.addAnimation(animPablos_blink1);
 ```
+
+4º We set this animation as our current playing animation
+```
+pabloObject.playAnimation('blink1');
+```
+But for the moment we can't see it, because we don't have a clock associated to that RogerObject,
+so let's create one.
+
+5º We create the clock that makes everything work and tic at the same tempo
+```
+const rClock = new RogerClock(0.1);
+```
+
+6º Now we only have to link our animation to the clock
+```
+rClock.addObjectToUpdate(pabloObject);
+```
+
+7º Whenever you want **START**
+```
+rClock.start();
+```
+
+**THANKS!**

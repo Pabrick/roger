@@ -1,21 +1,19 @@
-import { RogerSheet } from './RogerSheet.class';
+// import RogerSheet from './RogerSheet.js';
 
 /**
  * @class RogerRegularSheet
  * @description this sprite sheet has ALL the sprites of the same size
- * @param url [string] an absolute URL giving the base location of the spritesheet
- * @param sheetSize [object] {w:total width of the sheet, h:total height of the sheet }
- * @param spriteSize [object] {w:total width of the sprite, h:total height of the sprite }
- * @return url [String]
+ * @param {string} url an absolute URL giving the base location of the spritesheet
+ * @param {Object} sheetSize {w:total width of the sheet, h:total height of the sheet }
+ * @param {Object} spriteSize {w:total width of the sprite, h:total height of the sprite }
+ * @return {string} url [String]
  * @return sprite [RogerSprite]
  */
-export class RogerRegularSheet extends RogerSheet {
+class RogerRegularSheet extends RogerSheet {
     constructor(url, sheetSize, spriteSize) {
-        let dataFrames = [];
-
+        let sprites = [];
         let currentX = 0;
         let currentY = 0;
-        let index = 0;
         let framesHorizontal = Math.floor(sheetSize.w / spriteSize.w);
         let framesVertical  = Math.floor(sheetSize.h / spriteSize.h);
 
@@ -27,13 +25,14 @@ export class RogerRegularSheet extends RogerSheet {
                     x: currentX,
                     y: currentY
                 }
-                dataFrames.push(sprite);
+                sprites.push(sprite);
                 currentX += spriteSize.w; 
-                index++;
             }
             currentX = 0;
             currentY += spriteSize.h;  
         }
-        super(url, sheetSize, dataFrames);
+        super(url, sheetSize, sprites);
     }
 }
+
+// export default RogerRegularSheet;

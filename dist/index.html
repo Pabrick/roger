@@ -1,16 +1,26 @@
-<html>
+<!doctype html>
+<html lang="en">
     <head>
+        <meta charset="utf-8">
         <title>Roger.js</title>
-        <link rel="stylesheet" href="css/roger.css">
     </head>
     <body>
         <div style="height: 230px; width: 230px;">
-            <div id="horse"></div>
         </div>
+        <div id="horse"></div>
 
         <button onclick="horse.playAnimation('horse2dragon')">Horse 2 Dragon</button>
         <button onclick="horse.playAnimation('dragon2horse')">Dragon 2 Horse</button>
-        <script src="js/roger.js"></script>
-        <script src="js/main.js"></script>
+        
+        <script src="../src/class/RogerClock.js"></script>
+        <script src="../src/class/RogerSprite.js"></script>
+        <script src="../src/class/RogerSheet.js"></script>
+        <script src="../src/class/RogerRegularSheet.js"></script>
+        <script src="../src/class/RogerAnimation.js"></script>
+        <script src="../src/class/RogerObject.js"></script>
+        <script src="../src/main.js"></script>    
+        <!--
+        <script src="js/roger.main.js"></script>
+        -->
     </body>
 </html>
