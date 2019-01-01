@@ -6,11 +6,7 @@
     "text": "This project has evolve to a TypeScript project, so I will continue developing there",
     "url": "git+https://github.com/Pabrick/roger.ts.git"
   },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "http-server",
-    "webpack": "webpack"
-  },
+  "main": "src/roger.js",
   "author": "Pablo Jiménez Beneyto",
   "homepage": "https://github.com/Pabrick/roger#readme",
   "license": "ISC",
