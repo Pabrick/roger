@@ -11,14 +11,14 @@ PLUS I could try all the new things EcmaScript6 comes within and I can't use in 
 So, welcome!
 
 ## Version: 1.0.4
-I give up a little bit on my TypeScript version ![Roger.ts](https://github.com/Pabrick/roger.ts.git), because I like to focus on the new EcmaScript possibilities and because I would like to make this library the spine of a browser game made entirely with VanillaJS.
+I give up a little bit on my TypeScript version ~~Roger.ts~~, because I like to focus on the new EcmaScript possibilities and because I would like to make this library the spine of a browser game made entirely with VanillaJS.
 So I'd improved a little bit this project, using **Maps** instead some **Arrays**, and avoid crossed references.
 The **RogerObject** don't have to me instanciated with a clock, making easier to handle, from the **RogerClock**.
 I have get rid of the CSS, so everything is done dynamically (so cool).
 
 ## Version: 1.0.3
 I have evolved this project into a TypeScript project, so I stop right here, until I discover how to bundle all the classes properly.
-In the meantime, I will continue developing in ![Roger.ts](https://github.com/Pabrick/roger.ts.git)
+In the meantime, I will continue developing in ~~Roger.ts~~
 
 ## Version: 1.0.1
 I have inlcude a new RogerSheet: the RogerRegularSheet.
@@ -27,10 +27,14 @@ Instead pasing as parameter an array with all the sizes and positions, we only g
 So it will be easier!
 
 
-
 ## Let's begin!
 
-First add the library to your project:
+First install the library from NPM:
+```
+npm i roger.js
+```
+
+Or add it manually to your project:
 ```
 <script src="js/roger.bundle.js"></script>
 ```
