@@ -1,6 +1,6 @@
 {
   "name": "roger.js",
-  "version": "1.0.4",
+  "version": "1.0.6",
   "description": "An easy javascript library for frame by frame animation with spritesheets",
   "evolution": {
     "text": "This project has evolve to a TypeScript project, so I will continue developing there",
@@ -11,7 +11,7 @@
     "start": "http-server",
     "webpack": "webpack"
   },
-  "author": "Pablo J. Beneyto",
+  "author": "Pablo Jiménez Beneyto",
   "homepage": "https://github.com/Pabrick/roger#readme",
   "license": "ISC",
   "repository": {
@@ -37,10 +37,8 @@
     "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.7.0",
     "eslint": "^4.7.2",
+    "uglify-js": "^3.3.27",
     "uglifyjs-webpack-plugin": "^1.0.1",
     "webpack": "^3.8.1"
-  },
-  "dependencies": {
-    "uglify-js": "^3.3.27"
   }
 }

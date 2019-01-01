@@ -80,4 +80,4 @@ class RogerObject {
     }
 }
 
-// export default RogerObject;
+export default RogerObject;

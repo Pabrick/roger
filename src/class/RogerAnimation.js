@@ -1,5 +1,3 @@
-// const EventEmitter = require('events');
-
 /**
  * @class RogerAnimation
  * @param {string} name name for the animation
@@ -13,7 +11,6 @@
  */
 class RogerAnimation {
     constructor(name, spriteSheet, frameList, options) {
-        // super();
         this.direction = {
             FORWARD: 'forward',
             BACKWARD: 'backward',
@@ -134,4 +131,4 @@ class RogerAnimation {
     }
 }
 
-// export default RogerAnimation;
+export default RogerAnimation;

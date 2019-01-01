@@ -1,11 +1,11 @@
 'use strict';
-/*
+
 import RogerClock from './class/RogerClock.js';
 import RogerSprite from './class/RogerSprite.js';
 import RogerRegularSheet from './class/RogerRegularSheet.js';
 import RogerAnimation from './class/RogerAnimation.js';
 import RogerObject from './class/RogerObject.js';
-*/
+
 const ssPablosHeads = new RogerRegularSheet('img/damn_pablos_heads.png', {w:512,h:512}, {w:54,h:90});
 const pabloIdleSprite = new RogerSprite('img/damn_pablos_heads.png', {w:54,h:90}, {x:0,y:0});
 
