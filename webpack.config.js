@@ -4,13 +4,17 @@ var glob = require("glob");
 const Uglify = require("uglifyjs-webpack-plugin");
 
 module.exports = {
+    devtool: 'source-map',
     entry: {
-        js: './src/main.js'
-        // js: glob.sync("./src/class/*.js")
+        js: './src/js/roger.js'
+        // js: glob.sync("./src/js/class/*.js")
     },
     output: {
-        path: path.resolve(__dirname, 'dist/js'),
-        filename: 'roger.main.js'
+        filename: 'roger.main.js',
+        path: path.resolve(__dirname, 'dist'),
+        pathinfo: true,
+        sourceMapFilename: "./roger.main.js.map",
+        devtoolLineToLine: true
     },
     module: {
         loaders: [
@@ -30,6 +34,5 @@ module.exports = {
     ],
     stats: {
         colors: true
-    },
-    devtool: 'source-map'
+    }
 };
