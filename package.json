@@ -1,12 +1,13 @@
 {
-  "name": "roger.js",
-  "version": "1.0.6",
+  "name": "@pabrick/roger.js",
+  "version": "1.0.7",
   "description": "An easy javascript library for frame by frame animation with spritesheets",
-  "evolution": {
-    "text": "This project has evolve to a TypeScript project, so I will continue developing there",
-    "url": "git+https://github.com/Pabrick/roger.ts.git"
-  },
   "main": "lib/roger.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "http-server",
+    "webpack": "webpack"
+  },
   "author": "Pablo Jiménez Beneyto",
   "homepage": "https://github.com/Pabrick/roger#readme",
   "license": "ISC",
@@ -26,17 +27,5 @@
     "roger",
     "rabbit",
     "sp"
-  ],
-  "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.3",
-    "babel-eslint": "^10.0.1",
-    "babel-loader": "^8.0.5",
-    "babel-plugin-add-module-exports": "^1.0.0",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-es2015": "^6.24.1",
-    "eslint": "^5.12.0",
-    "eslint-loader": "^2.1.1",
-    "webpack": "^4.28.4"
-  }
+  ]
 }

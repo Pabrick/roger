@@ -16,13 +16,26 @@ class RogerAnimation {
             BACKWARD: 'backward',
             RANDOM: 'random',
         };
-        this.name = name;
-        this.spriteSheetUrl = spriteSheet.getURL();
+        this.animName = name;
+        this.spriteSheetUrl = spriteSheet.url;
         this.spriteAnimation = this.getSpriteAnimation(spriteSheet, frameList);
         this.options = this.getDefaultOptions(options);
         this.isFinished = false;
     }
 
+    get name() {
+        return this.animName;
+    }
+    get url() {
+        return this.spriteSheetUrl;
+    }
+    get hasCallBack() {
+        return (this.options && this.options.callBack) ? true : false;
+    }
+    get hasFinished() {
+        return this.isFinished;
+    }
+    
     /* PUBLIC METHODS */
     setOption(object) {
         this.options = object;
@@ -30,24 +43,11 @@ class RogerAnimation {
     setLoop(boolean) {
         this.options.loop = boolean;
     }
-    getName() {
-        return this.name;
-    }
-    getURL() {
-        return this.spriteSheetUrl;
-    }
     getSprite(number) {
         return this.spriteAnimation[number];
     }
-
-    hasFinished() {
-        return this.isFinished;
-    }
-    hasCallBack() {
-        return (this.options && this.options.callBack) ? true : false;
-    }
     executeCallBack() {
-        if(this.hasCallBack()) {
+        if(this.hasCallBack) {
             this.options.callBack();
         }
     }
