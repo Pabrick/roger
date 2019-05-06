@@ -1,38 +1,31 @@
 /**
  * @class RogerSprite
  * @description Sprite is the minimun element. It's a frame, an image inside another 
- * @param {url} url an absolute URL giving the base location of the spritesheet
- * @param {number} w width of the sprite
- * @param {number} h height of the sprite
- * @param {number} x top position on the sprite sheet from 0,0
- * @param {number} y left position on the sprite sheet from 0,0
- * @return {number} width
- * @return {number} height
- * @return {number} positionX
- * @return {number} positionY
+ * @param {url} url an absolute URL giving the base location of the spritesheet that contains the sprite
+ * @param {Object} size {w: width of the sprite; h: height of the sprite }
+ * @param {Object} position {x: top position on the sprite sheet from 0.0, y: left position on the sprite sheet from 0.0 }
  */
 class RogerSprite {
     constructor(url, size, position) {
-        this.url = url;
+        this.spriteURL = url;
         this.width = size.w;
         this.height = size.h;
         this.positionX = position.x;
         this.positionY = position.y;
     }
-    /* PUBLIC METHODS */
-    getURL() {
-        return this.url;
+    get url() {
+        return this.spriteURL;
     }
-    getWidth() {
+    get w() {
         return this.width;
     }
-    getHeight() {
+    get h() {
         return this.height;
     }
-    getX() {
+    get x() {
         return this.positionX;
     }
-    getY() {
+    get y() {
         return this.positionY;
     }
 }

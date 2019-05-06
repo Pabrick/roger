@@ -6,12 +6,12 @@ const Uglify = require("uglifyjs-webpack-plugin");
 module.exports = {
     devtool: 'source-map',
     entry: {
-        js: './src/js/roger.js'
+        js: './src/js/main.js'
         // js: glob.sync("./src/js/class/*.js")
     },
     output: {
         filename: 'roger.main.js',
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, 'prod'),
         pathinfo: true,
         sourceMapFilename: "./roger.main.js.map",
         devtoolLineToLine: true

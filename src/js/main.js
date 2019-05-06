@@ -43,7 +43,6 @@ pabloObject.addAnimation(animPablos_talk1);
 pabloObject.addAnimation(animPablos_talk2);
 pabloObject.playAnimation('blink1');
 
-
 const rClock = new RogerClock(0.1);
 rClock.addObjectToUpdate(pabloObject);
 

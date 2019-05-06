@@ -31,20 +31,20 @@ class RogerObject {
             this.setFrame(this.currentAnimation, this.currentFrame);
             this.currentFrame = this.currentAnimation.getNextFrame(this.currentFrame);
 
-            if (this.currentAnimation.hasFinished()) {
+            if (this.currentAnimation.hasFinished) {
 
                 this.isAnimationPlaying = false;
-                if (this.currentAnimation.hasCallBack()) {
+                if (this.currentAnimation.hasCallBack) {
                     this.currentAnimation.executeCallBack();
                 } else {
-                    this.stopAnimation(this.currentAnimation.getName());  
+                    this.stopAnimation(this.currentAnimation.name);  
                 }
 
             }
         }
     }
     addAnimation(rogerAnimation) {
-        const animationName = rogerAnimation.getName();
+        const animationName = rogerAnimation.name;
         if (!this.anim.has(animationName)) {
             this.anim.set(animationName, rogerAnimation);
         } else {
@@ -72,11 +72,11 @@ class RogerObject {
         this.paintSprite( animation.getSprite(frame) );
     }
     paintSprite(sprite) {
-        this.domElem.style.backgroundImage = `url('${sprite.getURL()}')`;
-        this.domElem.style.width = sprite.getWidth() + 'px';
-        this.domElem.style.height = sprite.getHeight() + 'px';;
-        this.domElem.style.backgroundPositionX = - sprite.getX() + 'px';
-        this.domElem.style.backgroundPositionY = - sprite.getY() + 'px';
+        this.domElem.style.backgroundImage = `url('${sprite.url}')`;
+        this.domElem.style.width = sprite.w + 'px';
+        this.domElem.style.height = sprite.h + 'px';
+        this.domElem.style.backgroundPositionX = - sprite.x + 'px';
+        this.domElem.style.backgroundPositionY = - sprite.y + 'px';
     }
 }
 

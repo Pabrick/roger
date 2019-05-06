@@ -6,8 +6,6 @@ import RogerSheet from './RogerSheet.js';
  * @param {string} url an absolute URL giving the base location of the spritesheet
  * @param {Object} sheetSize {w:total width of the sheet, h:total height of the sheet }
  * @param {Object} spriteSize {w:total width of the sprite, h:total height of the sprite }
- * @return {string} url [String]
- * @return sprite [RogerSprite]
  */
 class RogerRegularSheet extends RogerSheet {
     constructor(url, sheetSize, spriteSize) {

@@ -1,6 +1,6 @@
 {
   "name": "roger.js",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "An easy javascript library for frame by frame animation with spritesheets",
   "evolution": {
     "text": "This project has evolve to a TypeScript project, so I will continue developing there",

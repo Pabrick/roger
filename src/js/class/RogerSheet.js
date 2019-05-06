@@ -10,7 +10,7 @@ import RogerSprite from './RogerSprite.js';
  */
 class RogerSheet {
     constructor(url, size, sprites) {
-        this.url = url;
+        this.sheetURL = url;
         this.width = size.w;
         this.height = size.h;
         this.rogerSprites = [];
@@ -19,10 +19,10 @@ class RogerSheet {
             this.rogerSprites.push(new RogerSprite(url, {w:sprite.w, h:sprite.h}, {x:sprite.x, y:sprite.y}));
         });
     }
-    /* PUBLIC METHODS */
-    getURL() {
-        return this.url;
+    get url() {
+        return this.sheetURL;
     }
+    /* PUBLIC METHODS */
     getSprite(number) {
         return this.rogerSprites[number];
     }
