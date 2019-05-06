@@ -1,12 +1,12 @@
-![Roger.JS](./logo.png)
+![roger.js](./logo.png)
 
-# ROGER.JS
+# @pabrick/roger.js
 # The easiest animation library for frame by frame animations
 
-Roger.js is a personal project made it entirely in EcmaScript by **Pablo Jiménez Beneyto**.
+**roger.js** is a personal project made it entirely in EcmaScript by **Pablo Jiménez Beneyto**.
 Focus on having an easy animation library for my pixel art and my browser games,
 I decide to create it instead of using another game engines or libraries such as Phaser.JS.
-PLUS I could try all the new things EcmaScript6 comes within and I can't use in my workday.
+In top of that I could try all the new things EcmaScript6 comes within and I can't use in my workday.
 
 So, welcome!
 
@@ -59,7 +59,7 @@ rClock.start();
 Now we need an animation sheet, sprite sheet or atlas.
 The sprite sheet should be power 2 size. I recommend 1024, but I will use 512x512 px.
 
-![Sprite Sheet](./src/img/damn_pablos_heads.png)
+![Sprite Sheet](./img/damn_pablos_heads.png)
 
 Roger.JS use the object **RogerSheet**, we give it params:
 - URL of the sprite sheet.
@@ -96,7 +96,7 @@ var ss_damnPablosHeads = new RogerRegularSheet("img/damn_pablos_heads.png", {w:5
 ```
 Here's a tip of how this sprite sheet is made:
 
-![Sprite Sheet](./src/img/damn_pablos_heads_template.png)
+![Sprite Sheet](./img/damn_pablos_heads_template.png)
 
 ### 3. The Animations (RogerAnimation)
 
