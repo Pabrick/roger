@@ -9,7 +9,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "http-server",
-    "webpack": "webpack"
+    "build": "webpack",
+    "watch": "webpack --watch",
+    "dist": "webpack --config webpack.dist.config.js",
   },
   "author": "Pablo Jiménez Beneyto",
   "homepage": "https://github.com/Pabrick/roger#readme",
