@@ -1,21 +1,14 @@
-![roger.js](./dist/logo.png)
+![Roger.JS](https://raw.githubusercontent.com/Pabrick/roger.js/master/logo.png)
 
-# @pabrick/roger.js
+# ROGER.JS
 # The easiest animation library for frame by frame animations
 
-**roger.js** is a personal project made it entirely in EcmaScript by **Pablo Jiménez Beneyto**.
+Roger.js is a personal project made it entirely in EcmaScript by **Pablo Jiménez Beneyto**.
 Focus on having an easy animation library for my pixel art and my browser games,
 I decide to create it instead of using another game engines or libraries such as Phaser.JS.
-In top of that I could try all the new things EcmaScript6 comes within and I can't use in my workday.
+PLUS I could try all the new things EcmaScript6 comes within and I can't use in my workday.
 
 So, welcome!
-
-
-## Version: 1.0.8
-Easier usage of the library. 
-
-## Version: 1.0.7
-Minor improvements adding getters to the classes and scoping the npm package under the name: **@pabrick/roger.js**
 
 ## Version: 1.0.4
 I give up a little bit on my TypeScript version ~~Roger.ts~~, because I like to focus on the new EcmaScript possibilities and because I would like to make this library the spine of a browser game made entirely with VanillaJS.
@@ -63,7 +56,7 @@ rClock.start();
 Now we need an animation sheet, sprite sheet or atlas.
 The sprite sheet should be power 2 size. I recommend 1024, but I will use 512x512 px.
 
-![Sprite Sheet](./dist/img/damn_pablos_heads.png)
+![Sprite Sheet](https://raw.githubusercontent.com/Pabrick/roger.js/master/dist/img/damn_pablos_heads.png)
 
 Roger.JS use the object **RogerSheet**, we give it params:
 - URL of the sprite sheet.
@@ -100,7 +93,7 @@ var ss_damnPablosHeads = new RogerRegularSheet("img/damn_pablos_heads.png", {w:5
 ```
 Here's a tip of how this sprite sheet is made:
 
-![Sprite Sheet](./dist/img/damn_pablos_heads_template.png)
+![Sprite Sheet](https://raw.githubusercontent.com/Pabrick/roger.js/master/dist/img/damn_pablos_heads_template.png)
 
 ### 3. The Animations (RogerAnimation)
 
@@ -150,10 +143,12 @@ const ssPablosHeads = new RogerRegularSheet('img/damn_pablos_heads.png', {w:512,
 2º We create some animations
 ```
 const animPablos_blink1 = new RogerAnimation('blink1',
-                                             ssPablosHeads,
-                                             [0,1,2,1,0],
-                                             { delay: 5, loops: -1, callBack: ()=> { console.log('blink complete!'); }
-                                             });
+                                                ssPablosHeads,
+                                                [0,1,2,1,0],
+                                                { delay: 5, loops: -1, callBack: ()=> {
+                                                        console.log('blink complete!');
+                                                    }
+                                                });
 ```
 
 2º We create animation controller or DisplayObject
