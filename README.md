@@ -1,4 +1,4 @@
-![roger.js](./logo.png)
+![roger.js](./dist/logo.png)
 
 # @pabrick/roger.js
 # The easiest animation library for frame by frame animations
@@ -63,7 +63,7 @@ rClock.start();
 Now we need an animation sheet, sprite sheet or atlas.
 The sprite sheet should be power 2 size. I recommend 1024, but I will use 512x512 px.
 
-![Sprite Sheet](./img/damn_pablos_heads.png)
+![Sprite Sheet](./dist/img/damn_pablos_heads.png)
 
 Roger.JS use the object **RogerSheet**, we give it params:
 - URL of the sprite sheet.
@@ -100,7 +100,7 @@ var ss_damnPablosHeads = new RogerRegularSheet("img/damn_pablos_heads.png", {w:5
 ```
 Here's a tip of how this sprite sheet is made:
 
-![Sprite Sheet](./img/damn_pablos_heads_template.png)
+![Sprite Sheet](./dist/img/damn_pablos_heads_template.png)
 
 ### 3. The Animations (RogerAnimation)
 
