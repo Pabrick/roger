@@ -10,6 +10,10 @@ In top of that I could try all the new things EcmaScript6 comes within and I can
 
 So, welcome!
 
+
+## Version: 1.0.8
+Easier usage of the library. 
+
 ## Version: 1.0.7
 Minor improvements adding getters to the classes and scoping the npm package under the name: **@pabrick/roger.js**
 
