@@ -10,6 +10,7 @@ class RogerClock {
         this.clock = 0;
         this.clockInterval;
         this.objects = [];
+        this.debugMode = false;
     }
     /* PUBLIC METHODS */
     init() {
@@ -25,6 +26,9 @@ class RogerClock {
     update() {
         this.clock = Math.round( (this.clock + this.delta) * 10 ) / 10;
         this.objects.forEach(obj => { obj.update(); });
+        if (this.debugMode) {
+            console.log(this.clock);
+        }
     }
     addObjectToUpdate(rogerObject) {
         this.objects.push(rogerObject);
@@ -32,7 +36,9 @@ class RogerClock {
     clearObjectToUpdate() {
         this.objects = [];
     }
-
+    setDebugMode(mode) {
+        this.debugMode = mode;
+    }
 }
 
 export default RogerClock;
