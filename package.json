@@ -10,7 +10,7 @@
   },
   "author": "Pablo Jiménez Beneyto",
   "homepage": "https://github.com/Pabrick/roger#readme",
-  "license": "ISC",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Pabrick/roger.git"
