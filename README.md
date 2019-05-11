@@ -1,6 +1,6 @@
 ![roger](./logo.png)
 
-# @pabrick/roger
+# @pabrick/roger [![npm version](https://badge.fury.io/js/%40pabrick%2Froger.svg)](https://badge.fury.io/js/@pabrick/roger)
 # The easiest animation library for frame by frame animations
 
 **Roger** is a personal project made it entirely in EcmaScript by **Pablo (Pabrick) Jiménez Beneyto**.
@@ -8,6 +8,9 @@ Focus on having an easy animation library for pixelart and browser games using C
 I decide to create from scratch instead using another game engines or libraries such as [PhaserJS](https://https://phaser.io/).
 
 *I also can play with all new features that EcmaScript6 brings and I can't use them in my everyday work*.
+
+## Version: 1.0.9
+- Functional NPM publish
 
 ## Version: 1.0.8
 - Upgrades on packages like Webpack 4 and Babel 7.

@@ -1,6 +1,6 @@
 {
   "name": "@pabrick/roger",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "An easy javascript library for frame by frame animation with spritesheets",
   "main": "./lib/roger.js",
   "scripts": {
