@@ -1,6 +1,6 @@
 ![roger](./logo.png)
 
-# @pabrick/roger [![npm version](https://badge.fury.io/js/%40pabrick%2Froger.svg)](https://badge.fury.io/js/@pabrick/roger)
+# @pabrick/roger [![npm version](https://badge.fury.io/js/@pabrick/roger.svg)](https://badge.fury.io/js/@pabrick/roger)
 # The easiest animation library for frame by frame animations
 
 **Roger** is a personal project made it entirely in EcmaScript by **Pablo (Pabrick) Jiménez Beneyto**.
