@@ -2,12 +2,12 @@ const path = require('path');
 
 module.exports = {
   mode: 'production',
-  entry: './lib/roger.js',
+  entry: './src/roger.js',
   output: {
     filename: 'roger.min.js',
     path: path.resolve(__dirname, 'lib'),
     library: 'Roger',
-    libraryTarget: 'var',
+    libraryTarget: 'umd',
     libraryExport: 'default'
   },
   module: {

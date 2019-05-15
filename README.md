@@ -9,33 +9,6 @@ I decide to create from scratch instead using another game engines or libraries 
 
 *I also can play with all new features that EcmaScript6 brings and I can't use them in my everyday work*.
 
-## Version: 1.0.9
-- Functional NPM publish
-
-## Version: 1.0.8
-- Upgrades on packages like Webpack 4 and Babel 7.
-- Export classes in ES6.
-
-## Version: 1.0.7
-Minor improvements adding getters to the classes and scoping the npm package under the name: **@pabrick/roger.js**
-
-## Version: 1.0.4
-I give up a little bit on my TypeScript version ~~Roger.ts~~, because I like to focus on the new EcmaScript possibilities and because I would like to make this library the spine of a browser game made entirely with VanillaJS.
-So I'd improved a little bit this project, using **Maps** instead some **Arrays**, and avoid crossed references.
-The **RogerObject** don't have to me instanciated with a clock, making easier to handle, from the **RogerClock**.
-I have get rid of the CSS, so everything is done dynamically (so cool).
-
-## Version: 1.0.3
-I have evolved this project into a TypeScript project, so I stop right here, until I discover how to bundle all the classes properly.
-In the meantime, I will continue developing in ~~Roger.ts~~
-
-## Version: 1.0.1
-I have inlcude a new RogerSheet: the RogerRegularSheet.
-Sometimes (or mostly) we use sprite sheets wich sprites have the same sizes. For those cases we use **RogerRegularSheet**
-Instead pasing as parameter an array with all the sizes and positions, we only give it an object with width and height.
-So it will be easier!
-
-
 # How it works
 
 ## Let's begin with basics:
@@ -45,14 +18,14 @@ So it will be easier!
 An image used in a videogame (old school at least) is called a **sprite**.
 The **sprites** are grouped in bigger images knowed as **spritesheet**.
 
-![Sprite](./img/sprite.png)
+![Sprite](./assets/sprite.png)
 
 ## Spritesheet
 
 The **spritesheet** are stored in the memory in square blocks, if the image isn't square, the computer make it square anyway, that's why it's better create square **spritesheets** to benefit the space.
 The **sprites** in the **spritesheet** can have all the same size or different sizes.
 
-![Spritesheet](./img/spritesheet.png)
+![Spritesheet](./assets/spritesheet.png)
 
 #### **NOTE: CURRENTLY I have only develop *spritesheets* that has same size *sprites*.**
 
@@ -60,17 +33,17 @@ The **sprites** in the **spritesheet** can have all the same size or different s
 
 When we play several images one after another in certain time, we can see that they are look like the images are moving, and that's called **animation**.
 
-![Animation](./img/animation.gif)
+![Animation](./assets/animation.gif)
 
 I like to take advantage of that, so instead of changing one image from another I just set the whole **spritesheet** as a background, crop just one **sprite** size and move the background very fast like a pattern in a window.
 
-![Animation](./img/animation_trick.gif)
+![Animation](./assets/animation_trick.gif)
 
 Doing that the computer uses the GPU *(CSS)* instead the GPU *(JS)* for moving the **animation**.
 
 Like an **animation** are a group of images or **sprites**, different combinations can make different **animations**. So a **spritesheet** can have many **animations** within. We only have to point which **sprites** compose the **animation**.
 
-![Animation](./img/animation_guide.png)
+![Animation](./assets/animation_guide.png)
 
 ## Object
 

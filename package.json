@@ -1,12 +1,12 @@
 {
   "name": "@pabrick/roger",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "An easy javascript library for frame by frame animation with spritesheets",
-  "main": "./lib/roger.js",
+  "main": "./lib/roger.min.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack",
-    "build:dev": "webpack --config webpack.config.dev.js"
+    "build:dist": "webpack --config dist/webpack.config.js"
   },
   "author": "Pablo Jiménez Beneyto",
   "homepage": "https://github.com/Pabrick/roger#readme",

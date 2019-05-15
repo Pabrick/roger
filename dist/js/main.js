@@ -1,6 +1,6 @@
 "use strict";
 
-import Roger from "../../lib/roger";
+import Roger from "../../lib/roger.min";
 
 const ssPablosHeads = new Roger.RegularSheet("img/damn_pablos_heads.png", {w:512,h:512}, {w:54,h:90});
 const pabloIdleSprite = new Roger.Sprite("img/damn_pablos_heads.png", {w:54,h:90}, {x:0,y:0});
