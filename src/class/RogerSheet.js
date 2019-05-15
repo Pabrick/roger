@@ -1,4 +1,4 @@
-import RogerSprite from './RogerSprite.js';
+import RogerSprite from "./RogerSprite.js";
 
 /**
  * @class RogerSheet
