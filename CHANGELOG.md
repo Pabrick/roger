@@ -2,6 +2,14 @@
 
 ## @pabrick/roger
 
+# Version: 1.0.11
+
+### NON BREAKING CHANGES
+- NPM package ignore file
+
+### BREAKING CHANGES
+- None
+
 # Version: 1.0.10
 - Proper folder distribution
 - Correct minify file for library distribution
