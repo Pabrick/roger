@@ -9,7 +9,7 @@ class RogerClock {
         this.deltaTime = this.delta * 1000;
         this.clock = 0;
         this.clockInterval;
-        this.objects = [];
+        this.toons = [];
         this.debugMode = false;
     }
     /* PUBLIC METHODS */
@@ -25,16 +25,16 @@ class RogerClock {
     }
     update() {
         this.clock = Math.round( (this.clock + this.delta) * 10 ) / 10;
-        this.objects.forEach(obj => { obj.update(); });
+        this.toons.forEach(toon => { toon.update(); });
         if (this.debugMode) {
             console.log(this.clock);
         }
     }
-    addObjectToUpdate(rogerObject) {
-        this.objects.push(rogerObject);
+    addToonToUpdate(rogerToon) {
+        this.toons.push(rogerToon);
     }
-    clearObjectToUpdate() {
-        this.objects = [];
+    clearToonToUpdate() {
+        this.toons = [];
     }
     setDebugMode(mode) {
         this.debugMode = mode;

@@ -2,13 +2,21 @@
 
 ## @pabrick/roger
 
-# Version: 1.0.11
+# Version: 1.0.12
 
+### BREAKING CHANGES
+- Roger.Object has been renamed to Roger.Toon
+- addObjectToUpdate method in Roger.Clock has been renamed to addToonToUpdate
+- clearObjectToUpdate method in Roger.Clock has been renamed to clearToonToUpdate
 ### NON BREAKING CHANGES
-- NPM package ignore file
+- Readme has been updated and typos have been corrected
+
+# Version: 1.0.11
 
 ### BREAKING CHANGES
 - None
+### NON BREAKING CHANGES
+- NPM package ignore file
 
 # Version: 1.0.10
 - Proper folder distribution

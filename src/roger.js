@@ -5,7 +5,7 @@ import RogerSprite from "./class/RogerSprite";
 import RogerSheet from "./class/RogerSheet";
 import RogerRegularSheet from "./class/RogerRegularSheet";
 import RogerAnimation from "./class/RogerAnimation";
-import RogerObject from "./class/RogerObject";
+import RogerToon from "./class/RogerToon";
 
 const Roger = {
     Clock: RogerClock,
@@ -13,7 +13,7 @@ const Roger = {
     Sheet: RogerSheet,
     RegularSheet: RogerRegularSheet,
     Animation: RogerAnimation,
-    Object: RogerObject
+    Toon: RogerToon
 };
 
 export default Roger;
