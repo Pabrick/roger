@@ -2,6 +2,14 @@
 
 ## @pabrick/roger
 
+# Version: 1.0.13
+
+### BREAKING CHANGES
+- None
+### NON BREAKING CHANGES
+- RogerClock has pause() and play() methods
+
+
 # Version: 1.0.12
 
 ### BREAKING CHANGES

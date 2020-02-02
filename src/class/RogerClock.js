@@ -11,6 +11,7 @@ class RogerClock {
         this.clockInterval;
         this.toons = [];
         this.debugMode = false;
+        this.paused = false;
     }
     /* PUBLIC METHODS */
     init() {
@@ -18,10 +19,20 @@ class RogerClock {
     }
     start() {
         this.init();
-        this.clockInterval = setInterval(() => this.update(), this.deltaTime);
+        this.clockInterval = setInterval(() => {
+            if(!this.paused) {
+                this.update();
+            }
+        }, this.deltaTime);
     }
     stop() {
         clearInterval(this.clockInterval);
+    }
+    pause() {
+        this.paused = true;
+    }
+    play() {
+        this.paused = false;
     }
     update() {
         this.clock = Math.round( (this.clock + this.delta) * 10 ) / 10;
