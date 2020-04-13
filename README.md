@@ -175,7 +175,7 @@ Roger.Toon (id, idle)
 - **name**: *{string}* name of the **animation**
 - **idle**: *{Roger.Sprite}* (optional) **sprite** by default when **toon** has no **animation** loaded
 ### Methods:
-- **update**: 
+- **update**:
 - **addAnimation**: *{Roger.Animation}* make an **animation** as part of this **toon** and
 - **playAnimation**: *{string}* plays the **animation** with the name provided
 - **stopAnimation**: *{string}* stops the **animation** with the name provided
@@ -187,15 +187,19 @@ Roger.Clock (delta)
 - **delta**: *{number}* time in seconds for each tick or step
 ### Methods:
 - **init**: initilize the **clock** without starting
+- **initWith**: *{number}* initilize the **clock** with a number without starting
 - **start**: initilize AND starts the **clock**
+- **startWith**: *{number}* initilize with a number AND starts the **clock**
+- **pause**: pause the **clock**
 - **stop**: stops the **clock**
 - **update**: makes the **clock** ticks
+- **updateWith**: *{number}* update the clock manually. No need of init or start. Pause doesn't work with this option.
 - **addToonToUpdate**: *{Roger.Toon}* add and **toon** to the update queue
 - **clearToonToUpdate**: empty the update queue
 - **setDebugMode**: *{boolean}* log by console the *delta*
 
 
-# License 
+# License
 ## MIT
 
 # **THANKS!**

@@ -1,7 +1,7 @@
 /**
  * @class RogerClock
  * @description Clock is the key to sync all the anims
- * @param {number} delta 
+ * @param {number} delta
  */
 class RogerClock {
     constructor(delta) {
@@ -13,10 +13,25 @@ class RogerClock {
         this.debugMode = false;
         this.paused = false;
     }
+
     /* PUBLIC METHODS */
+    /**
+     * @method init
+     * @description initilize the clock without starting
+     * @param {number} seconds
+     */
     init() {
         this.clock = 0;
     }
+    /**
+     * @method initWith
+     * @description initialize the clock to a specific number without starting
+     * @param {number} seconds
+     */
+    initWith(seconds) {
+        this.clock = seconds;
+    }
+
     start() {
         this.init();
         this.clockInterval = setInterval(() => {
@@ -25,6 +40,20 @@ class RogerClock {
             }
         }, this.deltaTime);
     }
+    /**
+     * @method startWith
+     * @description starts the clock with a specific number. it works with the delta provided.
+     * @param {number} seconds
+     */
+    startWith(seconds) {
+        this.init(seconds);
+        this.clockInterval = setInterval(() => {
+            if(!this.paused) {
+                this.update();
+            }
+        }, this.deltaTime);
+    }
+
     stop() {
         clearInterval(this.clockInterval);
     }
@@ -34,13 +63,21 @@ class RogerClock {
     play() {
         this.paused = false;
     }
+
     update() {
         this.clock = Math.round( (this.clock + this.delta) * 10 ) / 10;
-        this.toons.forEach(toon => { toon.update(); });
-        if (this.debugMode) {
-            console.log(this.clock);
-        }
+        updateToons();
     }
+    /**
+     * @method updateWith
+     * @description update the clock manually. No need of init or start. Pause doesn't work with this option.
+     * @param {number} seconds
+     */
+    updateWith(seconds) {
+        this.clock = seconds;
+        updateToons();
+    }
+
     addToonToUpdate(rogerToon) {
         this.toons.push(rogerToon);
     }
@@ -49,6 +86,14 @@ class RogerClock {
     }
     setDebugMode(mode) {
         this.debugMode = mode;
+    }
+
+    /* PRIVATE METHODS */
+    updateToons() {
+        this.toons.forEach(toon => { toon.update(); });
+        if (this.debugMode) {
+            console.log(this.clock);
+        }
     }
 }
 

@@ -2,6 +2,14 @@
 
 ## @pabrick/roger
 
+# Version: 1.0.14
+
+### BREAKING CHANGES
+- None
+### NON BREAKING CHANGES
+- RogerClock has methods to initialize manually the clock
+
+
 # Version: 1.0.13
 
 ### BREAKING CHANGES

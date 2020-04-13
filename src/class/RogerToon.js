@@ -37,7 +37,7 @@ class RogerToon {
                 if (this.currentAnimation.hasCallBack) {
                     this.currentAnimation.executeCallBack();
                 } else {
-                    this.stopAnimation(this.currentAnimation.name);  
+                    this.stopAnimation(this.currentAnimation.name);
                 }
 
             }
