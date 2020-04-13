@@ -66,7 +66,7 @@ class RogerClock {
 
     update() {
         this.clock = Math.round( (this.clock + this.delta) * 10 ) / 10;
-        updateToons();
+        this.updateToons();
     }
     /**
      * @method updateWith
@@ -75,7 +75,7 @@ class RogerClock {
      */
     updateWith(seconds) {
         this.clock = seconds;
-        updateToons();
+        this.updateToons();
     }
 
     addToonToUpdate(rogerToon) {
