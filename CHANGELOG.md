@@ -2,6 +2,14 @@
 
 ## @pabrick/roger
 
+# Version: 1.0.16
+
+### BREAKING CHANGES
+- None
+### NON BREAKING CHANGES
+- Fix bug on clock
+
+
 # Version: 1.0.15
 
 ### BREAKING CHANGES
