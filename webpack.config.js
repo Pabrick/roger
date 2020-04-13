@@ -1,7 +1,6 @@
 const path = require('path');
 
 module.exports = {
-  mode: 'production',
   entry: './src/roger.js',
   output: {
     filename: 'roger.min.js',

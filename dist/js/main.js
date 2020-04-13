@@ -14,9 +14,9 @@ const animPablos_blink1 = new Roger.Animation("blink1",
                                                 });
 
 const animPablos_talk1 = new Roger.Animation("talk1",
-                                               ssPablosHeads,
-                                               [3,4,5,6,7],
-                                               { direction: "random" });
+                                                ssPablosHeads,
+                                                [3,4,5,6,7],
+                                                { direction: "random" });
 
 const animPablos_blink2 = new Roger.Animation("blink2", 
                                                 ssPablosHeads,
@@ -27,19 +27,19 @@ const animPablos_blink2 = new Roger.Animation("blink2",
                                                 });
                                                 
 const animPablos_talk2 = new Roger.Animation("talk2", 
-                                               ssPablosHeads,
-                                               [12,13,14,15,16],
-                                               { callBack: ()=>console.log("talk2 complete!") });
+                                                ssPablosHeads,
+                                                [12,13,14,15,16],
+                                                { callBack: ()=>console.log("talk2 complete!") });
 
-const pabloObject = new Roger.Object("pablo", pabloIdleSprite);
+const pabloToon = new Roger.Toon("pablo", pabloIdleSprite);
 
-pabloObject.addAnimation(animPablos_blink1);
-pabloObject.addAnimation(animPablos_blink2);
-pabloObject.addAnimation(animPablos_talk1);
-pabloObject.addAnimation(animPablos_talk2);
-pabloObject.playAnimation("blink1");
+pabloToon.addAnimation(animPablos_blink1);
+pabloToon.addAnimation(animPablos_blink2);
+pabloToon.addAnimation(animPablos_talk1);
+pabloToon.addAnimation(animPablos_talk2);
+pabloToon.playAnimation("blink1");
 
 const rClock = new Roger.Clock(0.1);
-rClock.addObjectToUpdate(pabloObject);
+rClock.addToonToUpdate(pabloToon);
 
 rClock.start();

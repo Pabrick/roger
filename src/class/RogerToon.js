@@ -1,11 +1,11 @@
 /**
- * @class RogerObject
+ * @class RogerToon
  * @param {string} id id of the element of the DOM linked to the object
  * @param {RogerSprite} idle sprite as default while to animation is stopped
  * @return {string} animationName
  * @see RogerSprite
  */
-class RogerObject {
+class RogerToon {
     constructor(id, idle) {
         this.id = id;
         this.domElem = document.getElementById(id);
@@ -37,7 +37,7 @@ class RogerObject {
                 if (this.currentAnimation.hasCallBack) {
                     this.currentAnimation.executeCallBack();
                 } else {
-                    this.stopAnimation(this.currentAnimation.name);  
+                    this.stopAnimation(this.currentAnimation.name);
                 }
 
             }
@@ -48,7 +48,7 @@ class RogerObject {
         if (!this.anim.has(animationName)) {
             this.anim.set(animationName, rogerAnimation);
         } else {
-            alert(`The RogerObject ${this.id} has ALREADY an animation with the name: ${animationName} \n Please choose another name and try it again.`);
+            alert(`The RogerToon ${this.id} has ALREADY an animation with the name: ${animationName} \n Please choose another name and try it again.`);
         }
     }
     playAnimation(name) {
@@ -80,4 +80,4 @@ class RogerObject {
     }
 }
 
-export default RogerObject;
+export default RogerToon;

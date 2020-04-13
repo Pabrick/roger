@@ -2,6 +2,46 @@
 
 ## @pabrick/roger
 
+# Version: 1.0.15
+
+### BREAKING CHANGES
+- None
+### NON BREAKING CHANGES
+- Fix bug on clock
+
+
+# Version: 1.0.14
+
+### BREAKING CHANGES
+- Non stable version
+### NON BREAKING CHANGES
+- RogerClock has methods to initialize manually the clock
+
+
+# Version: 1.0.13
+
+### BREAKING CHANGES
+- None
+### NON BREAKING CHANGES
+- RogerClock has pause() and play() methods
+
+
+# Version: 1.0.12
+
+### BREAKING CHANGES
+- Roger.Object has been renamed to Roger.Toon
+- addObjectToUpdate method in Roger.Clock has been renamed to addToonToUpdate
+- clearObjectToUpdate method in Roger.Clock has been renamed to clearToonToUpdate
+### NON BREAKING CHANGES
+- Readme has been updated and typos have been corrected
+
+# Version: 1.0.11
+
+### BREAKING CHANGES
+- None
+### NON BREAKING CHANGES
+- NPM package ignore file
+
 # Version: 1.0.10
 - Proper folder distribution
 - Correct minify file for library distribution
