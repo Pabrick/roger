@@ -23,6 +23,8 @@ class RogerAnimation {
         this.isFinished = false;
     }
 
+    /* PUBLIC METHODS */
+
     get name() {
         return this.animName;
     }
@@ -35,8 +37,7 @@ class RogerAnimation {
     get hasFinished() {
         return this.isFinished;
     }
-    
-    /* PUBLIC METHODS */
+
     setOption(object) {
         this.options = object;
     }
@@ -60,7 +61,7 @@ class RogerAnimation {
     getDefaultOptions(options) {
         let defaultOptions = {
             delay: 0,
-            loops: 0,
+            loops: -1,
             direction: this.direction.FORWARD,
             callBack: null
         }

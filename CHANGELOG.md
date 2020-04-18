@@ -2,6 +2,30 @@
 
 ## @pabrick/roger
 
+# Version: 1.1.0
+
+### BREAKING CHANGES
+#### Roger.Toon
+- **addAnimation** has been changed by **add**.
+- **playAnimation** has been changed by **play**.
+- **stopAnimation** has been changed by **stop**, and now it hasn't parameters.
+- **currentAnimationName** has been added.
+
+#### Roger.Animation
+- Options by default are: **NO DELAY**, **INFINITE LOOP** and play **FORWARD**.
+
+#### Roger.Clock
+- **addToonToUpdate** has been changed by **addToList**.
+- **clearToonToUpdate** has been changed by **clearList**.
+- **stopAnimation** has been changed by **stop**, and now it hasn't parameters.
+- **currentAnimationName** has been added.
+
+### NON BREAKING CHANGES
+- Readme updated.
+
+#### Roger.Toon
+- **paintSprite** has been changed by **drawSprite** and improved its performance.
+
 # Version: 1.0.16
 
 ### BREAKING CHANGES
@@ -38,8 +62,8 @@
 
 ### BREAKING CHANGES
 - Roger.Object has been renamed to Roger.Toon
-- addObjectToUpdate method in Roger.Clock has been renamed to addToonToUpdate
-- clearObjectToUpdate method in Roger.Clock has been renamed to clearToonToUpdate
+- addObjectToUpdate method in Roger.Clock has been renamed to addToList
+- clearObjectToUpdate method in Roger.Clock has been renamed to clearList
 ### NON BREAKING CHANGES
 - Readme has been updated and typos have been corrected
 

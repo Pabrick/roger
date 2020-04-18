@@ -9,21 +9,26 @@ class RogerToon {
 	constructor(id, idle) {
 		this.id = id;
 		this.domElem = document.getElementById(id);
-		this.anim = new Map();
+		this.animList = new Map();
 		this.currentAnimation;
 		this.currentFrame;
 		this.isAnimationPlaying = false;
 
 		if (idle) {
 			this.idle = idle;
-			this.paintSprite(idle);
+			this.drawSprite(idle);
 		}
 	}
+
 	/* PUBLIC METHODS */
+
+	get currentAnimationName() {
+        return this.currentAnimation.name;
+	}
 
 	/**
 	 * @method update
-	 * @description this method should be executed by events of RogerClock, setting the next frame of the current 
+	 * @description this method should be executed by events of RogerClock, setting the next frame of the current
 	 */
 	update() {
 		if (this.isAnimationPlaying) {
@@ -37,46 +42,58 @@ class RogerToon {
 				if (this.currentAnimation.hasCallBack) {
 					this.currentAnimation.executeCallBack();
 				} else {
-					this.stopAnimation(this.currentAnimation.name);
+					this.stop(this.currentAnimation.name);
 				}
 
 			}
 		}
 	}
-	addAnimation(rogerAnimation) {
+	add(rogerAnimation) {
 		const animationName = rogerAnimation.name;
-		if (!this.anim.has(animationName)) {
-			this.anim.set(animationName, rogerAnimation);
+		if (!this.animList.has(animationName)) {
+			this.animList.set(animationName, rogerAnimation);
 		} else {
 			alert(`The RogerToon ${this.id} has ALREADY an animation with the name: ${animationName} \n Please choose another name and try it again.`);
 		}
 	}
-	playAnimation(name) {
-		// console.log("Play animation: " + name);
+	play(name) {
 		this.isAnimationPlaying = true;
-		this.currentAnimation = this.anim.get(name);
+		this.currentAnimation = this.animList.get(name);
 		this.currentFrame = 0;
 		this.currentAnimation.resetAnimation();
 	}
-	stopAnimation(name) {
-		// console.log("Stop animation: " + name);
+	stop() {
 		this.isAnimationPlaying = false;
 		this.currentFrame = 0;
-		this.paintSprite(this.anim[0].getSprite(0));
+		this.drawSprite(this.animList.values().next().value.getSprite(0));
 	}
 
 	/* PRIVATE METHODS */
 	setFrame(animation, frame) {
 		this.currentAnimation = animation;
 		this.currentFrame = frame;
-		this.paintSprite(animation.getSprite(frame));
+		this.drawSprite(animation.getSprite(frame));
 	}
-	paintSprite(sprite) {
-		this.domElem.style.backgroundImage = `url("${sprite.url}")`;
-		this.domElem.style.width = sprite.w + "px";
-		this.domElem.style.height = sprite.h + "px";
-		this.domElem.style.backgroundPositionX = -sprite.x + "px";
-		this.domElem.style.backgroundPositionY = -sprite.y + "px";
+	drawSprite(sprite) {
+		if(this.domElem.style.backgroundImage !== `url("${sprite.url}")`) {
+			this.domElem.style.backgroundImage = `url("${sprite.url}")`;
+		}
+
+		if(this.domElem.style.width !== sprite.w + "px") {
+			this.domElem.style.width = sprite.w + "px";
+		}
+
+		if(this.domElem.style.height !== sprite.h + "px") {
+			this.domElem.style.height = sprite.h + "px";
+		}
+
+		if(this.domElem.style.backgroundPositionX !== -sprite.x + "px") {
+			this.domElem.style.backgroundPositionX = -sprite.x + "px";
+		}
+
+		if(this.domElem.style.backgroundPositionY !== -sprite.y + "px") {
+			this.domElem.style.backgroundPositionY = -sprite.y + "px";
+		}
 	}
 }
 
