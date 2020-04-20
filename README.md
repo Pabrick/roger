@@ -1,11 +1,13 @@
-![roger](./logo.png)
 
 # @pabrick/roger [![npm version](https://badge.fury.io/js/%40pabrick%2Froger.svg)](https://badge.fury.io/js/%40pabrick%2Froger)
-# The easiest animation library for frame by frame animations
+
+![roger](./assets/roger-header.png)
+
+# The easiest animation library for _frame by frame_ animations
 
 **Roger** is a personal project made entirely in EcmaScript by **Pablo (Pabrick) Jiménez Beneyto**.
 It focuses on providing an easy animation library for pixelart and browser games, using CSS properties manipulation in spritesheets used as backgrounds.
-I decided to create it from scratch instead of using other game engines or libraries such as [PhaserJS](https://https://phaser.io/).
+I decided to create it from scratch instead of using other game engines or libraries such as [PhaserJS](https://phaser.io/).
 
 *I also use this chance to try out all new features that EcmaScript6 brings as I can't use them in my day-to-day work*.
 
@@ -211,3 +213,4 @@ Roger.Clock (delta)
 ## MIT
 
 # **THANKS!**
+To [Mario Morales](https://twitter.com/MarioDibujanto/) for the design of the logo.
