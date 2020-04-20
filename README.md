@@ -1,11 +1,13 @@
-![roger](./logo.png)
 
 # @pabrick/roger [![npm version](https://badge.fury.io/js/%40pabrick%2Froger.svg)](https://badge.fury.io/js/%40pabrick%2Froger)
-# The easiest animation library for frame by frame animations
+
+![roger](./assets/roger-header.png)
+
+# The easiest animation library for _frame by frame_ animations
 
 **Roger** is a personal project made entirely in EcmaScript by **Pablo (Pabrick) Jiménez Beneyto**.
 It focuses on providing an easy animation library for pixelart and browser games, using CSS properties manipulation in spritesheets used as backgrounds.
-I decided to create it from scratch instead of using other game engines or libraries such as [PhaserJS](https://https://phaser.io/).
+I decided to create it from scratch instead of using other game engines or libraries such as [PhaserJS](https://phaser.io/).
 
 *I also use this chance to try out all new features that EcmaScript6 brings as I can't use them in my day-to-day work*.
 
@@ -105,7 +107,7 @@ let animPablos_blink1 = new Roger.Animation("blink1",
 We can now create our [toon](#toon) and add an **animation**.
 ````js
 let pabloToon = new Roger.Toon("pablo", pabloIdleSprite);
-pabloToon.addAnimation(animPablos_blink1);
+pabloToon.add(animPablos_blink1);
 ````
 
 Optionally we can add an *idle* **sprite** when we create our **toon**.
@@ -113,7 +115,7 @@ Optionally we can add an *idle* **sprite** when we create our **toon**.
 Finally we only need to create our [clock](#clock) with the *delta* we want to use as a parameter (0.1 seconds in our case). Add our **toon** to the **clock**'s update queue and make it start working!
 ````js
 let rClock = new Roger.Clock(0.1);
-rClock.addToonToUpdate(pabloObject);
+rClock.addToList(pabloObject);
 rClock.start();
 ````
 
@@ -124,9 +126,10 @@ rClock.start();
 ````
 Roger.Sprite (url, size, position)
 ````
-- **url**: *{string}* path of the **spritesheet**
-- **size**: *{object}* width and height of the **sprite**
-- **position**: *{object}* top position (row) and left position (column) on the **spritesheet** from 0.0
+- **url**: *{string}* path of the **spritesheet**.
+- **size**: *{object}* width and height of the **sprite**.
+- **position**: *{object}* top position (row) and left position .(column) on the **spritesheet** from 0.0.
+
 ### Getters:
 - **url**: *{string}* path of the **spritesheet**
 - **w**: *{number}* width of the **sprite**
@@ -140,66 +143,74 @@ Roger.Sprite (url, size, position)
 Roger.Sheet (url, size, sprites)
 Roger.RegularSheet (url, size, sprites)
 ````
-- **url**: *{string}* path of the **spritesheet**
-- **size**: *{object}* width and height of the **spritesheet**
-- **sprites**: *{array}* sizes of each **sprite**
+- **url**: *{string}* path of the **spritesheet**.
+- **size**: *{object}* width and height of the **spritesheet**.
+- **sprites**: *{array}* sizes of each **sprite**.
+
 ### Getters:
-- **url**: *{string}* path of the **spritesheet**
+- **url**: *{string}* path of the **spritesheet**.
+
 ### Methods:
-- **getSprite**: *{number}* returns the **sprite** in that position
+- **getSprite**: *{number}* returns the **sprite** in that position.
 
 ## Roger.Animation
 ### Constructor:
 ````
 Roger.Animation (name, spriteSheet, frameList, options)
 ````
-- **name**: *{string}* name of the **animation**
-- **spriteSheet**: *{Roger.Sheet || Roger.RegularSheet}* instance of the **spriteSheet**
-- **frameList**: *{array}* the number of the **sprites** that compose the **animation**
-- **options**: *{object}* how **animation** is configured
-### Getters:
-- **url**: *{string}* path of the **spritesheet**
-- **name**: *{string}* name of the **animation**
-- **hasCallBack**: *{boolean}* get if the **animation** has a function when it ends
-- **hasFinished**: *{boolean}* get if **animation** has finished
+- **name**: *{string}* name of the **animation**.
+- **spriteSheet**: *{Roger.Sheet || Roger.RegularSheet}* instance of the **spriteSheet**.
+- **frameList**: *{array}* the number of the **sprites** that compose the **animation**.
+- **options**: *{object}* (optional) how **animation** is configured.
+
+> **NOTE**: if no options are provided, default options are **NO DELAY**, **INFINITE LOOP** and play **FORWARD**.
+
+### Getters:.
+- **url**: *{string}* path of the **spritesheet**.
+- **name**: *{string}* name of the **animation**.
+- **hasCallBack**: *{boolean}* get if the **animation** has a function when it ends.
+- **hasFinished**: *{boolean}* get if **animation** has finished.
+
 ### Methods:
-- **setOption**: *{object}* set new *options* for the **animation**
-- **getSprite**: *{number}* returns the **sprite** in that position
-- **executeCallBack**: execute the function linked to the **animation** ends
+- **setOption**: *{object}* set new *options* for the **animation**.
+- **getSprite**: *{number}* returns the **sprite** in that position.
+- **executeCallBack**: execute the function linked to the **animation** ends.
 
 ## Roger.Toon
 ### Constructor:
 ````
 Roger.Toon (id, idle)
 ````
-- **name**: *{string}* name of the **animation**
-- **idle**: *{Roger.Sprite}* (optional) **sprite** by default when **toon** has no **animation** loaded
+- **name**: *{string}* name of the **animation**.
+- **idle**: *{Roger.Sprite}* (optional) **sprite** by default when **toon** has no **animation** loaded.
+
 ### Methods:
 - **update**:
-- **addAnimation**: *{Roger.Animation}* make an **animation** as part of this **toon** and
-- **playAnimation**: *{string}* plays the **animation** with the name provided
-- **stopAnimation**: *{string}* stops the **animation** with the name provided
+- **add**: *{Roger.Animation}* make an **animation** as part of this **toon**.
+- **play**: *{string}* plays the **animation** with the name provided.
+- **stop**: stops the current animation, showing the idle sprite.
 
 ## Roger.Clock
 ````
 Roger.Clock (delta)
 ````
-- **delta**: *{number}* time in seconds for each tick or step
+- **delta**: *{number}* time in seconds for each tick or step.
 ### Methods:
-- **init**: initilize the **clock** without starting
-- **initWith**: *{number}* initilize the **clock** with a number without starting
-- **start**: initilize AND starts the **clock**
-- **startWith**: *{number}* initilize with a number AND starts the **clock**
-- **pause**: pause the **clock**
-- **stop**: stops the **clock**
-- **update**: makes the **clock** ticks
+- **init**: initilize the **clock** without starting.
+- **initWith**: *{number}* initilize the **clock** with a number without starting.
+- **start**: initilize AND starts the **clock**.
+- **startWith**: *{number}* initilize with a number AND starts the **clock**.
+- **pause**: pause the **clock**.
+- **stop**: stops the **clock**.
+- **update**: makes the **clock** ticks.
 - **updateWith**: *{number}* update the clock manually. No need of init or start. Pause doesn't work with this option.
-- **addToonToUpdate**: *{Roger.Toon}* add and **toon** to the update queue
-- **clearToonToUpdate**: empty the update queue
-- **setDebugMode**: *{boolean}* log by console the *delta*
+- **addToList**: *{Roger.Toon}* add and **toon** to the update queue.
+- **clearList**: empty the update queue.
+- **setDebugMode**: *{boolean}* log by console the *delta*.
 
 
 # License
 ## MIT
 
 # **THANKS!**
+To [Mario Morales](https://twitter.com/MarioDibujanto/) for the design of the logo.

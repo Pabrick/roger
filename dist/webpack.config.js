@@ -3,6 +3,7 @@ const path = require('path');
 module.exports = {
   mode: 'development',
   entry: './dist/js/main.js',
+  watch: true,
   output: {
     filename: 'roger.main.js',
     path: path.resolve(__dirname, '')
