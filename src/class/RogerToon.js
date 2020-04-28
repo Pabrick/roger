@@ -1,29 +1,23 @@
 /**
  * @class RogerToon
  * @param {string} id id of the element of the DOM linked to the object
- * @param {RogerSprite} idle sprite as default while to animation is stopped
  * @return {string} animationName
  * @see RogerSprite
  */
 class RogerToon {
-	constructor(id, idle) {
+	constructor(id) {
 		this.id = id;
 		this.domElem = document.getElementById(id);
 		this.animList = new Map();
 		this.currentAnimation;
 		this.currentFrame;
 		this.isAnimationPlaying = false;
-
-		if (idle) {
-			this.idle = idle;
-			this.drawSprite(idle);
-		}
 	}
 
 	/* PUBLIC METHODS */
 
 	get currentAnimationName() {
-        return this.currentAnimation.name;
+		return this.currentAnimation.name;
 	}
 
 	/**
@@ -33,18 +27,13 @@ class RogerToon {
 	update() {
 		if (this.isAnimationPlaying) {
 
-			this.setFrame(this.currentAnimation, this.currentFrame);
 			this.currentFrame = this.currentAnimation.getNextFrame(this.currentFrame);
+			this.setFrame(this.currentAnimation, this.currentFrame);
 
 			if (this.currentAnimation.hasFinished) {
-
 				this.isAnimationPlaying = false;
-				if (this.currentAnimation.hasCallBack) {
-					this.currentAnimation.executeCallBack();
-				} else {
-					this.stop(this.currentAnimation.name);
-				}
-
+				this.currentAnimation.executeCallback();
+				this.stop(this.currentAnimation.name);
 			}
 		}
 	}
@@ -65,7 +54,7 @@ class RogerToon {
 	stop() {
 		this.isAnimationPlaying = false;
 		this.currentFrame = 0;
-		this.drawSprite(this.animList.values().next().value.getSprite(0));
+		// this.drawSprite(this.animList.values().next().value.getSprite(0));
 	}
 
 	/* PRIVATE METHODS */
@@ -75,23 +64,23 @@ class RogerToon {
 		this.drawSprite(animation.getSprite(frame));
 	}
 	drawSprite(sprite) {
-		if(this.domElem.style.backgroundImage !== `url("${sprite.url}")`) {
+		if (this.domElem.style.backgroundImage !== `url("${sprite.url}")`) {
 			this.domElem.style.backgroundImage = `url("${sprite.url}")`;
 		}
 
-		if(this.domElem.style.width !== sprite.w + "px") {
+		if (this.domElem.style.width !== sprite.w + "px") {
 			this.domElem.style.width = sprite.w + "px";
 		}
 
-		if(this.domElem.style.height !== sprite.h + "px") {
+		if (this.domElem.style.height !== sprite.h + "px") {
 			this.domElem.style.height = sprite.h + "px";
 		}
 
-		if(this.domElem.style.backgroundPositionX !== -sprite.x + "px") {
+		if (this.domElem.style.backgroundPositionX !== -sprite.x + "px") {
 			this.domElem.style.backgroundPositionX = -sprite.x + "px";
 		}
 
-		if(this.domElem.style.backgroundPositionY !== -sprite.y + "px") {
+		if (this.domElem.style.backgroundPositionY !== -sprite.y + "px") {
 			this.domElem.style.backgroundPositionY = -sprite.y + "px";
 		}
 	}

@@ -1,3 +1,6 @@
+import DIRECTION from "./../units/direction.const";
+import RogerAnimationOptions from "./RogerAnimationOptions.js";
+
 /**
  * @class RogerAnimation
  * @param {string} name name for the animation
@@ -10,123 +13,122 @@
  * @see RogerSprite
  */
 class RogerAnimation {
-    constructor(name, spriteSheet, frameList, options) {
-        this.direction = {
-            FORWARD: "forward",
-            BACKWARD: "backward",
-            RANDOM: "random",
-        };
-        this.animName = name;
-        this.spriteSheetUrl = spriteSheet.url;
-        this.spriteAnimation = this.getSpriteAnimation(spriteSheet, frameList);
-        this.options = this.getDefaultOptions(options);
-        this.isFinished = false;
-    }
+	constructor(name, spriteSheet, frameList, options = {}) {
+		this.animName = name;
+		this.spriteSheetUrl = spriteSheet.url;
+		this.spriteAnimation = this.getSpriteAnimation(spriteSheet, frameList);
+		this.options = new RogerAnimationOptions(options);
+		this.isFinished = false;
 
-    /* PUBLIC METHODS */
+		this.checkOptionErrors(this.options);
+		// console.log(this.animName, this.options);
+	}
 
-    get name() {
-        return this.animName;
-    }
-    get url() {
-        return this.spriteSheetUrl;
-    }
-    get hasCallBack() {
-        return (this.options && this.options.callBack) ? true : false;
-    }
-    get hasFinished() {
-        return this.isFinished;
-    }
+	/* PUBLIC METHODS */
 
-    setOption(object) {
-        this.options = object;
-    }
-    getSprite(number) {
-        return this.spriteAnimation[number];
-    }
-    executeCallBack() {
-        if(this.hasCallBack) {
-            this.options.callBack();
-        }
-    }
+	get name() {
+		return this.animName;
+	}
+	get url() {
+		return this.spriteSheetUrl;
+	}
+	get hasCallback() {
+		return this.options.callback ? true : false;
+	}
+	get hasFinished() {
+		return this.isFinished;
+	}
 
-    /* PRIVATE METHODS */
-    getSpriteAnimation(spriteSheet, frameList) {
-        let spriteAnimation = [];
-        frameList.forEach(frame => {
-            spriteAnimation.push(spriteSheet.getSprite(frame));
-        });
-        return spriteAnimation;
-    }
-    getDefaultOptions(options) {
-        let defaultOptions = {
-            delay: 0,
-            loops: -1,
-            direction: this.direction.FORWARD,
-            callBack: null
-        }
-        if(options) {
-            defaultOptions = {
-                delay: options.delay ? options.delay : defaultOptions.delay,
-                loops: options.loops ? options.loops : defaultOptions.loops,
-                direction: options.direction ? options.direction : defaultOptions.direction,
-                callBack: options.callBack ? options.callBack : defaultOptions.callBack
-            }
-        }
-        // this.resetAnimation();
-        return defaultOptions;
-    }
-    resetAnimation() {
-        this.options.delayTime = this.options.delay - 1;
-        this.options.loopsNumber = this.options.loops - 1;
-    }
-    getNextFrame(currentFrame) {
-        let nextFrame;
-        let frameLimit = this.spriteAnimation.length;
-        this.isFinished = false;
+	setOption(object) {
+		this.options = object;
+	}
+	getSprite(number) {
+		return this.spriteAnimation[number];
+	}
+	executeCallback() {
+		if (this.hasCallback) {
+			this.options.callback();
+		}
+	}
 
-        // Calculate NextFrame if delayTime is over
-        if (this.options.delayTime <= 0) {
-            switch (this.options.direction) {
-                case this.direction.FORWARD:
-                    nextFrame = currentFrame + 1;
-                    break;
-                case this.direction.BACKWARD:
-                    nextFrame = currentFrame - 1;
-                    break;
-                case this.direction.RANDOM:
-                    nextFrame = Math.floor((Math.random() * frameLimit) + 0);
-                    // NOTE: RANDOM animations have infinite loops
-                    break;
-                default:
-                    nextFrame = currentFrame + 1;
-                    break;
-            }
-        } else {
-            nextFrame = currentFrame;
-            this.options.delayTime--;
-        }
+	/* PRIVATE METHODS */
+	getSpriteAnimation(spriteSheet, frameList) {
+		let spriteAnimation = [];
+		frameList.forEach(frame => {
+			spriteAnimation.push(spriteSheet.getSprite(frame));
+		});
+		return spriteAnimation;
+	}
+	resetAnimation() {
+		this.isFinished = false;
+		this.options.delayCounter = this.options.delay - 1;
+		// if direction BACKWARD we need to adjust the loops
+		this.options.loopsCounter = this.options.loops + (this.options.direction === DIRECTION.BACKWARD ? 1 : 0);
+	}
+	getNextFrame(currentFrame) {
+		const hasInfiniteLoops = this.options.loops === -1 ? true : false;
+		const hasRemainingLoops = this.options.loopsCounter > 0 ? true : false;
+		const lastFrame = this.spriteAnimation.length - 1;
+		let nextFrame;
 
-        // RECALCULATE NextFrame in case it's out of the limits
-        if (nextFrame >= frameLimit || nextFrame < 0) {
-            if (this.options.loops === -1 || this.options.loopsNumber > 0) {
-                if (nextFrame >= frameLimit) {
-                    nextFrame = 0;
-                } else if(nextFrame < 0) {
-                    nextFrame = frameLimit;
-                }
-                if (this.options.loops !== -1) {
-                    this.options.loopsNumber--;
-                }
-                this.options.delayTime = this.options.delay;
-            } else {
-                nextFrame = -1;
-                this.isFinished = true;
-            }
-        }
+		// Calculate NextFrame if delayTime is over
+		if (this.options.delayCounter <= 0) {
+			nextFrame = this.getNextFrameByDirection(currentFrame);
+		} else {
+			this.options.delayCounter--;
+			nextFrame = currentFrame;
+		}
 
-        return nextFrame;
-    }
+		// RECALCULATE NextFrame in case it's out of the limits
+		if (nextFrame >= lastFrame + 1 || nextFrame < 0) {
+			if (hasInfiniteLoops || hasRemainingLoops) {
+
+				nextFrame = this.getNextFrameOutLimits(nextFrame, lastFrame);
+				if (!hasInfiniteLoops && hasRemainingLoops) {
+					this.options.loopsCounter--;
+				}
+				this.options.delayCounter = this.options.delay;
+
+			} else {
+				nextFrame = currentFrame;
+				this.isFinished = true;
+			}
+		}
+
+		return nextFrame;
+	}
+
+	getNextFrameByDirection(currentFrame) {
+		switch (this.options.direction) {
+			case DIRECTION.FORWARD:
+				return currentFrame + 1;
+			case DIRECTION.BACKWARD:
+				return currentFrame - 1;
+			case DIRECTION.RANDOM:
+				const lastFrame = this.spriteAnimation.length;
+				return Math.floor((Math.random() * lastFrame) + 0);
+			default:
+				return currentFrame + 1;
+		}
+	}
+
+	getNextFrameOutLimits(nextFrame, lastFrame) {
+		if (nextFrame >= lastFrame) {
+			return 0;
+		} else if (nextFrame < 0) {
+			return lastFrame;
+		}
+	}
+
+	checkOptionErrors(options) {
+		if (options.loops === -1 && options.callback !== null) {
+			alert(`The RogerAnimation ${this.name} will never execute its callback because it has infinite loops.`);
+		}
+
+		if (options.direction === DIRECTION.random && options.callback !== null) {
+			alert(`The RogerAnimation ${this.name} will never execute its callback because RANDOM animations have infinite loops.`);
+		}
+	}
 }
 
 export default RogerAnimation;
