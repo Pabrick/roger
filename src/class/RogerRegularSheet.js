@@ -8,29 +8,29 @@ import RogerSheet from "./RogerSheet.js";
  * @param {Object} spriteSize {w:total width of the sprite, h:total height of the sprite }
  */
 class RogerRegularSheet extends RogerSheet {
-    constructor(url, sheetSize, spriteSize) {
-        let sprites = [];
-        let currentX = 0;
-        let currentY = 0;
-        let framesHorizontal = Math.floor(sheetSize.w / spriteSize.w);
-        let framesVertical  = Math.floor(sheetSize.h / spriteSize.h);
+	constructor(url, sheetSize, spriteSize) {
+		const sprites = [];
+		let currentX = 0;
+		let currentY = 0;
+		let framesHorizontal = Math.floor(sheetSize.w / spriteSize.w);
+		let framesVertical = Math.floor(sheetSize.h / spriteSize.h);
 
-        for(let i=0; i<framesVertical; i++){
-            for(let j=0; j<framesHorizontal; j++){
-                let sprite = {
-                    w: spriteSize.w,
-                    h: spriteSize.h,
-                    x: currentX,
-                    y: currentY
-                }
-                sprites.push(sprite);
-                currentX += spriteSize.w; 
-            }
-            currentX = 0;
-            currentY += spriteSize.h;  
-        }
-        super(url, sheetSize, sprites);
-    }
+		for (let i = 0; i < framesVertical; i++) {
+			for (let j = 0; j < framesHorizontal; j++) {
+				let sprite = {
+					w: spriteSize.w,
+					h: spriteSize.h,
+					x: currentX,
+					y: currentY
+				}
+				sprites.push(sprite);
+				currentX += spriteSize.w;
+			}
+			currentX = 0;
+			currentY += spriteSize.h;
+		}
+		super(url, sheetSize, sprites);
+	}
 }
 
 export default RogerRegularSheet;
