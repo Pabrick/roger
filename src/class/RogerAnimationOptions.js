@@ -9,11 +9,11 @@ import DIRECTION from "./../units/direction.const";
  * @param {Function} callback function executed after the animation ends
  */
 class RogerAnimationOptions {
-	constructor(options) {
-		this.delay = options.delay ? options.delay : 0;
-		this.loops = (typeof options.loops === 'number') ? options.loops : -1;
-		this.direction = options.direction ? options.direction : DIRECTION.FORWARD;
-		this.callback = options.callback ? options.callback : null;
+	constructor(delay, loops, direction, callback) {
+		this.delay = delay ? delay : 0;
+		this.loops = (typeof loops === 'number') ? loops : -1;
+		this.direction = direction ? direction : DIRECTION.FORWARD;
+		this.callback = callback ? callback : null;
 	}
 }
 

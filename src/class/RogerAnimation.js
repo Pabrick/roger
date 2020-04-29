@@ -17,15 +17,13 @@ class RogerAnimation {
 		this.animName = name;
 		this.spriteSheetUrl = spriteSheet.url;
 		this.spriteAnimation = this.getSpriteAnimation(spriteSheet, frameList);
-		this.options = new RogerAnimationOptions(options);
+		this.options = new RogerAnimationOptions(options.delay, options.loops, options.direction, options.callback);
 		this.isFinished = false;
 
 		this.checkOptionErrors(this.options);
-		// console.log(this.animName, this.options);
 	}
 
 	/* PUBLIC METHODS */
-
 	get name() {
 		return this.animName;
 	}
@@ -71,7 +69,7 @@ class RogerAnimation {
 		const lastFrame = this.spriteAnimation.length - 1;
 		let nextFrame;
 
-		// Calculate NextFrame if delayTime is over
+		// Calculate nextFrame if delayTime is over
 		if (this.options.delayCounter <= 0) {
 			nextFrame = this.getNextFrameByDirection(currentFrame);
 		} else {
@@ -79,7 +77,7 @@ class RogerAnimation {
 			nextFrame = currentFrame;
 		}
 
-		// RECALCULATE NextFrame in case it's out of the limits
+		// RECALCULATE nextFrame in case it's out of the limits
 		if (nextFrame >= lastFrame + 1 || nextFrame < 0) {
 			if (hasInfiniteLoops || hasRemainingLoops) {
 
@@ -105,8 +103,7 @@ class RogerAnimation {
 			case DIRECTION.BACKWARD:
 				return currentFrame - 1;
 			case DIRECTION.RANDOM:
-				const lastFrame = this.spriteAnimation.length;
-				return Math.floor((Math.random() * lastFrame) + 0);
+				return Math.floor((Math.random() * this.spriteAnimation.length) + 0);
 			default:
 				return currentFrame + 1;
 		}
