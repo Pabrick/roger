@@ -29,10 +29,7 @@ const animPablo = {
 	},
 	surprise: {
 		blink: new Roger.Animation("surprise-blink", pabloSpriteSheet, [9, 10, 11, 10, 9], {
-			delay: 10,
-			callback: () => {
-				console.log("surprise-blink complete!");
-			}
+			delay: 10
 		}),
 		talk: new Roger.Animation("surprise-talk", pabloSpriteSheet, [12, 13, 14, 15, 16], {
 			loops: 1,
@@ -45,7 +42,7 @@ const animPablo = {
 
 const animTest = {
 	delay: new Roger.Animation("test-delay", pabloSpriteSheet, [18, 19, 20, 21, 22], {
-		delay: 10
+		delay: 5
 	}),
 	loops: new Roger.Animation("test-loops", pabloSpriteSheet, [18, 19, 20, 21, 22], {
 		loops: 1

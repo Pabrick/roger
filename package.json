@@ -1,38 +1,38 @@
 {
-  "name": "@pabrick/roger",
-  "version": "1.1.0",
-  "description": "An easy javascript library for frame by frame animation with spritesheets",
-  "main": "./lib/roger.min.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack --mode development --config dist/webpack.config.js",
-    "build": "webpack --mode production"
-  },
-  "author": "Pablo Jiménez Beneyto",
-  "homepage": "https://github.com/Pabrick/roger#readme",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Pabrick/roger.git"
-  },
-  "bugs": {
-    "url": "https://github.com/Pabrick/roger/issues"
-  },
-  "keywords": [
-    "js",
-    "javascript",
-    "animation",
-    "library",
-    "frame",
-    "roger",
-    "rabbit",
-    "sprite"
-  ],
-  "devDependencies": {
-    "@babel/core": "^7.4.4",
-    "@babel/preset-env": "^7.4.4",
-    "babel-loader": "^8.0.5",
-    "webpack": "^4.30.0",
-    "webpack-cli": "^3.3.2"
-  }
+	"name": "@pabrick/roger",
+	"version": "1.1.1",
+	"description": "An easy javascript library for frame by frame animation with spritesheets",
+	"main": "./lib/roger.min.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "webpack --mode development --config dist/webpack.config.js",
+		"build": "webpack --mode production"
+	},
+	"author": "Pablo Jiménez Beneyto",
+	"homepage": "https://github.com/Pabrick/roger#readme",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Pabrick/roger.git"
+	},
+	"bugs": {
+		"url": "https://github.com/Pabrick/roger/issues"
+	},
+	"keywords": [
+		"js",
+		"javascript",
+		"animation",
+		"library",
+		"frame",
+		"roger",
+		"rabbit",
+		"sprite"
+	],
+	"devDependencies": {
+		"@babel/core": "^7.4.4",
+		"@babel/preset-env": "^7.4.4",
+		"babel-loader": "^8.0.5",
+		"webpack": "^4.30.0",
+		"webpack-cli": "^3.3.2"
+	}
 }
