@@ -2,7 +2,17 @@
 
 ## @pabrick/roger
 
-# Version: 1.1.0
+# Version: 1.1.2
+
+### BREAKING CHANGES
+
+- None
+
+### NON BREAKING CHANGES
+
+- Update README.md
+
+# Version: 1.1.1
 
 ### BREAKING CHANGES
 

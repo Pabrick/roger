@@ -280,5 +280,3 @@ Roger.Clock (delta)
 - To [Mario Morales](https://twitter.com/MarioDibujanto/) for the design of the logo.
 - To my code colleagues for their advices and support: [Christian Lugo](https://es.linkedin.com/in/chrislugram), [Jorge López](https://es.linkedin.com/in/jorgelopezgonzalez) y [Alberto Cejas](https://es.linkedin.com/in/albertocejas).
 - To **YOU**, if you are reading this. Feel free to comment your impressions.
-
-https://es.linkedin.com/in/albertocejas
